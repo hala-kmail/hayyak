@@ -3,52 +3,33 @@
 @tailwind utilities;
 
 :root {
-  /* Teal primary (brand) */
-  --color-primary-50: 240, 253, 250;
-  --color-primary-100: 204, 251, 241;
-  --color-primary-200: 153, 246, 228;
-  --color-primary-300: 94, 234, 212;
-  --color-primary-400: 45, 212, 191;
-  --color-primary-500: 20, 184, 166;
-  --color-primary-600: 13, 148, 136;
-  --color-primary-700: 15, 118, 110;
-  --color-primary-800: 17, 94, 89;
-  --color-primary-900: 19, 78, 74;
+  /* لوحة الألوان فقط – الاستخدام: كلاسات Tailwind مثل bg-primary-turquoise, text-navy-blue */
 
-  /* Gray */
-  --color-gray-50: 249, 250, 251;
-  --color-gray-100: 243, 244, 246;
-  --color-gray-200: 229, 231, 235;
-  --color-gray-300: 209, 213, 219;
-  --color-gray-400: 156, 163, 175;
-  --color-gray-500: 107, 114, 128;
-  --color-gray-600: 75, 85, 99;
-  --color-gray-700: 55, 65, 81;
-  --color-gray-800: 31, 41, 55;
-  --color-gray-900: 17, 24, 39;
+  /* Primary Turquoise | تركواز أساسي | #00ACA9 | RGB: 0, 172, 169 */
+  --primary-turquoise: 0, 172, 169;
 
-  /* Success / Green */
-  --color-success-600: 22, 163, 74;
-  --color-warning-500: 245, 158, 11;
-  --color-warning-600: 251, 146, 60;
-  --color-danger-600: 220, 38, 38;
+  /* Primary Grey | رمادي أساسي | #97A4AE | RGB: 151, 164, 174 */
+  --primary-grey: 151, 164, 174;
 
-  /* Semantic */
-  --color-background: 255, 255, 255;
-  --color-surface: 255, 255, 255;
-  --color-border: 229, 231, 235;
-  --color-text: 17, 24, 39;
-  --color-text-muted: 107, 114, 128;
-  --color-white: 255, 255, 255;
-  --color-black: 0, 0, 0;
-}
+  /* Lime Green | أخضر ليموني | #A2CC84 | RGB: 162, 204, 132 */
+  --lime-green: 162, 204, 132;
 
-[data-theme='dark'] {
-  --color-background: 17, 24, 39;
-  --color-surface: 31, 41, 55;
-  --color-border: 55, 65, 81;
-  --color-text: 249, 250, 251;
-  --color-text-muted: 156, 163, 175;
+  /* Grey Blue | أزرق رمادي | #8DB8CA | RGB: 141, 184, 202 */
+  --grey-blue: 141, 184, 202;
+
+  /* Navy Blue | أزرق بحري | #25316B | RGB: 37, 49, 107 */
+  --navy-blue: 37, 49, 107;
+
+  /* Warm Grey | رمادي دافئ | #ACA199 | RGB: 172, 161, 153 */
+  --warm-grey: 172, 161, 153;
+
+  /* Sand Brown | بني رملي | #DEA36D | RGB: 222, 163, 109 */
+  --sand-brown: 222, 163, 109;
+  /* Sand Brown Light | بني رملي فاتح */
+  --sand-brown-light:252, 240, 189;
+
+  /* Quite Purple | بنفسجي هادئ | #7C6990 | RGB: 124, 105, 144 */
+  --quite-purple: 124, 105, 144;
 }
 
 html {
@@ -56,13 +37,11 @@ html {
 }
 
 body {
-  background-color: rgb(var(--color-background));
-  color: rgb(var(--color-text));
-  /* استخدام متغير الخط للتحكم الموحد (يُعيّن من layout أو _app) */
+  background-color: #fff;
+  color: rgb(var(--navy-blue));
   font-family: var(--font-cairo), system-ui, sans-serif;
 }
 
-/* RTL support */
 [dir='rtl'] {
   text-align: right;
 }

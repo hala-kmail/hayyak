@@ -41,7 +41,7 @@ export const lightThemeColors = {
 
   // Warning Colors
   '--color-warning-100': '254 233 199',
-  '--color-warning-600': '251 161 100',
+  '--color-warning-600': '252 229 159',
   '--color-warning-800': '146 64 14',
   '--color-warning-900': '120 53 15',
 
@@ -110,7 +110,7 @@ export const darkThemeColors = {
 
   // Warning Colors (adjusted for dark mode)
   '--color-warning-100': '196 137 3',
-  '--color-warning-600': '245 158 11',
+  '--color-warning-600': '252 229 159',
   '--color-warning-800': '251 191 36',
   '--color-warning-900': '253 230 138',
 

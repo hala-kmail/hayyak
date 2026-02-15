@@ -6,11 +6,8 @@ import React from 'react';
 type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface OIconProps {
-  /** SVG content or icon component */
   children?: React.ReactNode;
-  /** Predefined size */
   size?: IconSize | number;
-  /** Color type or custom color */
   type?: 'primary' | 'secondary' | 'muted';
   color?: string;
   className?: string;
@@ -33,16 +30,10 @@ export function OIcon({
   className = '',
   style,
 }: OIconProps) {
-  const primaryColor = useCSSVar('--color-primary-600');
-  const textColor = useCSSVar('--color-text');
-  const mutedColor = useCSSVar('--color-text-muted');
-
-  const colorMap = {
-    primary: primaryColor,
-    secondary: textColor,
-    muted: mutedColor,
-  };
-
+  const primaryColor = useCSSVar('--primary-turquoise');
+  const navyBlue = useCSSVar('--navy-blue');
+  const primaryGrey = useCSSVar('--primary-grey');
+  const colorMap = { primary: primaryColor, secondary: navyBlue, muted: primaryGrey };
   const resolvedColor = color ?? colorMap[type];
   const pixelSize = typeof size === 'number' ? size : sizeMap[size];
 

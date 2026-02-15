@@ -1,6 +1,5 @@
 'use client';
 
-import { useCSSVar } from '@/base/hooks';
 import React from 'react';
 
 export interface OButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -10,6 +9,22 @@ export interface OButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
   children?: React.ReactNode;
   className?: string;
 }
+
+const variantBgMap = {
+  primary: 'bg-primary-turquoise',
+  success: 'bg-lime-green',
+  warning: 'bg-sand-brown',
+  danger: 'bg-quite-purple',
+  secondary: 'bg-primary-grey',
+} as const;
+
+const variantTextMap = {
+  primary: 'text-white',
+  success: 'text-navy-blue',
+  warning: 'text-navy-blue',
+  danger: 'text-white',
+  secondary: 'text-white',
+} as const;
 
 export function OButton({
   variant = 'primary',
@@ -21,45 +36,18 @@ export function OButton({
   style,
   ...props
 }: OButtonProps) {
-  const primaryColor = useCSSVar('--color-primary-600');
-  const successColor = useCSSVar('--color-success-600');
-  const warningColor = useCSSVar('--color-warning-600');
-  const dangerColor = useCSSVar('--color-danger-600');
-  const gray100 = useCSSVar('--color-gray-100');
-  const gray600 = useCSSVar('--color-gray-600');
-  const white = useCSSVar('--color-white');
-
-  const bgMap = {
-    primary: primaryColor,
-    success: successColor,
-    warning: warningColor,
-    danger: dangerColor,
-    secondary: gray100,
-  };
-  const textMap = {
-    primary: white,
-    success: white,
-    warning: white,
-    danger: white,
-    secondary: gray600,
-  };
-
   const sizeClasses = {
-    sm: 'py-1.5 px-3 text-sm',
-    md: 'py-2.5 px-5 text-sm',
-    lg: 'py-3 px-6 text-base',
+    sm: 'py-1 px-3 text-sm',
+    md: 'py-2 px-5 text-sm',
+    lg: 'py-2.5 px-6 text-base',
   };
 
   return (
     <button
       type="button"
       disabled={disabled || loading}
-      className={`rounded-full font-medium transition-colors inline-flex items-center justify-center ${sizeClasses[size]} ${className}`}
-      style={{
-        backgroundColor: bgMap[variant],
-        color: textMap[variant],
-        ...style,
-      }}
+      className={`rounded-full font-medium transition-colors inline-flex items-center justify-center ${sizeClasses[size]} ${variantBgMap[variant]} ${variantTextMap[variant]} ${className}`}
+      style={style}
       {...props}
     >
       {loading ? (

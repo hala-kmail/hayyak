@@ -1,6 +1,5 @@
 'use client';
 
-import { useCSSVar } from '@/base/hooks';
 import React from 'react';
 
 export interface ScreenLayoutProps {
@@ -16,17 +15,12 @@ export function ScreenLayout({
   children,
   className = '',
 }: ScreenLayoutProps) {
-  const backgroundColor = useCSSVar('--color-background');
-
   const paddingClass = noPadding ? '' : 'px-4 py-6 md:px-6 md:py-8';
 
   if (scrollable) {
     return (
-      <div
-        className={`min-h-screen ${className}`}
-        style={{ backgroundColor }}
-      >
-        <main className={`min-h-screen ${paddingClass} max-w-6xl mx-auto`}>
+      <div className={`min-h-screen bg-transparent ${className}`}>
+        <main className={`min-h-screen ${paddingClass} `}>
           {children}
         </main>
       </div>
@@ -34,11 +28,8 @@ export function ScreenLayout({
   }
 
   return (
-    <div
-      className={`min-h-screen ${paddingClass} ${className}`}
-      style={{ backgroundColor }}
-    >
-      <main className="max-w-6xl mx-auto">{children}</main>
+    <div className={`min-h-screen bg-transparent ${paddingClass} ${className}`}>
+      <main >{children}</main>
     </div>
   );
 }
