@@ -11,6 +11,7 @@ interface VoteModalProps {
   neighborhood: NeighborhoodItem | null;
   neighborhoods: NeighborhoodItem[];
   onVoteForAnother: () => void;
+  onVoteSuccess?: () => void;
 }
 
 export function VoteModal({
@@ -19,6 +20,7 @@ export function VoteModal({
   neighborhood,
   neighborhoods,
   onVoteForAnother,
+  onVoteSuccess,
 }: VoteModalProps) {
   const { visitorId, isLoading: isLoadingFingerprint, error: fingerprintError } = useFingerprint();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -71,8 +73,12 @@ export function VoteModal({
       // Close modal after 2 seconds
       setTimeout(() => {
         onClose();
-        // Refresh the page to update vote counts
-        window.location.reload();
+        // Refresh data if callback provided, otherwise reload page
+        if (onVoteSuccess) {
+          onVoteSuccess();
+        } else {
+          window.location.reload();
+        }
       }, 2000);
     } catch (err) {
       console.error('Error submitting vote:', err);
@@ -210,7 +216,7 @@ export function VoteModal({
                       disabled={isSubmitting}
                       className="w-full py-3 bg-white border-2 border-gray-200 text-navy-blue rounded-xl font-bold text-base hover:border-turquoise hover:bg-gray-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      التصويت لحى آخر
+                      التصويت لحي آخر
                     </button>
                   </div>
                 </>

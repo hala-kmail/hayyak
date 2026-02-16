@@ -9,11 +9,12 @@ import {
   StatsSection,
   HowItWorks,
   Footer,
-  MOCK_NEIGHBORHOODS,
-  totalVotes,
 } from '@/app/components/home';
+import { usePublicTowns } from '@/app/hooks/usePublicTowns';
 
 export default function HomePage() {
+  const { neighborhoods, isLoading, error, totalVotes, refetch } = usePublicTowns();
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100">
       <PageAccent />
@@ -22,7 +23,7 @@ export default function HomePage() {
         
         <HeroSection
           totalVotes={totalVotes}
-          neighborhoodsCount={MOCK_NEIGHBORHOODS.length}
+          neighborhoodsCount={neighborhoods.length}
           votesToday={342}
         />
        
@@ -38,10 +39,29 @@ export default function HomePage() {
             <div className="w-12 h-1 bg-turquoise mx-auto rounded-full mb-6" />
            
           </div>  <HowItWorks />
-          <NeighborhoodsGrid
-            neighborhoods={MOCK_NEIGHBORHOODS}
-            totalVotes={totalVotes}
-          />
+          
+          {isLoading ? (
+            <div className="text-center py-12">
+              <div className="inline-block w-8 h-8 border-2 border-turquoise border-t-transparent rounded-full animate-spin mb-4" />
+              <p className="text-warm-grey">جاري تحميل الأحياء...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-12">
+              <p className="text-red-600 mb-4">{error}</p>
+              <button
+                onClick={refetch}
+                className="px-6 py-2 bg-turquoise text-white rounded-xl font-bold hover:shadow-lg transition-all"
+              >
+                إعادة المحاولة
+              </button>
+            </div>
+          ) : (
+            <NeighborhoodsGrid
+              neighborhoods={neighborhoods}
+              totalVotes={totalVotes}
+              onVoteSuccess={refetch}
+            />
+          )}
         </div>
 
       
