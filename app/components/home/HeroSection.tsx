@@ -1,32 +1,278 @@
 'use client';
 
-import { OBadge } from '@/base';
-import { HeroStats } from './HeroStats';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  FaLightbulb,
+  FaChartLine,
+  FaVoteYea,
+  FaChevronLeft,
+  FaStar,
+  FaHome,
+  FaHeart,
+} from 'react-icons/fa';
+import { formatNumber } from '@/base/utils';
 
 interface HeroSectionProps {
   totalVotes: number;
+  neighborhoodsCount?: number;
+  votesToday?: number;
 }
 
-export function HeroSection({ totalVotes }: HeroSectionProps) {
+// مكون العداد المتحرك
+function AnimatedCounter({ 
+  value, 
+  duration = 2000,
+  className = '' 
+}: { 
+  value: number; 
+  duration?: number;
+  className?: string;
+}) {
+  const [count, setCount] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const counterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true);
+            animateCounter();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (counterRef.current) {
+      observer.observe(counterRef.current);
+    }
+
+    return () => {
+      if (counterRef.current) {
+        observer.unobserve(counterRef.current);
+      }
+    };
+  }, [hasAnimated]);
+
+  const animateCounter = () => {
+    const startTime = Date.now();
+    const startValue = 0;
+    const endValue = value;
+
+    const updateCounter = () => {
+      const now = Date.now();
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // استخدام easing function للحصول على حركة سلسة
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentValue = Math.floor(startValue + (endValue - startValue) * easeOutQuart);
+
+      setCount(currentValue);
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCounter);
+      } else {
+        setCount(endValue);
+      }
+    };
+
+    requestAnimationFrame(updateCounter);
+  };
+
   return (
-    <section className="text-center py-10 md:py-14 px-4">
-      <OBadge
-        variant="warning"
-        size="md"
-        className="rounded-full mb-6 inline-flex items-center gap-2 border border-sand-brown animate-fade-in-up"
-      >
-        <span className="w-2 h-2 rounded-full bg-lime-green" />
-        التصويت مفتوح الآن
-      </OBadge>
-      <h1 className="text-5xl md:text-8xl font-bold mx-auto leading-tight mb-4 text-primary-turquoise animate-fade-in-up [animation-delay:80ms]">
-        <span className="text-black">صوّت لحيّك</span> <br />
-        خلّه يفوز بحوّامة رمضان
-      </h1>
-      <p className="text-base md:text-lg max-w-xl mx-auto mb-10 text-warm-grey animate-fade-in-up [animation-delay:160ms] mt-4">
-        اختر حيك المفضل وكن سبب فوزه باحتفالية الحوامة التقليدية في آخر أيام
-        رمضان المبارك 2026
-      </p>
-      <HeroStats totalVotes={totalVotes} />
+    <div ref={counterRef} className={className}>
+      {formatNumber(count)}
+    </div>
+  );
+}
+
+export function HeroSection({
+  totalVotes,
+  neighborhoodsCount = 3,
+  votesToday = 342,
+}: HeroSectionProps) {
+  return (
+    <section className="relative overflow-hidden bg-white ">
+      {/* الخلفية الملونة بالتدرج اللوني */}
+      <div className="relative h-[600px] md:h-[680px] w-full bg-gradient-to-br from-navy-blue to-turquoise flex items-center overflow-hidden">
+        <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] animate-pulse-slow" />
+        <div className="absolute bottom-[-10%] left-[0%] w-[400px] h-[400px] bg-turquoise/10 rounded-full blur-[100px]" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+            {/* الجانب النصي - الأيمن */}
+            <div className="lg:w-3/5 text-right text-white">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-lg px-5 py-2 rounded-2xl text-xs font-black mb-8 border border-white/20 shadow-xl shadow-black/5 animate-fade-in-up">
+                <span className="flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-turquoise opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-turquoise" />
+                </span>
+                التصويت مفتوح الآن
+              </div>
+
+              <h1 className="text-4xl md:text-6xl font-black mb-6 leading-[1.2] drop-shadow-md">
+                صوّت لحيّك <br />
+                <span className="text-turquoise">خلّه يفوز بحوّامة رمضان</span>
+              </h1>
+
+              <p className="text-lg md:text-xl text-white/80 font-medium max-w-xl mb-10 leading-relaxed">
+                اختر حيك المفضل وكن سبب فوزه باحتفالية الحوامة التقليدية في آخر
+                أيام رمضان المبارك 2026
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="#districts"
+                  className="px-8 py-3 bg-white text-navy-blue rounded-xl font-black text-base hover:bg-turquoise hover:text-white transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-turquoise/20 flex items-center gap-3 group active:scale-[0.97] border border-white/20 hover:border-turquoise/30"
+                >
+                  ابدأ التصويت الآن
+                  <FaChevronLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform duration-300" />
+                </a>
+              </div>
+            </div>
+
+            {/* الجانب البصري - وسام الحي + الإحصائيات تحته */}
+            <div className="lg:w-2/5 hidden lg:flex flex-col items-center justify-center gap-8">
+              <div className="relative group">
+                <div className="relative w-80 h-80 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-white/10 backdrop-blur-2xl rounded-full border border-white/20 shadow-2xl animate-float" />
+                  <div className="relative z-10 bg-white p-10 rounded-[3rem] shadow-2xl rotate-3 group-hover:rotate-0 transition-transform duration-700 flex flex-col items-center">
+                    <div className="w-24 h-24 bg-gradient-to-tr from-turquoise to-lime-green rounded-full flex items-center justify-center text-white text-5xl shadow-lg mb-4">
+                      <FaHome />
+                    </div>
+                    <div className="flex gap-1 text-sand-brown mb-2">
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                    </div>
+                    <span className="text-navy-blue font-black text-lg">
+                      حيّنا الأفضل
+                    </span>
+                  </div>
+                  <div className="absolute top-0 -right-4 w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-rose-500 text-2xl animate-float [animation-delay:1s] border border-gray-50">
+                    <FaHeart />
+                  </div>
+                  <div className="absolute -bottom-4 -left-2 w-20 h-20 bg-quite-purple text-white rounded-3xl shadow-xl flex items-center justify-center text-3xl animate-float [animation-delay:2s]">
+                    ✨
+                  </div>
+                </div>
+              </div>
+
+              {/* الإحصائيات تحت الرسمة - ديسكتوب */}
+              <div className="flex flex-row items-center justify-center gap-6 w-full max-w-sm mt-10">
+                <div className="flex items-center gap-3 group">
+                  {/* <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 group-hover:bg-white/20 transition-all shrink-0">
+                    <FaLightbulb className="w-4 h-4" />
+                  </div> */}
+                  <div className="text-center">
+                    <div className="text-xl font-black text-white leading-tight">
+                      <AnimatedCounter value={neighborhoodsCount} duration={2000} />
+                    </div>
+                    <div className="text-[10px] font-bold text-white/80 uppercase tracking-tight">
+                      أحياء متقدمة
+                    </div>
+                  </div>
+                </div>
+                <div className="w-px h-10 bg-white/20" />
+                <div className="flex items-center gap-3 group">
+                  {/* <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 group-hover:bg-white/20 transition-all shrink-0">
+                    <FaChartLine className="w-4 h-4" />
+                  </div> */}
+                    <div className="text-center">
+                    <div className="text-xl font-black text-white leading-tight">
+                      <AnimatedCounter value={votesToday} duration={2000} />
+                    </div>
+                    <div className="text-[10px] font-bold text-white/80 uppercase tracking-tight">
+                      صوت اليوم
+                    </div>
+                  </div>
+                </div>
+                <div className="w-px h-10 bg-white/20" />
+                <div className="flex items-center gap-3 group">
+                  {/* <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 group-hover:bg-white/20 transition-all shrink-0">
+                    <FaVoteYea className="w-4 h-4" />
+                  </div> */}
+                  <div className="text-center">
+                    <div className="text-xl font-black text-white leading-tight">
+                      <AnimatedCounter value={totalVotes} duration={2000} />
+                    </div>
+                    <div className="text-[10px] font-bold text-white/80 uppercase tracking-tight">
+                      إجمالي الأصوات
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* الإحصائيات على الموبايل - تحت النص */}
+          <div className="mt-10 lg:hidden w-full">
+            <div className="flex flex-row items-center justify-center gap-4 flex-wrap">
+              <div className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 shrink-0">
+                  <FaLightbulb className="w-4 h-4" />
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-black text-white leading-tight">
+                    <AnimatedCounter value={neighborhoodsCount} duration={2000} />
+                  </div>
+                  <div className="text-[10px] font-bold text-white/80">أحياء متقدمة</div>
+                </div>
+              </div>
+              <div className="w-px h-8 bg-white/20" />
+              <div className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 shrink-0">
+                  <FaChartLine className="w-4 h-4" />
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-black text-white leading-tight">
+                    <AnimatedCounter value={votesToday} duration={2000} />
+                  </div>
+                  <div className="text-[10px] font-bold text-white/80">صوت اليوم</div>
+                </div>
+              </div>
+              <div className="w-px h-8 bg-white/20" />
+              <div className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 shrink-0">
+                  <FaVoteYea className="w-4 h-4" />
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-black text-white leading-tight">
+                    <AnimatedCounter value={totalVotes} duration={2000} />
+                  </div>
+                  <div className="text-[10px] font-bold text-white/80">إجمالي الأصوات</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* فاصل الموجة السفلي - موجة مثلثية واحدة */}
+        <div className="absolute bottom-0 left-0 w-full leading-[0] z-10">
+          <svg
+            viewBox="0 0 1440 100"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-auto"
+            preserveAspectRatio="none"
+          >
+            {/* الخلفية البيضاء */}
+            <path
+              fill="#ffffff"
+              d="M0,0 L720,80 L1440,0 L1440,100 L0,100 Z"
+            />
+            {/* الموجة التوركوازية */}
+            <path
+              fill="#00a89d"
+              d="M0,0 L720,80 L1440,0 L1440,20 L720,100 L0,20 Z"
+            />
+          </svg>
+        </div>
+      </div>
     </section>
   );
 }

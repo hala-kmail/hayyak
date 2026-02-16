@@ -11,6 +11,7 @@ module.exports = {
       colors: {
         'primary-turquoise': 'rgb(var(--primary-turquoise))',
         'primary-grey': 'rgb(var(--primary-grey))',
+        grey: 'rgb(var(--primary-grey))', // الرمادي الأساسي (نفس primary-grey)
         'lime-green': 'rgb(var(--lime-green))',
         'grey-blue': 'rgb(var(--grey-blue))',
         'navy-blue': 'rgb(var(--navy-blue))',
@@ -18,6 +19,7 @@ module.exports = {
         'sand-brown': 'rgb(var(--sand-brown))',
         'sand-brown-light': 'rgb(var(--sand-brown-light))', // بني رملي فاتح
         'quite-purple': 'rgb(var(--quite-purple))',
+        turquoise: 'rgb(var(--primary-turquoise))',
       },
       fontFamily: {
         sans: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
@@ -27,9 +29,19 @@ module.exports = {
           '0%': { opacity: '0', transform: 'translateY(12px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        'pulse-slow': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.6' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
       },
       animation: {
         'fade-in-up': 'fade-in-up 0.5s ease-out both',
+        'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
+        float: 'float 4s ease-in-out infinite',
       },
     },
   },

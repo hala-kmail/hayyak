@@ -1,41 +1,89 @@
 'use client';
 
-import { OCard, OBadge } from '@/base';
-import { formatNumber } from '@/base/utils';
+import React from 'react';
+import { FaChevronLeft } from 'react-icons/fa';
 import type { NeighborhoodItem } from './data';
 
 interface NeighborhoodCardProps {
   neighborhood: NeighborhoodItem;
   totalVotes: number;
+  onClick?: () => void;
+  isLeader?: boolean;
 }
 
-export function NeighborhoodCard({ neighborhood, totalVotes }: NeighborhoodCardProps) {
-  const progress = totalVotes > 0 ? (neighborhood.votes / totalVotes) * 100 : 0;
+export function NeighborhoodCard({ 
+  neighborhood, 
+  totalVotes,
+  onClick,
+  isLeader = false,
+}: NeighborhoodCardProps) {
+  const totalCap = neighborhood.totalCap ?? 600;
+  const progress = totalCap > 0 ? (neighborhood.votes / totalCap) * 100 : 0;
 
-  return (
-    <OCard variant="elevated" className="flex flex-col h-full">
-      <div className="flex flex-row-reverse justify-between items-start mb-3">
-        <OBadge variant="warningLight" size="sm">
-          {formatNumber(neighborhood.votes)} صوت
-        </OBadge>
-        <div
-          className="w-12 h-12 rounded-lg flex items-center justify-center text-2xl"
-          style={{ backgroundColor: neighborhood.iconBg }}
-        >
-          {neighborhood.icon}
+  const CardContent = (
+    <div className={`group relative bg-white rounded-3xl p-6 shadow-lg shadow-gray-200/40 border border-gray-100 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-turquoise/10 hover:border-turquoise/20 flex flex-col h-full text-right w-full ${
+      onClick ? 'cursor-pointer active:scale-[0.98]' : ''
+    } ${isLeader ? 'ring-2 ring-turquoise/30' : ''}`}>
+      <div className="flex justify-end items-start mb-6">
+        <div className="text-left">
+          <span className="block text-2xl font-black text-navy-blue leading-none">
+            {neighborhood.votes}
+          </span>
+          <span className="text-[9px] font-bold text-warm-grey uppercase tracking-widest">
+            صوتاً
+          </span>
         </div>
       </div>
-      <h3 className="font-bold text-lg text-navy-blue mb-1">{neighborhood.name}</h3>
-      <p className="text-sm text-primary-grey mb-4">{neighborhood.location}</p>
+
+      <div className="mb-6">
+        <h3 className="text-xl font-black text-navy-blue mb-1 group-hover:text-turquoise transition-colors">
+          {neighborhood.name}
+        </h3>
+        <p className="text-xs text-warm-grey font-medium flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-sand-brown/60" />
+          {neighborhood.location}
+        </p>
+      </div>
+
       <div className="mt-auto">
-        <div className="h-2 rounded-full overflow-hidden mb-1 bg-[#efecea]">
-          <div
-            className="h-full rounded-full transition-all bg-primary-turquoise"
-            style={{ width: `${progress}%` }}
-          />
+        <div className="mb-4">
+          <div className="flex justify-between items-end mb-2">
+            <span className="text-[10px] font-bold text-navy-blue/40">
+              نسبة التقدم
+            </span>
+            <span className="text-sm font-black text-turquoise">
+              {Math.round(progress)}%
+            </span>
+          </div>
+          <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden border border-gray-50">
+            <div
+              className="h-full bg-turquoise rounded-full transition-all duration-1000 ease-out"
+              style={{ width: `${Math.min(progress, 100)}%` }}
+            />
+          </div>
         </div>
-        <p className="text-xs text-primary-grey">{neighborhood.percentage}٪</p>
+
+        {onClick && (
+          <span className="inline-flex items-center gap-2 text-xs font-bold text-turquoise opacity-0 group-hover:opacity-100 transition-opacity">
+            <FaChevronLeft className="w-3 h-3" />
+            اضغط للتصويت
+          </span>
+        )}
       </div>
-    </OCard>
+    </div>
   );
+
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className="w-full text-right"
+      >
+        {CardContent}
+      </button>
+    );
+  }
+
+  return CardContent;
 }
