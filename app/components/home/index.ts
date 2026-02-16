@@ -1,6 +1,7 @@
 export { Header } from './Header';
 export { Logo } from './Logo';
 export { HeroSection } from './HeroSection';
+export { IntroSections } from './IntroSections';
 export { NeighborhoodCard } from './NeighborhoodCard';
 export { NeighborhoodsGrid } from './NeighborhoodsGrid';
 export { PageAccent } from './PageAccent';

@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getVoteCount } from '@/lib/db';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
 
-// GET /api/towns - جلب جميع الأحياء مع عدد الأصوات
+// GET /api/towns - جلب جميع الأحياء مع عدد الأصوات من API الخارجي
 export async function GET(request: NextRequest) {
   try {
-    // جلب الأحياء من الـ API الخارجي
+    // جلب الأحياء من الـ API الخارجي (يجب أن يعيد الأصوات مع كل حي)
     const response = await fetch(`${API_BASE}/towns`, {
       method: 'GET',
       headers: {
@@ -23,24 +22,15 @@ export async function GET(request: NextRequest) {
 
     const towns = await response.json();
     
-    // جلب عدد الأصوات لكل حي من قاعدة البيانات المحلية
-    const townsWithVotes = await Promise.all(
-      (Array.isArray(towns) ? towns : []).map(async (town: any) => {
-        try {
-          const votes = await getVoteCount(town.id);
-          return {
-            ...town,
-            votes,
-          };
-        } catch (error) {
-          console.error(`Error getting votes for town ${town.id}:`, error);
-          return {
-            ...town,
-            votes: 0,
-          };
-        }
-      })
-    );
+    // التأكد من أن كل حي يحتوي على votes (من API الخارجي)
+    const townsWithVotes = (Array.isArray(towns) ? towns : []).map((town: any) => {
+      // استخدام votes من API الخارجي إذا كان متوفراً، وإلا 0
+      const votes = town.votes ?? 0;
+      return {
+        ...town,
+        votes,
+      };
+    });
 
     return NextResponse.json(townsWithVotes);
   } catch (error: any) {

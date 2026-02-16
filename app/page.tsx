@@ -4,6 +4,7 @@ import { ScreenLayout } from '@/base';
 import {
   Header,
   HeroSection,
+  IntroSections,
   NeighborhoodsGrid,
   PageAccent,
   StatsSection,
@@ -13,7 +14,7 @@ import {
 import { usePublicTowns } from '@/app/hooks/usePublicTowns';
 
 export default function HomePage() {
-  const { neighborhoods, isLoading, error, totalVotes, refetch } = usePublicTowns();
+  const { neighborhoods, isLoading, error, totalVotes, votesToday, refetch } = usePublicTowns();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100">
@@ -24,8 +25,11 @@ export default function HomePage() {
         <HeroSection
           totalVotes={totalVotes}
           neighborhoodsCount={neighborhoods.length}
-          votesToday={342}
+          votesToday={votesToday}
         />
+       
+        {/* الأقسام التعريفية */}
+        <IntroSections />
        
         {/* قسم الأحياء المشاركة */}
         <div id="districts" className="py-20 relative bg-white">

@@ -17,8 +17,9 @@ export function NeighborhoodCard({
   onClick,
   isLeader = false,
 }: NeighborhoodCardProps) {
-  const totalCap = neighborhood.totalCap ?? 600;
-  const progress = totalCap > 0 ? (neighborhood.votes / totalCap) * 100 : 0;
+  const votes = neighborhood.votes ?? 0;
+  // استخدام إجمالي الأصوات الممرر لحساب نسبة التقدم
+  const progress = totalVotes > 0 ? (votes / totalVotes) * 100 : 0;
 
   const CardContent = (
     <div className={`group relative bg-white rounded-3xl p-6 shadow-lg shadow-gray-200/40 border border-gray-100 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-turquoise/10 hover:border-turquoise/20 flex flex-col h-full text-right w-full ${
@@ -27,7 +28,7 @@ export function NeighborhoodCard({
       <div className="flex justify-end items-start mb-6">
         <div className="text-left">
           <span className="block text-2xl font-black text-navy-blue leading-none">
-            {neighborhood.votes}
+            {votes}
           </span>
           <span className="text-[9px] font-bold text-warm-grey uppercase tracking-widest">
             صوتاً

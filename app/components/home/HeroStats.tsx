@@ -34,23 +34,11 @@ interface HeroStatsProps {
   totalVotes: number;
 }
 
-const STATS = [
-  { value: 3, label: 'أحياء متقدمة', colorClass: 'text-navy-blue', delay: 260 },
-  { value: 342, label: 'صوت اليوم', colorClass: 'text-sand-brown', delay: 320 },
-] as const;
 
 export function HeroStats({ totalVotes }: HeroStatsProps) {
   return (
     <div className="flex flex-wrap flex-row-reverse justify-center gap-8 md:gap-12">
-      {STATS.map(({ value, label, colorClass, delay }) => (
-        <StatItem
-          key={label}
-          value={value}
-          label={label}
-          colorClass={colorClass}
-          animationDelay={delay}
-        />
-      ))}
+     
       <StatItem
         value={totalVotes}
         label="إجمالي الأصوات"

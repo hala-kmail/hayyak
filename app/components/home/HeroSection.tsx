@@ -11,9 +11,10 @@ import {
   FaHeart,
 } from 'react-icons/fa';
 import { formatNumber } from '@/base/utils';
+import { useStats } from '@/app/hooks/useStats';
 
 interface HeroSectionProps {
-  totalVotes: number;
+  totalVotes?: number;
   neighborhoodsCount?: number;
   votesToday?: number;
 }
@@ -28,9 +29,11 @@ function AnimatedCounter({
   duration?: number;
   className?: string;
 }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(value);
   const [hasAnimated, setHasAnimated] = useState(false);
   const counterRef = useRef<HTMLDivElement>(null);
+  const animationFrameRef = useRef<number | null>(null);
+  const previousValueRef = useRef<number>(value);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -38,7 +41,7 @@ function AnimatedCounter({
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasAnimated) {
             setHasAnimated(true);
-            animateCounter();
+            animateCounter(0, value);
           }
         });
       },
@@ -53,13 +56,31 @@ function AnimatedCounter({
       if (counterRef.current) {
         observer.unobserve(counterRef.current);
       }
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
     };
-  }, [hasAnimated]);
+  }, [hasAnimated, value]);
 
-  const animateCounter = () => {
+  // تحديث القيمة عند تغييرها
+  useEffect(() => {
+    if (value !== previousValueRef.current) {
+      if (hasAnimated) {
+        // إذا كانت الرسوم المتحركة قد بدأت، قم بتشغيل رسوم متحركة من القيمة الحالية إلى القيمة الجديدة
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+        }
+        animateCounter(count, value);
+      } else {
+        // إذا لم تبدأ بعد، قم بتحديث القيمة مباشرة
+        setCount(value);
+      }
+      previousValueRef.current = value;
+    }
+  }, [value]);
+
+  const animateCounter = (startValue: number, endValue: number) => {
     const startTime = Date.now();
-    const startValue = 0;
-    const endValue = value;
 
     const updateCounter = () => {
       const now = Date.now();
@@ -73,13 +94,14 @@ function AnimatedCounter({
       setCount(currentValue);
 
       if (progress < 1) {
-        requestAnimationFrame(updateCounter);
+        animationFrameRef.current = requestAnimationFrame(updateCounter);
       } else {
         setCount(endValue);
+        animationFrameRef.current = null;
       }
     };
 
-    requestAnimationFrame(updateCounter);
+    animationFrameRef.current = requestAnimationFrame(updateCounter);
   };
 
   return (
@@ -90,10 +112,26 @@ function AnimatedCounter({
 }
 
 export function HeroSection({
-  totalVotes,
-  neighborhoodsCount = 3,
-  votesToday = 342,
+  totalVotes: propTotalVotes,
+  neighborhoodsCount: propNeighborhoodsCount,
+  votesToday: propVotesToday,
 }: HeroSectionProps) {
+  const { stats, isLoading: statsLoading } = useStats();
+  
+  // استخدام البيانات من API إذا كانت متوفرة، وإلا استخدام القيم الممررة
+  // إعطاء الأولوية لبيانات API دائماً
+  const totalVotes = stats ? stats.totalVotes : (propTotalVotes ?? 0);
+  const neighborhoodsCount = stats ? stats.numberOfTowns : (propNeighborhoodsCount ?? 3);
+  const votesToday = stats ? stats.todayVotes : (propVotesToday ?? 342);
+
+  // للتأكد من أن البيانات تأتي بشكل صحيح
+  useEffect(() => {
+    if (stats) {
+      console.log('Stats from API:', stats);
+      console.log('Using values:', { totalVotes, neighborhoodsCount, votesToday });
+    }
+  }, [stats, totalVotes, neighborhoodsCount, votesToday]);
+
   return (
     <section className="relative overflow-hidden bg-white ">
       {/* الخلفية الملونة بالتدرج اللوني */}

@@ -186,9 +186,10 @@ export function NeighborhoodsGrid({
               }`}
             >
               {displayNeighborhoods.map((n, index) => {
-              const totalCap = n.totalCap ?? 600;
-              const progress = totalCap > 0 ? (n.votes / totalCap) * 100 : 0;
-              const isLeader = n.votes === maxVotes && n.votes > 0;
+              const votes = n.votes ?? 0;
+              // استخدام إجمالي الأصوات الممرر لحساب نسبة التقدم
+              const progress = totalVotes > 0 ? (votes / totalVotes) * 100 : 0;
+              const isLeader = votes === maxVotes && votes > 0;
               const rank = sortedNeighborhoods.findIndex((neigh) => neigh.id === n.id) + 1;
               const iconConfig = NEIGHBORHOOD_ICONS[neighborhoods.findIndex((neigh) => neigh.id === n.id) % NEIGHBORHOOD_ICONS.length];
 
@@ -245,7 +246,7 @@ export function NeighborhoodsGrid({
                     {/* Votes */}
                     <div className="text-left flex-shrink-0">
                       <span className="block text-2xl font-black text-navy-blue leading-none">
-                        {n.votes}
+                        {votes}
                       </span>
                       <span className="text-[10px] font-bold text-warm-grey uppercase">
                         صوت

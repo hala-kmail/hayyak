@@ -38,6 +38,7 @@ export function TownsTable({ towns, isLoading, onEdit, onDelete }: TownsTablePro
               <th className="px-6 py-4 text-right text-sm font-bold text-navy-blue">#</th>
               <th className="px-6 py-4 text-right text-sm font-bold text-navy-blue">اسم الحي</th>
               <th className="px-6 py-4 text-right text-sm font-bold text-navy-blue">العنوان</th>
+              <th className="px-6 py-4 text-right text-sm font-bold text-navy-blue">عدد الأصوات</th>
               <th className="px-6 py-4 text-center text-sm font-bold text-navy-blue">الإجراءات</th>
             </tr>
           </thead>
@@ -47,6 +48,7 @@ export function TownsTable({ towns, isLoading, onEdit, onDelete }: TownsTablePro
                 <td className="px-6 py-4 text-sm text-warm-grey">{index + 1}</td>
                 <td className="px-6 py-4 text-sm font-semibold text-navy-blue">{town.name}</td>
                 <td className="px-6 py-4 text-sm text-warm-grey">{town.address}</td>
+                <td className="px-6 py-4 text-sm text-warm-grey">{town.votes}</td>
                 <td className="px-6 py-4">
                   <div className="flex items-center justify-center gap-2">
                     <button

@@ -9,6 +9,8 @@ export interface Town {
   address: string;
   createdAt?: string;
   updatedAt?: string;
+  votes?: number;
+ 
 }
 
 export interface CreateTownData {
@@ -38,6 +40,33 @@ function getAuthHeaders(): HeadersInit {
   return headers;
 }
 
+// دالة منفصلة لجلب الأحياء من الـ API - يمكن استدعاؤها من أي مكان
+export async function fetchTownsFromAPI(requireAuth = true): Promise<Town[]> {
+  const url = `${API_BASE}/towns`;
+  console.log('Fetching towns from:', url);
+  
+  const headers = requireAuth ? getAuthHeaders() : {
+    'accept': '*/*',
+    'Content-Type': 'application/json',
+  };
+  
+  const response = await fetch(url, {
+    method: 'GET',
+    headers,
+  });
+
+  if (!response.ok) {
+    const data = await response.json();
+    const msg = data.message;
+    const errorText = Array.isArray(msg) ? msg.join(' ') : (msg || data.error || 'فشل في جلب الأحياء.');
+    throw new Error(errorText);
+  }
+
+  const data = await response.json();
+  console.log('Response data:', data);
+  return Array.isArray(data) ? data : [];
+}
+
 export function useTowns() {
   const [towns, setTowns] = useState<Town[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,22 +77,8 @@ export function useTowns() {
     setError(null);
 
     try {
-      const url = `${API_BASE}/towns`;
-      console.log('Fetching towns from:', url);
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: getAuthHeaders(),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        const msg = data.message;
-        const errorText = Array.isArray(msg) ? msg.join(' ') : (msg || data.error || 'فشل في جلب الأحياء.');
-        throw new Error(errorText);
-      }
-
-      const data = await response.json();
-      setTowns(Array.isArray(data) ? data : []);
+      const data = await fetchTownsFromAPI(true);
+      setTowns(data);
     } catch (err: any) {
       console.error('Error fetching towns:', err);
       setError(err.message || 'حدث خطأ في جلب الأحياء.');
