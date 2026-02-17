@@ -20,7 +20,7 @@ interface UseAdminLoginReturn {
   clearError: () => void;
 }
 
-const API_URL = `${process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api'}/auth/login`;
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-dev.naht.ai/api'}/auth/login`;
 
 export function useAdminLogin(): UseAdminLoginReturn {
   const router = useRouter();

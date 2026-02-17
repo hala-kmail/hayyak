@@ -5,7 +5,7 @@
 
 import { getAccessToken } from '@/lib/auth';
 
-const DEFAULT_API_URL = 'https://api-sakani-election.orapexdev.com/api';
+const DEFAULT_API_URL = 'https://api-sakani-dev.naht.ai/api';
 
 /** عنوان الـ API الأساسي - يُستخدم في Server و Client */
 export const API_BASE =
