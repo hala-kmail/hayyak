@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { getAccessToken } from '@/lib/auth';
+import { API_BASE, getClientAuthHeaders } from '@/lib/api';
 
 export interface ElectionStatus {
   isOpen: boolean;
@@ -29,20 +29,9 @@ export function useElectionStatus() {
     setError(null);
 
     try {
-      const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
-      const token = getAccessToken();
-      const headers: HeadersInit = {
-        'accept': '*/*',
-        'Content-Type': 'application/json',
-      };
-      
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-      }
-      
       const response = await fetch(`${API_BASE}/election/status`, {
         method: 'GET',
-        headers,
+        headers: getClientAuthHeaders(),
       });
 
       if (!response.ok) {

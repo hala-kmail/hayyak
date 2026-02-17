@@ -17,7 +17,9 @@ export function NeighborhoodCardContent({
   isLeader = false,
 }: NeighborhoodCardProps) {
   const votes = getVotes(neighborhood);
-  const progress = calculateProgress(neighborhood, totalVotes);
+  // استخدام النسبة المحسوبة مسبقاً من usePublicTowns بدلاً من إعادة الحساب
+  // هذا يضمن أن النسبة المئوية تتطابق مع عرض النص
+  const progress = neighborhood.percentage ?? calculateProgress(neighborhood, totalVotes);
 
   return (
     <div className={cardStyles.card(!!onClick, isLeader)}>

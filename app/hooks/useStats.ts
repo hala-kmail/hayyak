@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { API_BASE } from '@/lib/api';
 
 export interface StatsData {
   totalVotes: number;
@@ -29,7 +30,6 @@ export function useStats() {
     setError(null);
 
     try {
-      const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
       const response = await fetch(`${API_BASE}/stats`, {
         method: 'GET',
         headers: {
@@ -42,7 +42,6 @@ export function useStats() {
       }
 
       const data: StatsData = await response.json();
-      console.log('Stats API response:', data);
       setStats(data);
     } catch (err: any) {
       console.error('Error fetching stats:', err);

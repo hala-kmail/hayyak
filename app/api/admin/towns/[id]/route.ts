@@ -1,24 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
-
-async function getAuthHeaders(request: NextRequest, includeContentType: boolean = true): Promise<HeadersInit> {
-  // الحصول على الـ token من الـ Authorization header
-  const authHeader = request.headers.get('authorization');
-  const headers: HeadersInit = {
-    'accept': '*/*',
-  };
-  
-  if (includeContentType) {
-    headers['Content-Type'] = 'application/json';
-  }
-  
-  if (authHeader) {
-    headers['Authorization'] = authHeader;
-  }
-  
-  return headers;
-}
+import { API_BASE, getServerAuthHeaders } from '@/lib/api';
 
 // PATCH /api/admin/towns/[id] - تعديل حي
 export async function PATCH(
@@ -28,7 +9,7 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await request.json();
-    const headers = await getAuthHeaders(request);
+    const headers = getServerAuthHeaders(request);
     
     const response = await fetch(`${API_BASE}/towns/${id}`, {
       method: 'PATCH',
@@ -60,7 +41,7 @@ export async function DELETE(
   try {
     const { id } = await params;
     // لا نرسل Content-Type في DELETE request
-    const headers = await getAuthHeaders(request, false);
+    const headers = getServerAuthHeaders(request, { includeContentType: false });
     
     const response = await fetch(`${API_BASE}/towns/${id}`, {
       method: 'DELETE',

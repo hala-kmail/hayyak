@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
+import { API_BASE } from '@/lib/api';
 
 // GET /api/towns - جلب جميع الأحياء مع عدد الأصوات من API الخارجي
 export async function GET(request: NextRequest) {

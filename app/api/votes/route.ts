@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
+import { API_BASE } from '@/lib/api';
 
 // Timeout constant (8 seconds for external API)
 const EXTERNAL_API_TIMEOUT = 8000;
@@ -14,7 +13,52 @@ const EXTERNAL_API_TIMEOUT = 8000;
  *   townId: string,
  *   fingerprint: string (visitorId from FingerprintJS)
  * }
+ * 
+ * يتم إرسال معلومات إضافية للباك إند للتحقق من التصويت المكرر:
+ * - ipAddress: عنوان IP للعميل
+ * - userAgent: معلومات المتصفح
+ * - acceptLanguage: اللغة المفضلة
+ * 
+ * ملاحظة مهمة: الباك إند يجب أن يتحقق من:
+ * 1. نفس fingerprint (نفس الجهاز/المتصفح)
+ * 2. نفس IP Address (نفس الشبكة/الموقع)
+ * 3. نفس User-Agent (نفس المتصفح)
+ * 
+ * يجب رفض التصويت إذا كان أي من هذه المعلومات متطابقة مع تصويت سابق.
  */
+
+/**
+ * Get client IP address from request
+ * Handles various proxy headers (Vercel, Cloudflare, etc.)
+ */
+function getClientIP(request: NextRequest): string {
+  // Vercel
+  const vercelIP = request.headers.get('x-vercel-forwarded-for');
+  if (vercelIP) {
+    return vercelIP.split(',')[0].trim();
+  }
+
+  // Cloudflare
+  const cfIP = request.headers.get('cf-connecting-ip');
+  if (cfIP) {
+    return cfIP;
+  }
+
+  // Standard headers
+  const forwarded = request.headers.get('x-forwarded-for');
+  if (forwarded) {
+    return forwarded.split(',')[0].trim();
+  }
+
+  const realIP = request.headers.get('x-real-ip');
+  if (realIP) {
+    return realIP;
+  }
+
+  // Fallback - return unknown if no IP found
+  return 'unknown';
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -35,6 +79,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // جمع معلومات إضافية للتحقق من التصويت المكرر
+    const clientIP = getClientIP(request);
+    const userAgent = request.headers.get('user-agent') || 'unknown';
+    const acceptLanguage = request.headers.get('accept-language') || 'unknown';
+
     // إرسال التصويت للـ API الخارجي مع timeout
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), EXTERNAL_API_TIMEOUT);
@@ -49,6 +98,10 @@ export async function POST(request: NextRequest) {
         body: JSON.stringify({
           townId,
           fingerprint,
+          // إرسال معلومات إضافية للتحقق من التصويت المكرر
+          ipAddress: clientIP,
+          userAgent,
+          acceptLanguage,
         }),
         signal: controller.signal,
       });

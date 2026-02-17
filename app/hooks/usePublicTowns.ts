@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import type { NeighborhoodItem } from '@/app/components/home/data';
 import { fetchTownsFromAPI, type Town } from './useTowns';
+import { API_BASE } from '@/lib/api';
 
 interface TownWithVotes extends Town {
   votes: number;
@@ -80,9 +81,6 @@ export function usePublicTowns() {
     setVotesError(null);
     
     try {
-      const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
-      
-      // جلب الأحياء مع الأصوات من API الخارجي
       const votesResponse = await fetch(`${API_BASE}/towns`, {
         method: 'GET',
         headers: {
@@ -112,7 +110,6 @@ export function usePublicTowns() {
   // جلب إجمالي الأصوات وأصوات اليوم من API stats
   const fetchTotalVotes = async () => {
     try {
-      const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
       const response = await fetch(`${API_BASE}/stats`, {
         method: 'GET',
         headers: {
@@ -205,8 +202,14 @@ export function usePublicTowns() {
       };
     });
     
-    // استخدام إجمالي الأصوات من API stats لحساب النسبة
-    const totalVotesForPercentage = totalVotesFromStats > 0 ? totalVotesFromStats : 1;
+    // حساب مجموع الأصوات من الأحياء الفعلية
+    const sumOfVotes = townsWithVotes.reduce((sum, town) => sum + (town.votes || 0), 0);
+    
+    // استخدام إجمالي الأصوات من API stats إذا كان متوفراً، وإلا استخدام مجموع الأصوات الفعلي
+    // يجب أن يكون على الأقل 1 لتجنب القسمة على صفر
+    const totalVotesForPercentage = totalVotesFromStats > 0 
+      ? totalVotesFromStats 
+      : (sumOfVotes > 0 ? sumOfVotes : 1);
     
     return townsWithVotes.map((town, index) =>
       transformTownToNeighborhood(town, index, totalVotesForPercentage)

@@ -4,6 +4,7 @@
 
 const ACCESS_TOKEN_KEY = 'admin_accessToken';
 const USER_ROLE_KEY = 'admin_userRole';
+const ADMIN_SESSION_COOKIE = 'admin_session';
 
 /**
  * Get the stored access token
@@ -23,6 +24,8 @@ export function setAccessToken(token: string): void {
     return;
   }
   localStorage.setItem(ACCESS_TOKEN_KEY, token);
+  // Cookie للـ Middleware - يتحقق من وجود الجلسة دون كشف التوكن
+  document.cookie = `${ADMIN_SESSION_COOKIE}=1; path=/; max-age=86400; SameSite=Lax`;
 }
 
 /**
@@ -54,6 +57,7 @@ export function removeAccessToken(): void {
   }
   localStorage.removeItem(ACCESS_TOKEN_KEY);
   localStorage.removeItem(USER_ROLE_KEY);
+  document.cookie = `${ADMIN_SESSION_COOKIE}=; path=/; max-age=0`;
 }
 
 /**

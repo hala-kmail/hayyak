@@ -1,25 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
-
-async function getAuthHeaders(request: NextRequest): Promise<HeadersInit> {
-  const authHeader = request.headers.get('authorization');
-  const headers: HeadersInit = {
-    'accept': '*/*',
-    'Content-Type': 'application/json',
-  };
-  
-  if (authHeader) {
-    headers['Authorization'] = authHeader;
-  }
-  
-  return headers;
-}
+import { API_BASE, getServerAuthHeaders } from '@/lib/api';
 
 // GET /api/admin/election/config - جلب إعدادات التصويت
 export async function GET(request: NextRequest) {
   try {
-    const headers = await getAuthHeaders(request);
+    const headers = getServerAuthHeaders(request);
     
     const response = await fetch(`${API_BASE}/election/config`, {
       method: 'GET',
@@ -46,7 +31,7 @@ export async function GET(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const body = await request.json();
-    const headers = await getAuthHeaders(request);
+    const headers = getServerAuthHeaders(request);
     
     const response = await fetch(`${API_BASE}/election/config`, {
       method: 'PATCH',

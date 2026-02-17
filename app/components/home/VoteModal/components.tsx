@@ -142,6 +142,7 @@ export function VoteForm({
   isSubmitting,
   voteError,
   fingerprintError,
+  hasVoted = false,
   onVote,
   onVoteForAnother,
 }: VoteFormProps) {
@@ -154,12 +155,19 @@ export function VoteForm({
       <NeighborhoodCard neighborhood={neighborhood} />
       <PrivacyDisclaimer />
 
+      {hasVoted && (
+        <ErrorAlert 
+          title="تم التصويت مسبقاً" 
+          message="لقد قمت بالتصويت مسبقاً. لا يمكنك التصويت مرة أخرى." 
+        />
+      )}
+
       {voteError && <ErrorAlert title={voteError} message="" />}
 
       <div className={modalStyles.buttonsContainer}>
         <button
           onClick={onVote}
-          disabled={isSubmitting || !visitorId}
+          disabled={isSubmitting || !visitorId || hasVoted}
           className={modalStyles.voteButton}
         >
           {isSubmitting ? (
@@ -177,7 +185,7 @@ export function VoteForm({
 
         <button
           onClick={onVoteForAnother}
-          disabled={isSubmitting}
+          disabled={isSubmitting || hasVoted}
           className={modalStyles.cancelButton}
         >
           التصويت لحي آخر

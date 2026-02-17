@@ -1,4 +1,4 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
+import { API_BASE } from '@/lib/api';
 
 export interface ElectionStatus {
   isOpen: boolean;

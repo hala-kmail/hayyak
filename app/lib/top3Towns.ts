@@ -1,4 +1,4 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
+import { API_BASE } from '@/lib/api';
 
 export interface Top3Town {
   rank: number;
@@ -27,8 +27,6 @@ export async function fetchTop3Towns(): Promise<Top3Town[]> {
 
 // Client-side function - calls external API directly
 export async function fetchTop3TownsFromAPI(): Promise<Top3Town[]> {
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
-  
   const response = await fetch(`${API_BASE}/towns/top-3`, {
     method: 'GET',
     headers: {

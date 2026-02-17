@@ -147,7 +147,9 @@ export function NeighborhoodsGrid({
             <div className={gridStyles.cardsContainer(isScrollable)}>
               {displayNeighborhoods.map((neighborhood) => {
                 const votes = neighborhood.votes ?? 0;
-                const progress = calculateProgress(votes, totalVotes);
+                // استخدام النسبة المحسوبة مسبقاً من usePublicTowns بدلاً من إعادة الحساب
+                // هذا يضمن أن النسبة المئوية تتطابق مع عرض النص
+                const progress = neighborhood.percentage ?? calculateProgress(votes, totalVotes);
                 const isLeaderNeighborhood = isLeader(votes, maxVotes);
                 const rank = getRank(neighborhood.id, sortedNeighborhoods);
                 const iconIndex =

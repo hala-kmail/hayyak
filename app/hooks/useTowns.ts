@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { getAccessToken } from '@/lib/auth';
+import { API_BASE, getClientAuthHeaders } from '@/lib/api';
 
 export interface Town {
   id: string;
@@ -10,7 +10,6 @@ export interface Town {
   createdAt?: string;
   updatedAt?: string;
   votes?: number;
- 
 }
 
 export interface CreateTownData {
@@ -23,29 +22,10 @@ export interface UpdateTownData {
   address?: string;
 }
 
-// استخدام الرابط المباشر للـ API الخارجي
-const API_BASE = 'https://api-sakani-election.orapexdev.com/api';
-console.log('API_BASE configured as:', API_BASE);
-
-function getAuthHeaders(): HeadersInit {
-  const token = getAccessToken();
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json',
-  };
-  
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-  
-  return headers;
-}
-
 // دالة منفصلة لجلب الأحياء من الـ API - يمكن استدعاؤها من أي مكان
 export async function fetchTownsFromAPI(requireAuth = true): Promise<Town[]> {
   const url = `${API_BASE}/towns`;
-  console.log('Fetching towns from:', url);
-  
-  const headers = requireAuth ? getAuthHeaders() : {
+  const headers = requireAuth ? getClientAuthHeaders() : {
     'accept': '*/*',
     'Content-Type': 'application/json',
   };
@@ -63,7 +43,6 @@ export async function fetchTownsFromAPI(requireAuth = true): Promise<Town[]> {
   }
 
   const data = await response.json();
-  console.log('Response data:', data);
   return Array.isArray(data) ? data : [];
 }
 
@@ -135,10 +114,8 @@ export function useTowns() {
 
     try {
       const url = `${API_BASE}/towns`;
-      const headers = getAuthHeaders();
+      const headers = getClientAuthHeaders();
       const body = JSON.stringify(townData);
-      
-      console.log('Creating town:', { url, townData });
 
       const response = await fetch(url, {
         method: 'POST',
@@ -146,22 +123,19 @@ export function useTowns() {
         body,
       });
 
-      console.log('Response status:', response.status, response.statusText);
-      console.log('Response ok:', response.ok);
-
       if (!response.ok) {
-        let errorData: any;
+        let errorData: Record<string, unknown>;
         try {
           const text = await response.text();
           errorData = text ? JSON.parse(text) : {};
         } catch {
           errorData = { error: `HTTP ${response.status}: ${response.statusText}` };
         }
-        
         const msg = errorData.message;
         const errorText = Array.isArray(msg) ? msg.join(' ') : (msg || errorData.error || `فشل في إضافة الحي. (${response.status})`);
-        const error = new Error(errorText);
-        setError(errorText);
+        const errorMessage = typeof errorText === 'string' ? errorText : `فشل في إضافة الحي. (${response.status})`;
+        const error = new Error(errorMessage);
+        setError(errorMessage);
         setIsLoading(false);
         throw error;
       }
@@ -198,10 +172,8 @@ export function useTowns() {
 
     try {
       const url = `${API_BASE}/towns/${id}`;
-      const headers = getAuthHeaders();
+      const headers = getClientAuthHeaders();
       const body = JSON.stringify(townData);
-      
-      console.log('Updating town:', { url, id, townData });
 
       const response = await fetch(url, {
         method: 'PATCH',
@@ -209,22 +181,19 @@ export function useTowns() {
         body,
       });
 
-      console.log('Response status:', response.status, response.statusText);
-      console.log('Response ok:', response.ok);
-
       if (!response.ok) {
-        let errorData: any;
+        let errorData: Record<string, unknown>;
         try {
           const text = await response.text();
           errorData = text ? JSON.parse(text) : {};
         } catch {
           errorData = { error: `HTTP ${response.status}: ${response.statusText}` };
         }
-        
         const msg = errorData.message;
         const errorText = Array.isArray(msg) ? msg.join(' ') : (msg || errorData.error || `فشل في تعديل الحي. (${response.status})`);
-        const error = new Error(errorText);
-        setError(errorText);
+        const errorMessage = typeof errorText === 'string' ? errorText : `فشل في تعديل الحي. (${response.status})`;
+        const error = new Error(errorMessage);
+        setError(errorMessage);
         setIsLoading(false);
         throw error;
       }
@@ -264,7 +233,7 @@ export function useTowns() {
     try {
       const response = await fetch(`${API_BASE}/towns/${id}`, {
         method: 'DELETE',
-        headers: getAuthHeaders(),
+        headers: getClientAuthHeaders(),
       });
 
       if (!response.ok) {

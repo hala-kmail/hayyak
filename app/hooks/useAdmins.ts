@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { getAccessToken } from '@/lib/auth';
+import { API_BASE, getClientAuthHeaders } from '@/lib/api';
 
 export interface Admin {
   id: string;
@@ -16,21 +16,6 @@ export interface CreateAdminData {
   name: string;
   email: string;
   password: string;
-}
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
-
-function getAuthHeaders(): HeadersInit {
-  const token = getAccessToken();
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json',
-  };
-  
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-  
-  return headers;
 }
 
 export function useAdmins() {
@@ -51,7 +36,7 @@ export function useAdmins() {
     try {
       const response = await fetch(`${API_BASE}/auth/admins`, {
         method: 'GET',
-        headers: getAuthHeaders(),
+        headers: getClientAuthHeaders(),
       });
 
       if (!response.ok) {
@@ -79,7 +64,7 @@ export function useAdmins() {
     try {
       const response = await fetch(`${API_BASE}/auth/admins`, {
         method: 'POST',
-        headers: getAuthHeaders(),
+        headers: getClientAuthHeaders(),
         body: JSON.stringify(adminData),
       });
 
@@ -110,7 +95,7 @@ export function useAdmins() {
     try {
       const response = await fetch(`${API_BASE}/auth/admins/${id}`, {
         method: 'DELETE',
-        headers: getAuthHeaders(),
+        headers: getClientAuthHeaders(),
       });
 
       if (!response.ok) {
@@ -138,7 +123,7 @@ export function useAdmins() {
     try {
       const response = await fetch(`${API_BASE}/auth/admins/${id}/toggle`, {
         method: 'PATCH',
-        headers: getAuthHeaders(),
+        headers: getClientAuthHeaders(),
       });
 
       if (!response.ok) {

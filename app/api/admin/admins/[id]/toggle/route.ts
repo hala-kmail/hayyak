@@ -1,19 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
-
-async function getAuthHeaders(request: NextRequest): Promise<HeadersInit> {
-  const authHeader = request.headers.get('authorization');
-  const headers: HeadersInit = {
-    'accept': '*/*',
-  };
-  
-  if (authHeader) {
-    headers['Authorization'] = authHeader;
-  }
-  
-  return headers;
-}
+import { API_BASE, getServerAuthHeaders } from '@/lib/api';
 
 // PATCH /api/admin/admins/[id]/toggle - تبديل حالة الأدمن
 export async function PATCH(
@@ -22,7 +8,7 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    const headers = await getAuthHeaders(request);
+    const headers = getServerAuthHeaders(request, { includeContentType: false });
     
     const response = await fetch(`${API_BASE}/auth/admins/${id}/toggle`, {
       method: 'PATCH',
