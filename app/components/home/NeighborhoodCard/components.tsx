@@ -17,8 +17,7 @@ export function NeighborhoodCardContent({
   isLeader = false,
 }: NeighborhoodCardProps) {
   const votes = getVotes(neighborhood);
-  // استخدام نسبة التقدم من استجابة الباكيند مباشرة
-  const progress = neighborhood.percentage ?? 0;
+  const progress = Number(neighborhood.percentage) || 0;
 
   return (
     <div className={cardStyles.card(!!onClick, isLeader)}>
@@ -45,7 +44,7 @@ export function NeighborhoodCardContent({
               {Math.round(progress)}%
             </span>
           </div>
-          <div className={cardStyles.progressBar}>
+          <div className={cardStyles.progressBar} dir="ltr">
             <div
               className={cardStyles.progressFill}
               style={{ width: `${Math.min(progress, 100)}%` }}

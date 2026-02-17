@@ -18,7 +18,6 @@ export interface GridCardProps {
   totalVotes: number;
   maxVotes: number;
   rank: number;
-  progress: number;
   isLeader: boolean;
   iconConfig: {
     icon: React.ReactNode;

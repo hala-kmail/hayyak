@@ -153,11 +153,8 @@ export function NeighborhoodsGrid({
             <div className={gridStyles.cardsContainer(isScrollable)}>
               {displayNeighborhoods.map((neighborhood) => {
                 const votes = neighborhood.votes ?? 0;
-                // استخدام نسبة التقدم من استجابة الباكيند مباشرة
-                const progress = neighborhood.percentage ?? 0;
                 const isLeaderNeighborhood = isLeader(votes, maxVotes);
                 const rank = getRank(neighborhood.id, sortedNeighborhoods);
-                // استخدام أيقونة موحدة لجميع الأحياء
                 const iconConfig = NEIGHBORHOOD_ICONS[0];
 
                 return (
@@ -167,7 +164,6 @@ export function NeighborhoodsGrid({
                     totalVotes={totalVotes}
                     maxVotes={maxVotes}
                     rank={rank}
-                    progress={progress}
                     isLeader={isLeaderNeighborhood}
                     iconConfig={iconConfig}
                     onClick={() => {

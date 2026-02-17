@@ -144,7 +144,6 @@ export const EmptyState = React.memo(function EmptyState() {
 export const GridCard = React.memo(function GridCard({
   neighborhood,
   rank,
-  progress,
   isLeader,
   iconConfig,
   onClick,
@@ -177,16 +176,16 @@ export const GridCard = React.memo(function GridCard({
       </div>
 
       <div className={gridStyles.progressContainer}>
-        <div className={gridStyles.progressBar}>
+        <div className={gridStyles.progressBar} >
           <div
             className={gridStyles.progressFill(isLeader)}
-            style={{ width: `${Math.min(progress, 100)}%` }}
+            style={{ width: `${Math.min(Number(neighborhood.percentage) || 0, 100)}%` }}
           />
         </div>
         <div className={gridStyles.progressFooter}>
           <span className={gridStyles.progressLabel}>نسبة التقدم</span>
           <span className={gridStyles.progressValue}>
-            {Math.round(progress)}%
+            {Math.round(Number(neighborhood.percentage) || 0)}%
           </span>
         </div>
       </div>

@@ -71,7 +71,7 @@ export const gridStyles = {
   progressBar: 'h-3 w-full bg-gray-100 rounded-full overflow-hidden',
   progressFill: (isLeader: boolean) =>
     `h-full rounded-full transition-all duration-1000 ease-out ${
-      isLeader ? 'bg-turquoise' : 'bg-turquoise/60'
+      isLeader ? 'bg-turquoise' : 'bg-turquoise'
     }`,
   progressFooter: 'flex justify-between items-center mt-1',
   progressLabel: 'text-xs font-bold text-navy-blue/70',
