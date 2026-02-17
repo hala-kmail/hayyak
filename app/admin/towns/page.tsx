@@ -5,12 +5,13 @@ import { AdminLayout } from '@/app/components/admin/AdminLayout';
 import { TownsTable } from '@/app/components/admin/TownsTable';
 import { TownFormModal } from '@/app/components/admin/TownFormModal';
 import { useTowns, Town, CreateTownData, UpdateTownData } from '@/app/hooks/useTowns';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus, FaSearch } from 'react-icons/fa';
 
 export default function TownsPage() {
-  const { towns, isLoading, error, createTown, updateTown, deleteTown } = useTowns();
+  const { towns, isLoading, error, createTown, updateTown, deleteTown, searchTowns, fetchTowns } = useTowns();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTown, setEditingTown] = useState<Town | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleAdd = () => {
     setEditingTown(null);
@@ -44,6 +45,16 @@ export default function TownsPage() {
     }
   };
 
+  const handleSearchChange = async (query: string) => {
+    setSearchQuery(query);
+    // في حال كان مربع البحث فارغاً، اجلب كل الأحياء
+    if (!query || query.trim() === '') {
+      await fetchTowns();
+    } else {
+      await searchTowns(query);
+    }
+  };
+
   return (
     <AdminLayout>
       <div>
@@ -56,6 +67,23 @@ export default function TownsPage() {
             <FaPlus className="w-4 h-4" />
             إضافة حي جديد
           </button>
+        </div>
+
+        <div className="mb-6">
+          <div className="relative">
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-warm-grey">
+              <FaSearch className="w-5 h-5" />
+            </div>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => {
+                handleSearchChange(e.target.value);
+              }}
+              placeholder="ابحث عن حي..."
+              className="w-full pr-12 pl-4 py-3 border-2 border-gray-200 rounded-xl focus:border-turquoise focus:outline-none transition-colors text-navy-blue bg-white"
+            />
+          </div>
         </div>
 
         {error && (

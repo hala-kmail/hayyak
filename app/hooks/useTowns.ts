@@ -87,6 +87,41 @@ export function useTowns() {
     }
   };
 
+  const searchTowns = async (query: string): Promise<void> => {
+    if (!query || query.trim() === '') {
+      await fetchTowns();
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const url = `/api/towns/search?q=${encodeURIComponent(query)}`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        const msg = data.message;
+        const errorText = Array.isArray(msg) ? msg.join(' ') : (msg || data.error || 'فشل في البحث عن الأحياء.');
+        throw new Error(errorText);
+      }
+
+      const data = await response.json();
+      setTowns(Array.isArray(data) ? data : []);
+    } catch (err: any) {
+      console.error('Error searching towns:', err);
+      setError(err.message || 'حدث خطأ في البحث عن الأحياء.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const createTown = async (townData: CreateTownData): Promise<Town | null> => {
     setIsLoading(true);
     setError(null);
@@ -252,6 +287,7 @@ export function useTowns() {
     isLoading,
     error,
     fetchTowns,
+    searchTowns,
     createTown,
     updateTown,
     deleteTown,
