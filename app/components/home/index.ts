@@ -4,6 +4,7 @@ export { HeroSection } from './HeroSection';
 export { IntroSections } from './IntroSections';
 export { NeighborhoodCard } from './NeighborhoodCard';
 export { NeighborhoodsGrid } from './NeighborhoodsGrid';
+export { VoteModal } from './VoteModal';
 export { PageAccent } from './PageAccent';
 export { default as HowItWorks } from './HowItWorks';
 export { default as Footer } from './Footer';

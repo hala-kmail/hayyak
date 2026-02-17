@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "clean": "node scripts/clean-cache.js",
+    "clean:win": "if exist .next rmdir /s /q .next && if exist node_modules\\.cache rmdir /s /q node_modules\\.cache && echo Cache cleared successfully",
+    "dev": "npm run clean && next dev",
+    "dev:fast": "next dev",
+    "build": "npm run clean && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"

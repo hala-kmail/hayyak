@@ -1,13 +1,24 @@
 import Link from 'next/link';
+import { NotFoundContent } from './NotFound/components';
+import { notFoundStyles } from './NotFound/styles';
+import { NOT_FOUND_CONTENT } from './NotFound/constants';
 
+/**
+ * NotFound Component
+ * Following SOLID Principles:
+ * - Single Responsibility: Only orchestrates the not found page layout
+ * - Open/Closed: Extensible via constants without modifying component logic
+ * - Dependency Inversion: Depends on abstractions (components, constants) not concrete implementations
+ */
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4" dir="rtl">
-      <h1 className="text-2xl font-bold text-gray-800">404</h1>
-      <p className="text-gray-600 mt-2">الصفحة غير موجودة</p>
-      <Link href="/" className="mt-4 text-teal-600 hover:underline">
-        العودة للرئيسية
-      </Link>
+    <div className={notFoundStyles.container} dir="rtl">
+      <NotFoundContent
+        errorCode={NOT_FOUND_CONTENT.errorCode}
+        title={NOT_FOUND_CONTENT.title}
+        backLinkText={NOT_FOUND_CONTENT.backLinkText}
+        backLinkHref={NOT_FOUND_CONTENT.backLinkHref}
+      />
     </div>
   );
 }
