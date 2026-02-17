@@ -31,12 +31,14 @@ export async function GET(request: NextRequest) {
 
     const towns = await response.json();
     
-    // التأكد من أن كل حي يحتوي على votes
+    // التأكد من أن كل حي يحتوي على votes و percentage
     const townsWithVotes = (Array.isArray(towns) ? towns : []).map((town: any) => {
       const votes = town.votes ?? 0;
       return {
         ...town,
         votes,
+        // الحفاظ على percentage من الاستجابة الأصلية
+        percentage: town.percentage,
       };
     });
 

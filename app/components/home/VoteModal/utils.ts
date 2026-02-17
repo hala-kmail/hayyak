@@ -4,6 +4,7 @@
  */
 
 import { ERROR_MESSAGES, SUCCESS_AUTO_CLOSE_DELAY } from './constants';
+import { API_BASE } from '@/lib/api';
 
 export interface VoteResponse {
   success: boolean;
@@ -25,7 +26,7 @@ export async function submitVote(
     const timeoutId = setTimeout(() => controller.abort(), VOTE_TIMEOUT);
 
     try {
-      const response = await fetch('/api/votes', {
+      const response = await fetch(`${API_BASE}/votes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -7,6 +7,7 @@ import { API_BASE } from '@/lib/api';
 
 interface TownWithVotes extends Town {
   votes: number;
+  percentage?: number;
 }
 
 // استخدام نفس الثوابت من useTowns (يمكن استخراجها لملف مشترك لاحقاً)
@@ -30,8 +31,14 @@ function transformTownToNeighborhood(town: TownWithVotes, index: number, totalVo
   const iconIndex = index % NEIGHBORHOOD_ICONS.length;
   const votes = town.votes || 0;
   
-  // حساب نسبة التقدم بناءً على إجمالي الأصوات من API
-  const percentage = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
+  // استخدام نسبة التقدم من استجابة الباكيند مباشرة
+  // إذا لم تكن متوفرة، نستخدم 0 كقيمة افتراضية
+  const percentage = town.percentage ?? 0;
+  
+  // طباعة معلومات التصحيح
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`📊 ${town.name}: ${votes} صوت، النسبة من الباكيند: ${percentage.toFixed(2)}%`);
+  }
   
   return {
     id: town.id,
@@ -161,6 +168,7 @@ export function usePublicTowns() {
       const searchedTowns: TownWithVotes[] = Array.isArray(data) ? data : [];
       
       // تحديث خريطة الأصوات للنتائج المبحوثة
+      // النسبة المئوية تأتي مباشرة من الباكيند في town.percentage
       setVotesMap((prevVotesMap) => {
         const newVotesMap = { ...prevVotesMap };
         searchedTowns.forEach((town: TownWithVotes) => {
@@ -194,32 +202,57 @@ export function usePublicTowns() {
     const townsToUse = searchResults !== null ? searchResults : towns;
     
     const townsWithVotes: TownWithVotes[] = townsToUse.map((town) => {
-      // استخدام الأصوات من API الخارجي
+      // استخدام الأصوات والنسبة المئوية من API الخارجي
       const votes = votesMap[town.id] ?? 0;
       return {
         ...town,
         votes,
+        // الحفاظ على percentage من الاستجابة الأصلية إذا كانت موجودة
+        percentage: town.percentage,
       };
     });
     
-    // حساب مجموع الأصوات من الأحياء الفعلية
-    const sumOfVotes = townsWithVotes.reduce((sum, town) => sum + (town.votes || 0), 0);
+    // حساب مجموع الأصوات من جميع الأحياء (وليس فقط الأحياء المعروضة)
+    // هذا يضمن أن النسبة المئوية تكون صحيحة حتى عند البحث
+    const sumOfAllVotes = towns.reduce((sum, town) => {
+      const votes = votesMap[town.id] ?? 0;
+      return sum + votes;
+    }, 0);
     
-    // استخدام إجمالي الأصوات من API stats إذا كان متوفراً، وإلا استخدام مجموع الأصوات الفعلي
+    // استخدام إجمالي الأصوات من API stats إذا كان متوفراً، وإلا استخدام مجموع الأصوات من جميع الأحياء
     // يجب أن يكون على الأقل 1 لتجنب القسمة على صفر
     const totalVotesForPercentage = totalVotesFromStats > 0 
       ? totalVotesFromStats 
-      : (sumOfVotes > 0 ? sumOfVotes : 1);
+      : (sumOfAllVotes > 0 ? sumOfAllVotes : 1);
     
     return townsWithVotes.map((town, index) =>
       transformTownToNeighborhood(town, index, totalVotesForPercentage)
     );
   }, [towns, searchResults, votesMap, totalVotesFromStats]);
 
+  // حساب إجمالي الأصوات من جميع الأحياء
+  // يجب أن يكون إجمالي الأصوات من جميع الأحياء، وليس فقط الأحياء المعروضة
+  // هذا يضمن أن النسبة المئوية لكل حي تُحسب بناءً على إجمالي جميع الأصوات
   const totalVotes = useMemo(() => {
-    // استخدام إجمالي الأصوات من API stats إذا كان متوفراً، وإلا حسابها من الأحياء
-    return totalVotesFromStats > 0 ? totalVotesFromStats : neighborhoods.reduce((sum, n) => sum + n.votes, 0);
-  }, [neighborhoods, totalVotesFromStats]);
+    // حساب مجموع الأصوات من جميع الأحياء (وليس فقط الأحياء المعروضة)
+    const sumOfAllVotes = towns.reduce((sum, town) => {
+      const votes = votesMap[town.id] ?? 0;
+      return sum + votes;
+    }, 0);
+    
+    // استخدام إجمالي الأصوات من API stats إذا كان متوفراً، وإلا استخدام مجموع الأصوات من جميع الأحياء
+    // يجب أن يكون على الأقل 1 لتجنب القسمة على صفر
+    const total = totalVotesFromStats > 0 
+      ? totalVotesFromStats 
+      : (sumOfAllVotes > 0 ? sumOfAllVotes : 1);
+    
+    // طباعة معلومات التصحيح
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`📊 إجمالي الأصوات: ${total} (من stats: ${totalVotesFromStats}, من الأحياء: ${sumOfAllVotes})`);
+    }
+    
+    return total;
+  }, [towns, votesMap, totalVotesFromStats]);
 
   const refetch = async () => {
     // جلب البيانات بشكل متوازي (parallel) بدلاً من متتالي (sequential) لتحسين الأداء

@@ -4,7 +4,7 @@ import React from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
 import { NeighborhoodCardProps } from './types';
 import { cardStyles } from './styles';
-import { calculateProgress, getVotes } from './utils';
+import { getVotes } from './utils';
 
 /**
  * Neighborhood Card Content Component
@@ -17,9 +17,8 @@ export function NeighborhoodCardContent({
   isLeader = false,
 }: NeighborhoodCardProps) {
   const votes = getVotes(neighborhood);
-  // استخدام النسبة المحسوبة مسبقاً من usePublicTowns بدلاً من إعادة الحساب
-  // هذا يضمن أن النسبة المئوية تتطابق مع عرض النص
-  const progress = neighborhood.percentage ?? calculateProgress(neighborhood, totalVotes);
+  // استخدام نسبة التقدم من استجابة الباكيند مباشرة
+  const progress = neighborhood.percentage ?? 0;
 
   return (
     <div className={cardStyles.card(!!onClick, isLeader)}>

@@ -10,6 +10,7 @@ export interface Town {
   createdAt?: string;
   updatedAt?: string;
   votes?: number;
+  percentage?: number;
 }
 
 export interface CreateTownData {

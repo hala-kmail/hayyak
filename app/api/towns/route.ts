@@ -21,13 +21,15 @@ export async function GET(request: NextRequest) {
 
     const towns = await response.json();
     
-    // التأكد من أن كل حي يحتوي على votes (من API الخارجي)
+    // التأكد من أن كل حي يحتوي على votes و percentage (من API الخارجي)
     const townsWithVotes = (Array.isArray(towns) ? towns : []).map((town: any) => {
-      // استخدام votes من API الخارجي إذا كان متوفراً، وإلا 0
+      // استخدام votes و percentage من API الخارجي مباشرة
       const votes = town.votes ?? 0;
       return {
         ...town,
         votes,
+        // الحفاظ على percentage من الاستجابة الأصلية
+        percentage: town.percentage,
       };
     });
 

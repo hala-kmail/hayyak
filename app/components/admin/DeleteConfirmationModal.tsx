@@ -88,11 +88,11 @@ export function DeleteConfirmationModal({
           </div>
 
           {/* Error Message */}
-          {error && (
+          {/* {error && (
             <div className="bg-red-50 border-2 border-red-200 rounded-xl p-4 mb-4">
               <p className="text-sm font-bold text-red-800">{error}</p>
             </div>
-          )}
+          )} */}
 
           {/* Buttons */}
           <div className="flex gap-3">

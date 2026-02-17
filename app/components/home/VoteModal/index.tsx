@@ -24,7 +24,7 @@ export function VoteModal({
   onVoteForAnother,
   onVoteSuccess,
 }: VoteModalProps) {
-  const { visitorId, isLoading: isLoadingFingerprint, error: fingerprintError, hasVoted, markAsVoted } =
+  const { visitorId, isLoading: isLoadingFingerprint, error: fingerprintError } =
     useFingerprint();
   const {
     isSubmitting,
@@ -41,29 +41,17 @@ export function VoteModal({
       return;
     }
 
-    // التحقق من التصويت المكرر على مستوى الواجهة
-    if (hasVoted) {
-      setVoteError('لقد قمت بالتصويت مسبقاً.');
-      return;
-    }
-
     setIsSubmitting(true);
     setVoteError(null);
 
     const result = await submitVote(neighborhood.id, visitorId);
 
     if (!result.success) {
-      // إذا كان الخطأ بسبب التصويت المكرر، نحدد الحالة محلياً أيضاً
-      if (result.error?.includes('مسبقاً') || result.error?.includes('already')) {
-        markAsVoted();
-      }
       setVoteError(result.error || ERROR_MESSAGES.GENERIC_ERROR);
       setIsSubmitting(false);
       return;
     }
 
-    // تحديد أن المستخدم قد صوت بعد نجاح التصويت
-    markAsVoted();
     setVoteSuccess(true);
     handleVoteSuccess(onClose, onVoteSuccess);
   };
@@ -93,7 +81,6 @@ export function VoteModal({
                   isSubmitting={isSubmitting}
                   voteError={voteError}
                   fingerprintError={fingerprintError || null}
-                  hasVoted={hasVoted}
                   onVote={handleVoteForThis}
                   onVoteForAnother={onVoteForAnother}
                 />

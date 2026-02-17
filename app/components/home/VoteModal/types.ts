@@ -29,7 +29,6 @@ export interface VoteFormProps {
   isSubmitting: boolean;
   voteError: string | null;
   fingerprintError: string | null;
-  hasVoted?: boolean;
   onVote: () => void;
   onVoteForAnother: () => void;
 }

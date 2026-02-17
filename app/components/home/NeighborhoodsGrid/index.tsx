@@ -9,7 +9,6 @@ import { useHorizontalScroll } from './hooks';
 import {
   getBaseNeighborhoods,
   getMaxVotes,
-  calculateProgress,
   isLeader,
   getRank,
   getCardWidth,
@@ -88,13 +87,16 @@ export function NeighborhoodsGrid({
   // إذا كان هناك بحث، استخدم نتائج البحث مباشرة (التي تأتي من الباك إند)
   // وإلا استخدم التبويب النشط (أفضل 3 أو جميع الأحياء)
   const sortedNeighborhoods = useMemo(() => sortNeighborhoodsByVotes(neighborhoods), [neighborhoods]);
-  const maxVotes = useMemo(() => getMaxVotes(neighborhoods), [neighborhoods]);
   
   const displayNeighborhoods = useMemo(() => {
     return searchQuery.trim() 
       ? sortedNeighborhoods 
       : getBaseNeighborhoods(neighborhoods, activeTab);
   }, [searchQuery, neighborhoods, activeTab, sortedNeighborhoods]);
+  
+  // حساب أعلى أصوات من الأحياء المعروضة فقط (وليس جميع الأحياء)
+  // هذا يضمن أن شريط التقدم يعرض النسبة الصحيحة حتى عند البحث أو تصفية الأحياء
+  const maxVotes = useMemo(() => getMaxVotes(displayNeighborhoods), [displayNeighborhoods]);
 
   const handleNeighborhoodClick = useCallback((neighborhood: NeighborhoodItem) => {
     setSelectedNeighborhood(neighborhood);
@@ -147,9 +149,8 @@ export function NeighborhoodsGrid({
             <div className={gridStyles.cardsContainer(isScrollable)}>
               {displayNeighborhoods.map((neighborhood) => {
                 const votes = neighborhood.votes ?? 0;
-                // استخدام النسبة المحسوبة مسبقاً من usePublicTowns بدلاً من إعادة الحساب
-                // هذا يضمن أن النسبة المئوية تتطابق مع عرض النص
-                const progress = neighborhood.percentage ?? calculateProgress(votes, totalVotes);
+                // استخدام نسبة التقدم من استجابة الباكيند مباشرة
+                const progress = neighborhood.percentage ?? 0;
                 const isLeaderNeighborhood = isLeader(votes, maxVotes);
                 const rank = getRank(neighborhood.id, sortedNeighborhoods);
                 const iconIndex =
