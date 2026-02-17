@@ -42,6 +42,16 @@ export const gridStyles = {
     } ${width}`,
   cardHeader: 'flex items-center justify-between mb-4',
   cardLeftSection: 'flex items-center gap-4',
+  rankContainer: (isLeader: boolean) =>
+    `w-12 h-12 rounded-full flex items-center justify-center border-2 transition-colors flex-shrink-0 ${
+      isLeader 
+        ? 'border-turquoise bg-turquoise/10' 
+        : 'border-gray-200 bg-white'
+    }`,
+  rankNumber: (isLeader: boolean) =>
+    `text-lg font-black ${
+      isLeader ? 'text-turquoise' : 'text-navy-blue'
+    }`,
   iconContainer: (isLeader: boolean) =>
     `w-12 h-12 rounded-lg flex items-center justify-center transition-colors ${
       isLeader ? 'bg-turquoise/10' : 'bg-gray-50'
@@ -57,13 +67,13 @@ export const gridStyles = {
   votesSection: 'text-left flex-shrink-0',
   votesValue: 'block text-2xl font-black text-navy-blue leading-none',
   votesLabel: 'text-[10px] font-bold text-warm-grey uppercase',
-  progressContainer: 'space-y-2',
+  progressContainer: 'space-y-2 mt-2',
   progressBar: 'h-3 w-full bg-gray-100 rounded-full overflow-hidden',
   progressFill: (isLeader: boolean) =>
     `h-full rounded-full transition-all duration-1000 ease-out ${
       isLeader ? 'bg-turquoise' : 'bg-turquoise/60'
     }`,
-  progressFooter: 'flex justify-between items-center',
-  progressLabel: 'text-[10px] font-bold text-navy-blue/50',
-  progressValue: 'text-sm font-black text-turquoise',
+  progressFooter: 'flex justify-between items-center mt-1',
+  progressLabel: 'text-xs font-bold text-navy-blue/70',
+  progressValue: 'text-base font-black text-turquoise',
 } as const;

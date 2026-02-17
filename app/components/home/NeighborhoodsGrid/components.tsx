@@ -143,7 +143,7 @@ export const EmptyState = React.memo(function EmptyState() {
  */
 export const GridCard = React.memo(function GridCard({
   neighborhood,
- 
+  rank,
   progress,
   isLeader,
   iconConfig,
@@ -160,13 +160,8 @@ export const GridCard = React.memo(function GridCard({
     >
       <div className={gridStyles.cardHeader}>
         <div className={gridStyles.cardLeftSection}>
-          <div className={gridStyles.iconContainer(isLeader)}>
-            {React.cloneElement(
-              iconConfig.icon as React.ReactElement<{ className?: string }>,
-              {
-                className: gridStyles.icon(isLeader, iconConfig.iconColor),
-              }
-            )}
+          <div className={gridStyles.rankContainer(isLeader)}>
+            <span className={gridStyles.rankNumber(isLeader)}>{rank}</span>
           </div>
           <div className={gridStyles.cardTextSection}>
             <h3 className={gridStyles.cardTitle(isLeader)}>

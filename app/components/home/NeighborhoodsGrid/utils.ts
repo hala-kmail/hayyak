@@ -47,15 +47,19 @@ export function filterNeighborhoods(
 
 /**
  * Gets base neighborhoods based on active tab
+ * Always sorts by votes (descending) to ensure correct order
  */
 export function getBaseNeighborhoods(
   neighborhoods: NeighborhoodItem[],
   activeTab: TabType
 ): NeighborhoodItem[] {
+  // Always sort by votes first to ensure correct order
+  const sorted = sortNeighborhoodsByVotes(neighborhoods);
+  
   if (activeTab === 'top') {
-    return getTopNeighborhoods(neighborhoods, 3);
+    return sorted.slice(0, 3);
   }
-  return sortNeighborhoodsByVotes(neighborhoods);
+  return sorted;
 }
 
 /**

@@ -4,16 +4,21 @@
  */
 
 import React from 'react';
-import { FaTree, FaBuilding, FaMountain, FaCity } from 'react-icons/fa';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
+// أيقونة موحدة لجميع الأحياء - تشير إلى موقع/حي
+export const UNIFIED_NEIGHBORHOOD_ICON: {
+  icon: React.ReactNode;
+  iconColor: string;
+} = {
+  icon: React.createElement(FaMapMarkerAlt, { className: 'w-5 h-5' }),
+  iconColor: 'text-turquoise',
+};
+
+// الاحتفاظ بـ NEIGHBORHOOD_ICONS للتوافق مع الكود القديم (سيتم استخدام الأيقونة الموحدة)
 export const NEIGHBORHOOD_ICONS: Array<{
   icon: React.ReactNode;
   iconColor: string;
-}> = [
-  { icon: React.createElement(FaMountain, { className: 'w-5 h-5' }), iconColor: 'text-quite-purple' },
-  { icon: React.createElement(FaTree, { className: 'w-5 h-5' }), iconColor: 'text-lime-green' },
-  { icon: React.createElement(FaCity, { className: 'w-5 h-5' }), iconColor: 'text-grey-blue' },
-  { icon: React.createElement(FaBuilding, { className: 'w-5 h-5' }), iconColor: 'text-sand-brown' },
-];
+}> = [UNIFIED_NEIGHBORHOOD_ICON];
 
 export const SCROLL_AMOUNT = 300;

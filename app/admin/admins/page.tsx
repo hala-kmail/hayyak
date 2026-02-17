@@ -75,7 +75,7 @@ export default function AdminsPage() {
             className="flex items-center gap-2 px-6 py-3 bg-turquoise text-white rounded-xl font-bold hover:shadow-lg hover:shadow-turquoise/30 transition-all"
           >
             <FaPlus className="w-4 h-4" />
-            إضافة أدمن جديد
+            إضافة مسؤول جديد
           </button>
         </div>
 

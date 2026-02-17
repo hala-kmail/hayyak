@@ -84,14 +84,18 @@ export function NeighborhoodsGrid({
     };
   }, [searchQuery, searchTowns]);
 
-  // إذا كان هناك بحث، استخدم نتائج البحث مباشرة (التي تأتي من الباك إند)
-  // وإلا استخدم التبويب النشط (أفضل 3 أو جميع الأحياء)
+  // ترتيب جميع الأحياء حسب الأصوات (تنازلي) لضمان الترتيب الصحيح
   const sortedNeighborhoods = useMemo(() => sortNeighborhoodsByVotes(neighborhoods), [neighborhoods]);
   
+  // تحديد الأحياء المعروضة: إذا كان هناك بحث، استخدم نتائج البحث المرتبة
+  // وإلا استخدم التبويب النشط (أفضل 3 أو جميع الأحياء) - كلها مرتبة حسب الأصوات
   const displayNeighborhoods = useMemo(() => {
-    return searchQuery.trim() 
-      ? sortedNeighborhoods 
-      : getBaseNeighborhoods(neighborhoods, activeTab);
+    if (searchQuery.trim()) {
+      // عند البحث، استخدم الأحياء المرتبة حسب الأصوات
+      return sortedNeighborhoods;
+    }
+    // عند اختيار التبويب، استخدم getBaseNeighborhoods التي ترتب البيانات حسب الأصوات
+    return getBaseNeighborhoods(neighborhoods, activeTab);
   }, [searchQuery, neighborhoods, activeTab, sortedNeighborhoods]);
   
   // حساب أعلى أصوات من الأحياء المعروضة فقط (وليس جميع الأحياء)
@@ -153,10 +157,8 @@ export function NeighborhoodsGrid({
                 const progress = neighborhood.percentage ?? 0;
                 const isLeaderNeighborhood = isLeader(votes, maxVotes);
                 const rank = getRank(neighborhood.id, sortedNeighborhoods);
-                const iconIndex =
-                  neighborhoods.findIndex((n) => n.id === neighborhood.id) %
-                  NEIGHBORHOOD_ICONS.length;
-                const iconConfig = NEIGHBORHOOD_ICONS[iconIndex];
+                // استخدام أيقونة موحدة لجميع الأحياء
+                const iconConfig = NEIGHBORHOOD_ICONS[0];
 
                 return (
                   <GridCard

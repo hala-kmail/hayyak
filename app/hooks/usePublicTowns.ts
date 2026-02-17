@@ -10,25 +10,13 @@ interface TownWithVotes extends Town {
   percentage?: number;
 }
 
-// استخدام نفس الثوابت من useTowns (يمكن استخراجها لملف مشترك لاحقاً)
-const NEIGHBORHOOD_ICONS = ['🌴', '🌸', '⛰️', '☀️', '🌹', '🏛️', '🏙️', '✈️', '🌳', '🏘️', '🌿', '🌺'];
-const ICON_BG_COLORS = [
-  'rgb(204, 251, 241)',
-  'rgb(254, 226, 226)',
-  'rgb(220, 252, 231)',
-  'rgb(224, 242, 254)',
-  'rgb(255, 228, 230)',
-  'rgb(237, 242, 247)',
-  'rgb(240, 253, 244)',
-  'rgb(254, 243, 199)',
-  'rgb(220, 252, 231)',
-  'rgb(224, 242, 254)',
-  'rgb(204, 251, 241)',
-  'rgb(255, 237, 213)',
-];
+// أيقونة موحدة لجميع الأحياء - تشير إلى موقع/حي
+// ملاحظة: الأيقونة الفعلية يتم عرضها من constants.ts في NeighborhoodsGrid
+// هذا الحقل موجود للتوافق مع NeighborhoodItem interface
+const UNIFIED_NEIGHBORHOOD_ICON = '📍';
+const UNIFIED_ICON_BG_COLOR = 'rgb(204, 251, 241)';
 
 function transformTownToNeighborhood(town: TownWithVotes, index: number, totalVotes: number): NeighborhoodItem {
-  const iconIndex = index % NEIGHBORHOOD_ICONS.length;
   const votes = town.votes || 0;
   
   // استخدام نسبة التقدم من استجابة الباكيند مباشرة
@@ -45,8 +33,8 @@ function transformTownToNeighborhood(town: TownWithVotes, index: number, totalVo
     name: town.name,
     location: town.address,
     votes,
-    icon: NEIGHBORHOOD_ICONS[iconIndex],
-    iconBg: ICON_BG_COLORS[iconIndex],
+    icon: UNIFIED_NEIGHBORHOOD_ICON,
+    iconBg: UNIFIED_ICON_BG_COLOR,
     percentage,
     totalCap: totalVotes, // استخدام إجمالي الأصوات بدلاً من القيمة الثابتة
   };
