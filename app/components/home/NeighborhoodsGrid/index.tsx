@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import type { NeighborhoodItem } from '../../data';
 import { VoteModal } from '../VoteModal';
-import { Tabs, SearchBox, ScrollButtons, EmptyState, GridCard } from './components';
+import { Tabs, SearchBox, ScrollButtons, EmptyState, GridCard, SectionHeader } from './components';
 import { gridStyles } from './styles';
 import { useHorizontalScroll } from './hooks';
 import {
@@ -67,8 +67,9 @@ export function NeighborhoodsGrid({
   const cardWidth = getCardWidth(activeTab, !!searchQuery);
 
   return (
-    <section className={gridStyles.section}>
-      <div className={gridStyles.container}>
+    <section id="districts" className={gridStyles.section} style={{ marginBottom: '-3px' }}>
+      <SectionHeader />
+      <div className={gridStyles.contentContainer}>
         <div className={gridStyles.navigationContainer}>
           <div className={gridStyles.controlsWrapper}>
             <Tabs activeTab={activeTab} onTabChange={setActiveTab} />

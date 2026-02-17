@@ -102,6 +102,24 @@ export function ScrollButtons({ onScroll }: ScrollButtonsProps) {
 }
 
 /**
+ * Section Header Component
+ * Following Single Responsibility Principle - only handles section header display
+ */
+export function SectionHeader() {
+  return (
+    <div className={gridStyles.headerContainer}>
+      <span className={gridStyles.headerBadge}>
+        المنافسة مشتعلة
+      </span>
+      <h2 className={gridStyles.headerTitle}>
+        الأحياء المشاركة
+      </h2>
+      <div className={gridStyles.headerDivider} />
+    </div>
+  );
+}
+
+/**
  * Empty State Component
  * Following Single Responsibility Principle - only handles empty state display
  */

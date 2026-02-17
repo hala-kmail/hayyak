@@ -38,7 +38,7 @@ export function IntroLogo({ section, habeebError, onHabeebError }: LogoProps) {
       src={logoSrc}
       alt={section.title}
       width={96}
-      height={32}
+      height={96}
       className={introStyles.logoImageNext}
     />
   );

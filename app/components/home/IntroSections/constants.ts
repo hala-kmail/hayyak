@@ -5,7 +5,7 @@
 
 import type { SectionItem } from './types';
 
-export const LOGO_HABEEB = '/images/habeeb.png';
+export const LOGO_HABEEB = '/images/habeeb.svg';
 export const LOGO_SAKANI = '/images/sakany.png';
 
 export const INTRO_SECTIONS_DATA: SectionItem[] = [
