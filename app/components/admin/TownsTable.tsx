@@ -3,6 +3,8 @@
 import React from 'react';
 import { Town } from '@/app/hooks/useTowns';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { LoadingState, EmptyState } from './shared';
+import { tableStyles } from './styles/tableStyles';
 
 interface TownsTableProps {
   towns: Town[];
@@ -13,49 +15,40 @@ interface TownsTableProps {
 
 export function TownsTable({ towns, isLoading, onEdit, onDelete }: TownsTableProps) {
   if (isLoading) {
-    return (
-      <div className="bg-white rounded-2xl shadow-md p-12 text-center">
-        <div className="inline-block w-8 h-8 border-2 border-turquoise border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-warm-grey">جاري تحميل الأحياء...</p>
-      </div>
-    );
+    return <LoadingState message="جاري تحميل الأحياء..." />;
   }
 
   if (towns.length === 0) {
-    return (
-      <div className="bg-white rounded-2xl shadow-md p-12 text-center">
-        <p className="text-warm-grey">لا توجد أحياء مسجلة</p>
-      </div>
-    );
+    return <EmptyState message="لا توجد أحياء مسجلة" />;
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead className="bg-gray-50 border-b border-gray-200">
+    <div className={tableStyles.container}>
+      <div className={tableStyles.wrapper}>
+        <table className={tableStyles.table}>
+          <thead className={tableStyles.head}>
             <tr>
-              <th className="px-6 py-4 text-right text-sm font-bold text-navy-blue">#</th>
-              <th className="px-6 py-4 text-right text-sm font-bold text-navy-blue">اسم الحي</th>
-              <th className="px-6 py-4 text-right text-sm font-bold text-navy-blue">العنوان</th>
-              <th className="px-6 py-4 text-right text-sm font-bold text-navy-blue">عدد الأصوات</th>
-              <th className="px-6 py-4 text-center text-sm font-bold text-navy-blue">الإجراءات</th>
+              <th className={tableStyles.th}>#</th>
+              <th className={tableStyles.th}>اسم الحي</th>
+              <th className={tableStyles.th}>العنوان</th>
+              <th className={tableStyles.th}>عدد الأصوات</th>
+              <th className={tableStyles.thCenter}>الإجراءات</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200">
+          <tbody className={tableStyles.body}>
             {towns.map((town, index) => (
-              <tr key={town.id} className="hover:bg-gray-50 transition-colors">
-                <td className="px-6 py-4 text-sm text-warm-grey">{index + 1}</td>
-                <td className="px-6 py-4 text-sm font-semibold text-navy-blue">{town.name}</td>
-                <td className="px-6 py-4 text-sm text-warm-grey">{town.address}</td>
-                <td className="px-6 py-4 text-sm text-warm-grey">{town.votes}</td>
-                <td className="px-6 py-4">
-                  <div className="flex items-center justify-center gap-2">
+              <tr key={town.id} className={tableStyles.row}>
+                <td className={tableStyles.cell}>{index + 1}</td>
+                <td className={tableStyles.cellSemibold}>{town.name}</td>
+                <td className={tableStyles.cell}>{town.address}</td>
+                <td className={tableStyles.cell}>{town.votes}</td>
+                <td className={tableStyles.cellCenter}>
+                  <div className={tableStyles.actionsSmall}>
                     <button
                       onClick={() => {
                         onEdit(town);
                       }}
-                      className="w-10 h-10 flex items-center justify-center rounded-xl bg-turquoise/10 text-turquoise hover:bg-turquoise hover:text-white transition-all"
+                      className={tableStyles.btnEdit}
                       title="تعديل"
                     >
                       <FaEdit className="w-4 h-4" />
@@ -64,7 +57,7 @@ export function TownsTable({ towns, isLoading, onEdit, onDelete }: TownsTablePro
                       onClick={() => {
                         onDelete(town.id);
                       }}
-                      className="w-10 h-10 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all"
+                      className={tableStyles.btnDelete}
                       title="حذف"
                     >
                       <FaTrash className="w-4 h-4" />

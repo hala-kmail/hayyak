@@ -16,12 +16,14 @@ export const API_BASE =
  * إنشاء Headers للطلبات من الـ Client (مع التوكن من localStorage)
  * للاستخدام في hooks و components
  */
-export function getClientAuthHeaders(): HeadersInit {
+export function getClientAuthHeaders(options?: { includeContentType?: boolean }): HeadersInit {
   const token = getAccessToken();
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
     accept: '*/*',
   };
+  if (options?.includeContentType !== false) {
+    headers['Content-Type'] = 'application/json';
+  }
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { FaTimes, FaSpinner, FaExclamationTriangle } from 'react-icons/fa';
+import { modalStyles } from './styles/modalStyles';
 
 interface DeleteConfirmationModalProps {
   isOpen: boolean;
@@ -48,65 +49,42 @@ export function DeleteConfirmationModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={onClose}
-      />
+    <div className={modalStyles.overlay}>
+      <div className={modalStyles.backdrop} onClick={onClose} />
 
-      {/* Modal */}
-      <div className="relative bg-white rounded-3xl shadow-2xl max-w-md w-full animate-fade-in-up">
-        {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-3xl z-10">
-          <h2 className="text-xl font-black text-navy-blue">{title}</h2>
+      <div className={modalStyles.modal}>
+        <div className={modalStyles.header}>
+          <h2 className={modalStyles.title}>{title}</h2>
           <button
             onClick={onClose}
             disabled={isDeleting}
-            className="w-10 h-10 rounded-xl bg-gray-50 hover:bg-gray-100 flex items-center justify-center text-warm-grey hover:text-navy-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className={modalStyles.closeBtnDisabled}
           >
             <FaTimes className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Content */}
-        <div className="px-6 py-6">
-          {/* Warning Icon */}
-          <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
-              <FaExclamationTriangle className="w-8 h-8 text-red-600" />
+        <div className={modalStyles.content}>
+          <div className={modalStyles.warningIconWrapper}>
+            <div className={modalStyles.warningIcon}>
+              <FaExclamationTriangle className={modalStyles.warningIconSvg} />
             </div>
           </div>
 
-          {/* Message */}
-          <div className="text-center mb-6">
-            <p className="text-base text-navy-blue font-semibold mb-2">{message}</p>
-            {itemName && (
-              <p className="text-lg text-navy-blue font-black">{itemName}</p>
-            )}
-            <p className="text-sm text-warm-grey mt-2">لا يمكن التراجع عن هذا الإجراء</p>
+          <div className={modalStyles.messageWrapper}>
+            <p className={modalStyles.messageText}>{message}</p>
+            {itemName && <p className={modalStyles.itemName}>{itemName}</p>}
+            <p className={modalStyles.messageHint}>لا يمكن التراجع عن هذا الإجراء</p>
           </div>
 
-          {/* Error Message */}
-          {/* {error && (
-            <div className="bg-red-50 border-2 border-red-200 rounded-xl p-4 mb-4">
-              <p className="text-sm font-bold text-red-800">{error}</p>
-            </div>
-          )} */}
-
-          {/* Buttons */}
-          <div className="flex gap-3">
-            <button
-              onClick={onClose}
-              disabled={isDeleting}
-              className="flex-1 py-3 bg-gray-100 text-navy-blue rounded-xl font-black text-base hover:bg-gray-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            >
+          <div className={modalStyles.buttonsGroup}>
+            <button onClick={onClose} disabled={isDeleting} className={modalStyles.cancelBtn}>
               إلغاء
             </button>
             <button
               onClick={handleConfirm}
               disabled={isDeleting}
-              className="flex-1 py-3 bg-red-600 text-white rounded-xl font-black text-base hover:bg-red-700 hover:shadow-lg hover:shadow-red-600/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className={modalStyles.confirmBtn}
             >
               {isDeleting ? (
                 <>

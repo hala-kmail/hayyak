@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaTimes, FaSpinner } from 'react-icons/fa';
 import { CreateAdminData } from '@/app/hooks/useAdmins';
+import { modalStyles } from './styles/modalStyles';
 
 interface AdminFormModalProps {
   isOpen: boolean;
@@ -79,32 +80,21 @@ export function AdminFormModal({ isOpen, onClose, onSubmit }: AdminFormModalProp
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={onClose}
-      />
+    <div className={modalStyles.overlay}>
+      <div className={modalStyles.backdrop} onClick={onClose} />
 
-      {/* Modal */}
-      <div className="relative bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto animate-fade-in-up">
-        {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-3xl z-10">
-          <h2 className="text-xl font-black text-navy-blue">إضافة أدمن جديد</h2>
-          <button
-            onClick={onClose}
-            className="w-10 h-10 rounded-xl bg-gray-50 hover:bg-gray-100 flex items-center justify-center text-warm-grey hover:text-navy-blue transition-colors"
-          >
+      <div className={modalStyles.modalScrollable}>
+        <div className={modalStyles.header}>
+          <h2 className={modalStyles.title}>إضافة أدمن جديد</h2>
+          <button onClick={onClose} className={modalStyles.closeBtn}>
             <FaTimes className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Content */}
-        <div className="px-6 py-6">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name Field */}
+        <div className={modalStyles.content}>
+          <form onSubmit={handleSubmit} className={modalStyles.form}>
             <div>
-              <label htmlFor="name" className="block text-sm font-bold text-navy-blue mb-2">
+              <label htmlFor="name" className={modalStyles.formLabel}>
                 الاسم
               </label>
               <input
@@ -115,14 +105,13 @@ export function AdminFormModal({ isOpen, onClose, onSubmit }: AdminFormModalProp
                   setName(e.target.value);
                 }}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-turquoise focus:outline-none transition-colors text-navy-blue"
+                className={modalStyles.formInput}
                 placeholder="مثال: محمد علي"
               />
             </div>
 
-            {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-bold text-navy-blue mb-2">
+              <label htmlFor="email" className={modalStyles.formLabel}>
                 البريد الإلكتروني
               </label>
               <input
@@ -133,14 +122,13 @@ export function AdminFormModal({ isOpen, onClose, onSubmit }: AdminFormModalProp
                   setEmail(e.target.value);
                 }}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-turquoise focus:outline-none transition-colors text-navy-blue"
+                className={modalStyles.formInput}
                 placeholder="مثال: admin@example.com"
               />
             </div>
 
-            {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-bold text-navy-blue mb-2">
+              <label htmlFor="password" className={modalStyles.formLabel}>
                 كلمة المرور
               </label>
               <input
@@ -152,23 +140,21 @@ export function AdminFormModal({ isOpen, onClose, onSubmit }: AdminFormModalProp
                 }}
                 required
                 minLength={6}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-turquoise focus:outline-none transition-colors text-navy-blue"
+                className={modalStyles.formInput}
                 placeholder="6 أحرف على الأقل"
               />
             </div>
 
-            {/* Error Message */}
             {error && (
-              <div className="bg-red-50 border-2 border-red-200 rounded-xl p-4">
-                <p className="text-sm font-bold text-red-800">{error}</p>
+              <div className={modalStyles.formError}>
+                <p className={modalStyles.formErrorText}>{error}</p>
               </div>
             )}
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 bg-turquoise text-white rounded-xl font-black text-base hover:shadow-lg hover:shadow-turquoise/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className={modalStyles.submitBtn}
             >
               {isSubmitting ? (
                 <>

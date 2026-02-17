@@ -234,7 +234,7 @@ export function useTowns() {
     try {
       const response = await fetch(`${API_BASE}/towns/${id}`, {
         method: 'DELETE',
-        headers: getClientAuthHeaders(),
+        headers: getClientAuthHeaders({ includeContentType: false }),
       });
 
       if (!response.ok) {

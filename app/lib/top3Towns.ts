@@ -1,10 +1,12 @@
 import { API_BASE } from '@/lib/api';
 
 export interface Top3Town {
-  rank: number;
-  townId: string;
+  rank?: number;
+  townId?: string;
+  id?: string;
   name: string;
   votes: number;
+  percentage?: number;
 }
 
 // Server-side function

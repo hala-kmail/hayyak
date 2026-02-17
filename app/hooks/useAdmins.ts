@@ -95,7 +95,7 @@ export function useAdmins() {
     try {
       const response = await fetch(`${API_BASE}/auth/admins/${id}`, {
         method: 'DELETE',
-        headers: getClientAuthHeaders(),
+        headers: getClientAuthHeaders({ includeContentType: false }),
       });
 
       if (!response.ok) {
@@ -123,7 +123,7 @@ export function useAdmins() {
     try {
       const response = await fetch(`${API_BASE}/auth/admins/${id}/toggle`, {
         method: 'PATCH',
-        headers: getClientAuthHeaders(),
+        headers: getClientAuthHeaders({ includeContentType: false }),
       });
 
       if (!response.ok) {

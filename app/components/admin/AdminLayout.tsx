@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Sidebar } from './Sidebar';
 import { isAuthenticated } from '@/lib/auth';
 import { FaBars } from 'react-icons/fa';
+import { layoutStyles } from './styles/layoutStyles';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -20,39 +21,33 @@ export function AdminLayout({ children }: AdminLayoutProps) {
     setMounted(true);
     const authStatus = isAuthenticated();
     setAuthenticated(authStatus);
-    
+
     if (!authStatus) {
       router.push('/admin/login');
     }
   }, [router]);
 
-  // During SSR and initial render, return null to avoid hydration mismatch
   if (!mounted) {
     return null;
   }
 
-  // After mount, check authentication
   if (!authenticated) {
-    return null; // Will redirect
+    return null;
   }
 
   return (
-    <div className="min-h-screen bg-gray-50" dir="rtl">
+    <div className={layoutStyles.layout} dir="rtl">
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-      
-      {/* Mobile menu button */}
+
       <button
         onClick={() => setIsSidebarOpen(true)}
-        className="lg:hidden fixed top-4 right-4 z-30 p-3 bg-white rounded-xl shadow-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+        className={layoutStyles.mobileMenuBtn}
         aria-label="فتح القائمة"
       >
-        <FaBars className="w-5 h-5 text-navy-blue" />
+        <FaBars className={layoutStyles.mobileMenuIcon} />
       </button>
 
-      {/* Main content */}
-      <main className="lg:mr-64 p-4 lg:p-8 pt-20 lg:pt-8">
-        {children}
-      </main>
+      <main className={layoutStyles.main}>{children}</main>
     </div>
   );
 }
