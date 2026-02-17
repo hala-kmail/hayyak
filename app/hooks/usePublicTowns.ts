@@ -167,9 +167,14 @@ export function usePublicTowns() {
     ]);
   };
 
+  // عرض البيانات حتى لو كانت بعض الطلبات لا تزال قيد التنفيذ
+  // هذا يضمن عرض أفضل 3 أحياء مباشرة عند توفر البيانات الأساسية
+  const isDataReady = towns.length > 0 && Object.keys(votesMap).length > 0;
+  const shouldShowLoading = isLoading && votesLoading && !isDataReady;
+
   return {
     neighborhoods,
-    isLoading: isLoading || votesLoading,
+    isLoading: shouldShowLoading,
     error: error || votesError,
     totalVotes,
     votesToday: votesTodayFromStats,

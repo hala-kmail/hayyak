@@ -49,7 +49,7 @@ export function AdminStats() {
             </div>
             <div>
               <h3 className="text-warm-grey text-sm font-semibold mb-1">إجمالي الأصوات</h3>
-              <p className="text-3xl font-black text-navy-blue">{stats.totalVotes.toLocaleString('ar-SA')}</p>
+              <p className="text-4xl font-bold text-navy-blue tracking-tight">{stats.totalVotes.toLocaleString('ar-SA')}</p>
             </div>
           </div>
 
@@ -60,7 +60,7 @@ export function AdminStats() {
             </div>
             <div>
               <h3 className="text-warm-grey text-sm font-semibold mb-1">أصوات اليوم</h3>
-              <p className="text-3xl font-black text-navy-blue">{stats.todayVotes.toLocaleString('ar-SA')}</p>
+              <p className="text-3xl font-bold text-navy-blue">{stats.todayVotes.toLocaleString('ar-SA')}</p>
             </div>
           </div>
 
@@ -71,7 +71,7 @@ export function AdminStats() {
             </div>
             <div>
               <h3 className="text-warm-grey text-sm font-semibold mb-1">عدد الأحياء</h3>
-              <p className="text-3xl font-black text-navy-blue">{stats.numberOfTowns.toLocaleString('ar-SA')}</p>
+              <p className="text-3xl font-bold text-navy-blue">{stats.numberOfTowns.toLocaleString('ar-SA')}</p>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@ export function AdminStats() {
               <div className="bg-turquoise/10 p-2 rounded-lg">
                 <FaMedal className="w-5 h-5 text-turquoise" />
               </div>
-              <h2 className="text-xl font-black text-navy-blue">أفضل 3 أحياء</h2>
+              <h2 className="text-xl font-bold text-navy-blue">أفضل 3 أحياء</h2>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -119,14 +119,14 @@ export function AdminStats() {
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className={`${style.rankBg} rounded-full w-12 h-12 flex items-center justify-center border-2 ${style.border}`}>
-                      <span className={`text-xl font-black ${style.rankText}`}>{town.rank}</span>
+                      <span className={`text-xl font-bold ${style.rankText}`}>{town.rank}</span>
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-lg font-black text-navy-blue mb-2">{town.name}</h3>
+                    <h3 className="text-lg font-bold text-navy-blue mb-2">{town.name}</h3>
                     <div className="flex items-center gap-2 mt-4">
                       <FaTrophy className={`w-5 h-5 ${style.accent}`} />
-                      <span className={`text-2xl font-black ${style.accent}`}>
+                      <span className={`text-2xl font-bold ${style.accent}`}>
                         {town.votes.toLocaleString('ar-SA')}
                       </span>
                       <span className="text-sm text-warm-grey">صوت</span>
@@ -147,7 +147,7 @@ export function AdminStats() {
               <div className="bg-yellow-100 p-2 rounded-lg">
                 <FaTrophy className="w-5 h-5 text-yellow-600" />
               </div>
-              <h2 className="text-xl font-black text-navy-blue">الأحياء المتقدمة</h2>
+              <h2 className="text-xl font-bold text-navy-blue">الأحياء المتقدمة</h2>
             </div>
           </div>
           <div className="overflow-x-auto">

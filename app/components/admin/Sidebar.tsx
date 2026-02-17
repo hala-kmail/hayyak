@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaHome, FaMapMarkedAlt, FaSignOutAlt, FaVoteYea, FaUsers } from 'react-icons/fa';
+import { FaHome, FaMapMarkedAlt, FaSignOutAlt, FaVoteYea, FaUsers, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
 import { removeAccessToken, isSuperAdmin } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
@@ -14,7 +14,12 @@ interface SidebarItem {
   icon: React.ReactNode;
 }
 
-export function Sidebar() {
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [isSuper, setIsSuper] = useState(false);
@@ -57,20 +62,43 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="fixed right-0 top-0 h-full w-64 bg-white shadow-lg border-l border-gray-200 flex flex-col" dir="rtl">
-      {/* Logo */}
-      <div className="p-6 border-b border-gray-200">
-        <Link href="/admin" className="flex items-center gap-3">
-          <Image
-            src="/images/sakany.png"
-            alt="سكني"
-            width={40}
-            height={40}
-            className="object-contain"
-          />
-          <span className="font-black text-xl text-navy-blue">لوحة التحكم</span>
-        </Link>
-      </div>
+    <>
+      {/* Backdrop overlay for mobile */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`fixed right-0 top-0 h-full w-64 bg-white shadow-lg border-l border-gray-200 flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
+        }`}
+        dir="rtl"
+      >
+        {/* Logo with close button */}
+        <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+          <Link href="/admin" className="flex items-center gap-3" onClick={onClose}>
+            <Image
+              src="/images/sakany.png"
+              alt="سكني"
+              width={40}
+              height={40}
+              className="object-contain"
+            />
+            <span className="font-black text-xl text-navy-blue">لوحة التحكم</span>
+          </Link>
+          {/* Close button for mobile */}
+          <button
+            onClick={onClose}
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            aria-label="إغلاق القائمة"
+          >
+            <FaTimes className="w-5 h-5 text-navy-blue" />
+          </button>
+        </div>
 
       {/* Menu Items */}
       <nav className="flex-1 p-4">
@@ -85,6 +113,7 @@ export function Sidebar() {
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  onClick={onClose}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
                     isActive
                       ? 'bg-turquoise text-white shadow-md'
@@ -103,7 +132,10 @@ export function Sidebar() {
       {/* Logout Button */}
       <div className="p-4 border-t border-gray-200">
         <button
-          onClick={handleLogout}
+          onClick={() => {
+            handleLogout();
+            onClose();
+          }}
           className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 transition-all duration-200"
         >
           <FaSignOutAlt className="w-5 h-5" />
@@ -111,5 +143,6 @@ export function Sidebar() {
         </button>
       </div>
     </aside>
+    </>
   );
 }

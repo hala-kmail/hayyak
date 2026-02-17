@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { AdminLayout } from '@/app/components/admin/AdminLayout';
 import { TownsTable } from '@/app/components/admin/TownsTable';
 import { TownFormModal } from '@/app/components/admin/TownFormModal';
+import { DeleteConfirmationModal } from '@/app/components/admin/DeleteConfirmationModal';
 import { useTowns, Town, CreateTownData, UpdateTownData } from '@/app/hooks/useTowns';
 import { FaPlus, FaSearch } from 'react-icons/fa';
 
@@ -12,6 +13,8 @@ export default function TownsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTown, setEditingTown] = useState<Town | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [townToDelete, setTownToDelete] = useState<Town | null>(null);
 
   const handleAdd = () => {
     setEditingTown(null);
@@ -39,9 +42,19 @@ export default function TownsPage() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (confirm('هل أنت متأكد من حذف هذا الحي؟')) {
-      await deleteTown(id);
+  const handleDeleteClick = (id: string) => {
+    const town = towns.find((t) => t.id === id);
+    if (town) {
+      setTownToDelete(town);
+      setIsDeleteModalOpen(true);
+    }
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (townToDelete) {
+      await deleteTown(townToDelete.id);
+      setIsDeleteModalOpen(false);
+      setTownToDelete(null);
     }
   };
 
@@ -96,7 +109,7 @@ export default function TownsPage() {
           towns={towns}
           isLoading={isLoading}
           onEdit={handleEdit}
-          onDelete={handleDelete}
+          onDelete={handleDeleteClick}
         />
 
         {isModalOpen && (
@@ -108,6 +121,20 @@ export default function TownsPage() {
             }}
             onSubmit={handleSubmit}
             town={editingTown}
+          />
+        )}
+
+        {isDeleteModalOpen && townToDelete && (
+          <DeleteConfirmationModal
+            isOpen={isDeleteModalOpen}
+            onClose={() => {
+              setIsDeleteModalOpen(false);
+              setTownToDelete(null);
+            }}
+            onConfirm={handleDeleteConfirm}
+            title="تأكيد حذف الحي"
+            message="هل أنت متأكد من حذف هذا الحي؟"
+            itemName={townToDelete.name}
           />
         )}
       </div>

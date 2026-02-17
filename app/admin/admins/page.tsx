@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { AdminLayout } from '@/app/components/admin/AdminLayout';
 import { AdminsTable } from '@/app/components/admin/AdminsTable';
 import { AdminFormModal } from '@/app/components/admin/AdminFormModal';
-import { useAdmins, CreateAdminData } from '@/app/hooks/useAdmins';
+import { DeleteConfirmationModal } from '@/app/components/admin/DeleteConfirmationModal';
+import { useAdmins, CreateAdminData, Admin } from '@/app/hooks/useAdmins';
 import { isSuperAdmin } from '@/lib/auth';
 import { FaPlus } from 'react-icons/fa';
 
@@ -13,6 +14,8 @@ export default function AdminsPage() {
   const router = useRouter();
   const { admins, isLoading, error, createAdmin, deleteAdmin, toggleAdminStatus } = useAdmins();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [adminToDelete, setAdminToDelete] = useState<Admin | null>(null);
 
   // التحقق من أن المستخدم هو سوبر أدمن
   useEffect(() => {
@@ -38,9 +41,19 @@ export default function AdminsPage() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (confirm('هل أنت متأكد من حذف هذا الأدمن؟')) {
-      await deleteAdmin(id);
+  const handleDeleteClick = (id: string) => {
+    const admin = admins.find((a) => a.id === id);
+    if (admin) {
+      setAdminToDelete(admin);
+      setIsDeleteModalOpen(true);
+    }
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (adminToDelete) {
+      await deleteAdmin(adminToDelete.id);
+      setIsDeleteModalOpen(false);
+      setAdminToDelete(null);
     }
   };
 
@@ -76,7 +89,7 @@ export default function AdminsPage() {
           admins={admins}
           isLoading={isLoading}
           onToggle={handleToggle}
-          onDelete={handleDelete}
+          onDelete={handleDeleteClick}
         />
 
         {isModalOpen && (
@@ -86,6 +99,20 @@ export default function AdminsPage() {
               setIsModalOpen(false);
             }}
             onSubmit={handleSubmit}
+          />
+        )}
+
+        {isDeleteModalOpen && adminToDelete && (
+          <DeleteConfirmationModal
+            isOpen={isDeleteModalOpen}
+            onClose={() => {
+              setIsDeleteModalOpen(false);
+              setAdminToDelete(null);
+            }}
+            onConfirm={handleDeleteConfirm}
+            title="تأكيد حذف الأدمن"
+            message="هل أنت متأكد من حذف هذا الأدمن؟"
+            itemName={adminToDelete.name}
           />
         )}
       </div>

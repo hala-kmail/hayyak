@@ -34,7 +34,7 @@ export function NeighborhoodsGrid({
   const [selectedNeighborhood, setSelectedNeighborhood] =
     useState<NeighborhoodItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<TabType>('all');
+  const [activeTab, setActiveTab] = useState<TabType>('top');
   const [searchQuery, setSearchQuery] = useState('');
   const { scrollContainerRef, scroll } = useHorizontalScroll();
 

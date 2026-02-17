@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export interface ElectionStatus {
   isOpen: boolean;
@@ -15,37 +15,49 @@ export function useElectionStatus() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchStatus = async () => {
-      try {
-        // استخدام cache من المتصفح لتقليل الطلبات المتكررة
-        const response = await fetch('/api/admin/election/status', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          // استخدام cache لمدة 5 ثوانٍ لتقليل الطلبات المتكررة
-          cache: 'default',
-        });
+  const fetchStatus = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
 
-        if (!response.ok) {
-          throw new Error('فشل في جلب حالة التصويت');
-        }
+    try {
+      // استخدام timestamp لتجنب الـ cache وضمان الحصول على أحدث البيانات
+      const response = await fetch(`/api/admin/election/status?t=${Date.now()}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // إزالة الـ cache لضمان الحصول على أحدث البيانات
+        cache: 'no-store',
+      });
 
-        const data = await response.json();
-        setStatus(data);
-      } catch (err: any) {
-        console.error('Error fetching election status:', err);
-        setError(err.message || 'حدث خطأ في جلب حالة التصويت.');
-        // في حالة الخطأ، افترض أن التصويت مغلق
-        setStatus({ isOpen: false, mode: 'manual' });
-      } finally {
-        setIsLoading(false);
+      if (!response.ok) {
+        throw new Error('فشل في جلب حالة التصويت');
       }
-    };
 
-    fetchStatus();
+      const data = await response.json();
+      setStatus(data);
+    } catch (err: any) {
+      console.error('Error fetching election status:', err);
+      setError(err.message || 'حدث خطأ في جلب حالة التصويت.');
+      // في حالة الخطأ، افترض أن التصويت مغلق
+      setStatus({ isOpen: false, mode: 'manual' });
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
-  return { status, isLoading, error };
+  useEffect(() => {
+    fetchStatus();
+
+    // إعادة جلب البيانات تلقائياً كل 5 ثوانٍ للتأكد من تحديث الحالة
+    const interval = setInterval(() => {
+      fetchStatus();
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [fetchStatus]);
+
+  return { status, isLoading, error, refetch: fetchStatus };
 }

@@ -32,10 +32,12 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(data, { status: response.status });
     }
 
-    // إضافة cache headers للاستجابة - يتم تحديث البيانات كل 10 ثوانٍ
+    // تقليل الـ cache لضمان تحديث البيانات فوراً عند التغيير
     return NextResponse.json(data, {
       headers: {
-        'Cache-Control': 'public, s-maxage=10, stale-while-revalidate=30',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
       },
     });
   } catch (error: any) {
