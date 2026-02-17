@@ -62,7 +62,7 @@ export function Sidebar() {
       <div className="p-6 border-b border-gray-200">
         <Link href="/admin" className="flex items-center gap-3">
           <Image
-            src="/images/sakani.png"
+            src="/images/sakany.png"
             alt="سكني"
             width={40}
             height={40}

@@ -1,10 +1,26 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { FaHome, FaHeart, FaHandsHelping } from 'react-icons/fa';
+import Image from 'next/image';
+
+const LOGO_HABEEB = '/images/habeeb.png';
+const LOGO_SAKANI = '/images/sakany.png';
+
+type SectionItem = {
+  id: string;
+  title: string;
+  description: string;
+  textColor: string;
+  accentColor: string;
+  delay: number;
+  logo?: string | null;
+  logoFallback?: string;
+  linkUrl?: string;
+};
 
 export function IntroSections() {
   const [isVisible, setIsVisible] = useState(false);
+  const [habeebError, setHabeebError] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -30,80 +46,111 @@ export function IntroSections() {
     };
   }, []);
 
-  const sections = [
+  const sections: SectionItem[] = [
     {
       id: 'sakani',
       title: 'سكني',
-      description: 'منصة سكني تهدف إلى تطوير وتحسين الأحياء السكنية من خلال مشاركة المجتمع في اتخاذ القرارات التي تهم حياتهم اليومية.',
-      color: 'bg-turquoise',
+      description: `منصة 'سكني' الإلكترونية، إحدى مبادرات وزارة البلديات والإسكان السعودية، تقدم حلولاً شاملة لتملك المسكن الأول؛ من وحدات جاهزة وتحت الإنشاء، إلى الأراضي المجانية والبناء الذاتي. استفد من خدمات التحقق الفوري من الاستحقاق، الحجز الإلكتروني، الحاسبة التمويلية، وتوقيع العقود رقمياً.`,
+      textColor: 'text-turquoise',
+      accentColor: 'bg-turquoise',
+      logo: LOGO_SAKANI,
       delay: 0,
     },
     {
       id: 'alhabib',
       title: 'الحبيب',
-      description: 'حي الحبيب هو أحد الأحياء المميزة في المدينة، يتميز بموقع استراتيجي وخدمات متكاملة.',
-      color: 'bg-sand-brown',
-      delay: 150,
+      description: `شريكك الموثوق في التطوير العقاري منذ 1972، نجمع بين تاريخ عريق وخبرة تمتد لأكثر من 50 مشروعًا و350 خبيرًا، لنحول طموحاتك إلى واقع بقيم الثقة والجودة والابتكار.`,
+      textColor: 'text-sand-brown',
+      accentColor: 'bg-sand-brown',
+      logo: LOGO_HABEEB,
+      logoFallback: LOGO_HABEEB,
+      delay: 100,
+      linkUrl: 'https://www.alhabibinv.com/',
     },
     {
       id: 'seventh-neighbor',
       title: 'خدمة سابع جار',
-      description: 'خدمة سابع جار هي مبادرة مجتمعية تهدف إلى تعزيز التواصل والترابط بين الجيران.',
-      color: 'bg-quite-purple',
-      delay: 300,
+      description: `خدمة 'سابع جار' هي حل رقمي مبتكر متاح عبر منصة سكني (تطبيق أو موقع)، يهدف إلى تعزيز إدارة الأصول والمرافق السكنية بشراكات تقنية نوعية. استمتع بتجربة متكاملة ترفع كفاءة الخدمات العقارية، ويمكنك الوصول إليها بسهولة عبر التطبيق أو الاتصال بالرقم الموحد 199090.`,
+      textColor: 'text-quite-purple',
+      accentColor: 'bg-quite-purple',
+      logo: null,
+      delay: 200,
     },
   ];
 
+  const renderLogo = (section: SectionItem) => {
+    if (!section.logo) return null;
+
+    const isAlhabib = section.id === 'alhabib';
+    const logoSrc = isAlhabib && habeebError && section.logoFallback ? section.logoFallback : section.logo;
+
+    const imageEl = isAlhabib ? (
+      <img
+        src={logoSrc}
+        alt={section.title}
+        width={96}
+        height={96}
+        className="object-contain w-20  md:w-28 "
+        onError={() => setHabeebError(true)}
+      />
+    ) : (
+      <Image
+        src={section.logo}
+        alt={section.title}
+        width={96}
+        height={32}
+        className="object-contain w-20  md:w-24 "
+      />
+    );
+
+    if (section.linkUrl) {
+      return (
+        <a
+          href={section.linkUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block hover:opacity-90 hover:scale-105 transition-all duration-300"
+          aria-label={`زيارة موقع ${section.title}`}
+        >
+          {imageEl}
+        </a>
+      );
+    }
+    return imageEl;
+  };
+
   return (
-    <section ref={sectionRef} className="py-20 md:py-28 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Intro Cards with Triangle on Edge */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+    <section ref={sectionRef} className="py-14 md:py-20 bg-white relative overflow-hidden">
+      <div className="absolute inset-0 opacity-30 pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-turquoise/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-quite-purple/10 rounded-full blur-3xl" />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
           {sections.map((section, index) => (
             <div
               key={section.id}
-              className={`group relative transition-all duration-700 ease-out ${
-                isVisible
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-8'
-              }`}
-              style={{
-                transitionDelay: `${section.delay}ms`,
-              }}
+              className={`group relative ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} transition-all duration-500 ease-out`}
+              style={{ transitionDelay: `${section.delay}ms` }}
             >
-              {/* Regular Card with Triangle on Edge */}
-              <div className="relative bg-white rounded-xl shadow-md group-hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
-                {/* Colored Triangle on Top-Left Edge */}
-                <div className="absolute top-0 left-0 w-0 h-0">
-                  {/* Outer colored triangle */}
-                  <div
-                    className={`absolute top-0 left-0 ${section.color}`}
-                    style={{
-                      width: '100px',
-                      height: '100px',
-                      clipPath: 'polygon(0 0, 100% 0, 0 100%)',
-                    }}
-                  />
-                  {/* Inner grey triangle */}
-                  <div
-                    className="absolute top-0 left-0 bg-warm-grey opacity-90"
-                    style={{
-                      width: '70px',
-                      height: '70px',
-                      clipPath: 'polygon(0 0, 100% 0, 0 100%)',
-                    }}
-                  />
+              <div className="h-full flex flex-col items-center text-center p-6 md:p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300">
+                {/* عند وجود لوجو: نعرض اللوجو فقط. عند عدمه: نعرض العنوان فقط */}
+                <div className="flex flex-row items-center justify-center gap-3 mb-4 shrink-0">
+                  {section.logo ? (
+                    <div className="flex items-center justify-center shrink-0">
+                      {renderLogo(section)}
+                    </div>
+                  ) : (
+                    <h3 className={`text-xl md:text-2xl font-black ${section.textColor}`}>
+                      {section.title}
+                    </h3>
+                  )}
                 </div>
-                
-                {/* Card Content */}
-                <div className="relative z-10 p-6 md:p-8 pt-12 md:pt-14">
-                  <h3 className={`text-2xl md:text-3xl font-black ${section.color.replace('bg-', 'text-')} mb-4`}>
-                    {section.title}
-                  </h3>
-                  <p className="text-warm-grey text-sm md:text-base leading-relaxed text-right">
-                    {section.description}
-                  </p>
-                </div>
+                <div className={`w-12 h-1 rounded-full ${section.accentColor} mb-4 opacity-80 shrink-0`} />
+                <p className="text-warm-grey text-sm leading-relaxed max-w-sm flex-1 min-h-0">
+                  {section.description}
+                </p>
               </div>
             </div>
           ))}

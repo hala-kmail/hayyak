@@ -3,7 +3,7 @@
 
 type AppRoutes = "/" | "/admin" | "/admin/admins" | "/admin/election" | "/admin/login" | "/admin/towns"
 type AppRouteHandlerRoutes = "/api/admin/admins" | "/api/admin/admins/[id]" | "/api/admin/admins/[id]/toggle" | "/api/admin/election/config" | "/api/admin/election/status" | "/api/admin/towns" | "/api/admin/towns/[id]" | "/api/towns" | "/api/votes"
-type PageRoutes = "/" | "/404" | "/_app"
+type PageRoutes = never
 type LayoutRoutes = "/"
 type RedirectRoutes = never
 type RewriteRoutes = never
@@ -12,8 +12,6 @@ type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRo
 
 interface ParamMap {
   "/": {}
-  "/_app": {}
-  "/404": {}
   "/admin": {}
   "/admin/admins": {}
   "/admin/election": {}

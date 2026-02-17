@@ -72,7 +72,7 @@ export function Header() {
               <Link href="/" className="flex items-center gap-3 group">
                 <div className="relative">
                   <Image
-                    src="/images/sakani.png"
+                    src="/images/sakany.png"
                     alt="سكني"
                     width={scrolled ? 50 : 56}
                     height={scrolled ? 50 : 56}
@@ -172,7 +172,7 @@ export function Header() {
               <div className="flex items-center justify-between mb-4">
                 <Link href="/" className="flex items-center gap-3" onClick={closeMenu}>
                   <Image
-                    src="/images/sakani.png"
+                    src="/images/sakany.png"
                     alt="سكني"
                     width={48}
                     height={48}

@@ -7,7 +7,6 @@ import {
   IntroSections,
   NeighborhoodsGrid,
   PageAccent,
-  StatsSection,
   HowItWorks,
   Footer,
 } from '@/app/components/home';

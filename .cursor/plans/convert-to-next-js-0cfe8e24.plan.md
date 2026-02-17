@@ -1,4 +1,13 @@
-<!-- 0cfe8e24-57ca-4ee9-bcd7-65d681722fda fed5538e-ba85-4017-91c4-82eb8102c4b5 -->
+---
+name: Convert Project from React Native/Expo to Next.js
+overview: ""
+todos:
+  - id: 9ac966e9-8375-48b7-8f6f-83d906bc9178
+    content: Update index.ts files with Next.js examples in JSDoc comments
+    status: pending
+isProject: false
+---
+
 # Convert Project from React Native/Expo to Next.js
 
 ## Overview
@@ -142,17 +151,3 @@ Convert all documentation files and code examples/implementations from React Nat
 - Update all code examples in JSDoc comments
 - Ensure all components use standard HTML elements
 - Update routing references from Expo Router to Next.js Pages Router
-
-### To-dos
-
-- [ ] Update root README.md and all completion/summary markdown files (BASE_LAYER_COMPLETE.md, BASE_LAYER_SUMMARY.md, BASE_STARTER_PROJECT_COMPLETE.md, COMPLETE_DELIVERABLES.md)
-- [ ] Update base-starter-project documentation files (README.md, SETUP.md, base/README.md, base/docs/architecture.md, base/examples/README.md, assets/images/README.md)
-- [ ] Update example directory documentation files (README.md, docs/architecture.md, examples/README.md)
-- [ ] Convert all example files in base-starter-project/base/examples/ (ListScreen, FormScreen, DetailScreen, ThemeUsage)
-- [ ] Convert all example files in example/examples/ (ListScreen, FormScreen, DetailScreen, ThemeUsage)
-- [ ] Convert UI components (OView, OText, OButton, OCard, OIcon, OBadge, OSkeleton) from React Native to web equivalents
-- [ ] Convert form components (OTextInput, OSwitch) from React Native to web equivalents
-- [ ] Convert layout and feedback components (ScreenLayout, OLoadingSpinner, OEmptyState, OErrorState) from React Native to web equivalents
-- [ ] Update hooks (useKeyboard, useResponsive, and review others) for web compatibility
-- [ ] Update utility files (storage.ts and review others) for web compatibility
-- [ ] Update index.ts files with Next.js examples in JSDoc comments

@@ -5,7 +5,6 @@ export { IntroSections } from './IntroSections';
 export { NeighborhoodCard } from './NeighborhoodCard';
 export { NeighborhoodsGrid } from './NeighborhoodsGrid';
 export { PageAccent } from './PageAccent';
-export { default as StatsSection } from './StatsSection';
 export { default as HowItWorks } from './HowItWorks';
 export { default as Footer } from './Footer';
 export { MOCK_NEIGHBORHOODS, totalVotes, type NeighborhoodItem } from './data';

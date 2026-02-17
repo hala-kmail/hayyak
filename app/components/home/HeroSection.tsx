@@ -2,9 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  FaLightbulb,
-  FaChartLine,
-  FaVoteYea,
   FaChevronLeft,
   FaStar,
   FaHome,
@@ -133,16 +130,16 @@ export function HeroSection({
   }, [stats, totalVotes, neighborhoodsCount, votesToday]);
 
   return (
-    <section className="relative overflow-hidden bg-white ">
+    <section className="relative overflow-hidden bg-white border-b-[5px] border-white ">
       {/* الخلفية الملونة بالتدرج اللوني */}
-      <div className="relative h-[600px] md:h-[680px] w-full bg-gradient-to-br from-navy-blue to-turquoise flex items-center overflow-hidden">
+      <div className="relative h-[640px] md:h-[680px] w-full bg-gradient-to-br from-navy-blue to-turquoise flex items-center overflow-hidden">
         <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] animate-pulse-slow" />
         <div className="absolute bottom-[-10%] left-[0%] w-[400px] h-[400px] bg-turquoise/10 rounded-full blur-[100px]" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-            {/* الجانب النصي - الأيمن */}
-            <div className="lg:w-3/5 text-right text-white">
+            {/* الجانب النصي - في المنتصف على الموبايل، يمين على الديسكتوب */}
+            <div className="lg:w-3/5 text-center lg:text-right text-white w-full flex flex-col items-center lg:items-start">
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-lg px-5 py-2 rounded-2xl text-xs font-black mb-8 border border-white/20 shadow-xl shadow-black/5 animate-fade-in-up">
                 <span className="flex h-2 w-2 relative">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-turquoise opacity-75" />
@@ -161,7 +158,7 @@ export function HeroSection({
                 أيام رمضان المبارك 2026
               </p>
 
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                 <a
                   href="#districts"
                   className="px-8 py-3 bg-white text-navy-blue rounded-xl font-black text-base hover:bg-turquoise hover:text-white transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-turquoise/20 flex items-center gap-3 group active:scale-[0.97] border border-white/20 hover:border-turquoise/30"
@@ -200,90 +197,36 @@ export function HeroSection({
                   </div>
                 </div>
               </div>
-
-              {/* الإحصائيات تحت الرسمة - ديسكتوب */}
-              <div className="flex flex-row items-center justify-center gap-6 w-full max-w-sm mt-10">
-                <div className="flex items-center gap-3 group">
-                  {/* <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 group-hover:bg-white/20 transition-all shrink-0">
-                    <FaLightbulb className="w-4 h-4" />
-                  </div> */}
-                  <div className="text-center">
-                    <div className="text-xl font-black text-white leading-tight">
-                      <AnimatedCounter value={neighborhoodsCount} duration={2000} />
-                    </div>
-                    <div className="text-[10px] font-bold text-white/80 uppercase tracking-tight">
-                      أحياء متقدمة
-                    </div>
-                  </div>
-                </div>
-                <div className="w-px h-10 bg-white/20" />
-                <div className="flex items-center gap-3 group">
-                  {/* <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 group-hover:bg-white/20 transition-all shrink-0">
-                    <FaChartLine className="w-4 h-4" />
-                  </div> */}
-                    <div className="text-center">
-                    <div className="text-xl font-black text-white leading-tight">
-                      <AnimatedCounter value={votesToday} duration={2000} />
-                    </div>
-                    <div className="text-[10px] font-bold text-white/80 uppercase tracking-tight">
-                      صوت اليوم
-                    </div>
-                  </div>
-                </div>
-                <div className="w-px h-10 bg-white/20" />
-                <div className="flex items-center gap-3 group">
-                  {/* <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 group-hover:bg-white/20 transition-all shrink-0">
-                    <FaVoteYea className="w-4 h-4" />
-                  </div> */}
-                  <div className="text-center">
-                    <div className="text-xl font-black text-white leading-tight">
-                      <AnimatedCounter value={totalVotes} duration={2000} />
-                    </div>
-                    <div className="text-[10px] font-bold text-white/80 uppercase tracking-tight">
-                      إجمالي الأصوات
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 
-          {/* الإحصائيات على الموبايل - تحت النص */}
-          <div className="mt-10 lg:hidden w-full">
-            <div className="flex flex-row items-center justify-center gap-4 flex-wrap">
-              <div className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 shrink-0">
-                  <FaLightbulb className="w-4 h-4" />
+          {/* الإحصائيات - تظهر دائماً على كل الأجهزة */}
+          <div className="mt-10 flex w-full justify-center">
+            <div className="flex flex-row items-center justify-center gap-4 sm:gap-6">
+              <div className="text-center">
+                <div className="text-xl font-black text-white leading-tight">
+                  <AnimatedCounter value={neighborhoodsCount} duration={2000} />
                 </div>
-                <div className="text-right">
-                  <div className="text-lg font-black text-white leading-tight">
-                    <AnimatedCounter value={neighborhoodsCount} duration={2000} />
-                  </div>
-                  <div className="text-[10px] font-bold text-white/80">أحياء متقدمة</div>
+                <div className="text-[10px] font-bold text-white/80 uppercase tracking-tight">
+                  أحياء متقدمة
                 </div>
               </div>
-              <div className="w-px h-8 bg-white/20" />
-              <div className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 shrink-0">
-                  <FaChartLine className="w-4 h-4" />
+              <div className="w-px h-10 bg-white/20" />
+              <div className="text-center">
+                <div className="text-xl font-black text-white leading-tight">
+                  <AnimatedCounter value={votesToday} duration={2000} />
                 </div>
-                <div className="text-right">
-                  <div className="text-lg font-black text-white leading-tight">
-                    <AnimatedCounter value={votesToday} duration={2000} />
-                  </div>
-                  <div className="text-[10px] font-bold text-white/80">صوت اليوم</div>
+                <div className="text-[10px] font-bold text-white/80 uppercase tracking-tight">
+                  صوت اليوم
                 </div>
               </div>
-              <div className="w-px h-8 bg-white/20" />
-              <div className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 shrink-0">
-                  <FaVoteYea className="w-4 h-4" />
+              <div className="w-px h-10 bg-white/20" />
+              <div className="text-center">
+                <div className="text-xl font-black text-white leading-tight">
+                  <AnimatedCounter value={totalVotes} duration={2000} />
                 </div>
-                <div className="text-right">
-                  <div className="text-lg font-black text-white leading-tight">
-                    <AnimatedCounter value={totalVotes} duration={2000} />
-                  </div>
-                  <div className="text-[10px] font-bold text-white/80">إجمالي الأصوات</div>
+                <div className="text-[10px] font-bold text-white/80 uppercase tracking-tight">
+                  إجمالي الأصوات
                 </div>
               </div>
             </div>
@@ -291,7 +234,7 @@ export function HeroSection({
         </div>
 
         {/* فاصل الموجة السفلي - موجة مثلثية واحدة */}
-        <div className="absolute bottom-0 left-0 w-full leading-[0] z-10">
+        <div className="absolute bottom-[-1px] left-0 w-full leading-[0] z-10">
           <svg
             viewBox="0 0 1440 100"
             xmlns="http://www.w3.org/2000/svg"
