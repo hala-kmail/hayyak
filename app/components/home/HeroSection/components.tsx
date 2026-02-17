@@ -4,13 +4,29 @@ import React from 'react';
 import { FaChevronLeft, FaStar, FaHome, FaHeart } from 'react-icons/fa';
 import { AnimatedCounter } from '@/base/components/ui/AnimatedCounter';
 import { heroStyles } from './styles';
-import { HeroContentProps, HeroStatItemProps } from './types';
+import { HeroContentProps, HeroStatItemProps, HeroStatsData } from './types';
+
+interface HeroBadgeProps {
+  isOpen: boolean;
+}
+
+interface HeroCTAProps {
+  isOpen: boolean;
+}
 
 /**
  * Hero Badge Component
  * Following Single Responsibility Principle - only handles badge display
  */
-export function HeroBadge() {
+export function HeroBadge({ isOpen }: HeroBadgeProps) {
+  if (!isOpen) {
+    return (
+      <div className={heroStyles.badge}>
+        غير مسموح بالتصويت
+      </div>
+    );
+  }
+
   return (
     <div className={heroStyles.badge}>
       <span className={heroStyles.badgeIndicator}>
@@ -26,7 +42,11 @@ export function HeroBadge() {
  * Hero CTA Button Component
  * Following Single Responsibility Principle - only handles CTA button
  */
-export function HeroCTA() {
+export function HeroCTA({ isOpen }: HeroCTAProps) {
+  if (!isOpen) {
+    return null
+       
+  }
   return (
     <div className={heroStyles.ctaWrapper}>
       <a href="#districts" className={heroStyles.ctaButton}>
@@ -70,7 +90,8 @@ export function HeroVisualBadge() {
  * Hero Stat Item Component
  * Following Single Responsibility Principle - only handles single stat display
  */
-export function HeroStatItem({ value, label }: HeroStatItemProps) {
+export function HeroStatItem({ value, label}: HeroStatItemProps) {
+ 
   return (
     <div className={heroStyles.statItem}>
       <div className={heroStyles.statValue}>
@@ -85,7 +106,10 @@ export function HeroStatItem({ value, label }: HeroStatItemProps) {
  * Hero Stats Component
  * Following Single Responsibility Principle - only handles stats display
  */
-export function HeroStats({ stats }: HeroContentProps) {
+export function HeroStats({ stats, isOpen }: { stats: HeroStatsData; isOpen: boolean }) {
+  if (!isOpen) {
+    return null;
+  }
   return (
     <div className={heroStyles.statsWrapper}>
       <div className={heroStyles.statsContainer}>
@@ -103,12 +127,12 @@ export function HeroStats({ stats }: HeroContentProps) {
  * Hero Content Component
  * Following Single Responsibility Principle - only handles content layout
  */
-export function HeroContent({ stats }: HeroContentProps) {
+export function HeroContent({ stats, isElectionOpen }: HeroContentProps) {
   return (
     <>
       <div className={heroStyles.mainContent}>
         <div className={heroStyles.textContent}>
-          <HeroBadge />
+          <HeroBadge isOpen={isElectionOpen} />
           <h1 className={heroStyles.title}>
             صوّت لحيّك <br />
             <span className={heroStyles.titleAccent}>
@@ -119,10 +143,11 @@ export function HeroContent({ stats }: HeroContentProps) {
             اختر حيك المفضل وكن سبب فوزه باحتفالية الحوامة التقليدية في آخر
             أيام رمضان المبارك 2026
           </p>
-          <HeroCTA />
+          <HeroCTA  isOpen={isElectionOpen}/>
         </div>
         <div className={heroStyles.visualContent}>
-          <HeroVisualBadge /><HeroStats stats={stats} />
+          {isElectionOpen && <HeroVisualBadge />}
+          <HeroStats stats={stats} isOpen={isElectionOpen} />
         </div>
       </div>
       

@@ -2,10 +2,12 @@
 
 import React from 'react';
 import { useStats, StatsData } from '@/app/hooks/useStats';
-import { FaVoteYea, FaCalendarDay, FaMapMarkedAlt, FaTrophy } from 'react-icons/fa';
+import { useTop3Towns } from '@/app/hooks/useTop3Towns';
+import { FaVoteYea, FaCalendarDay, FaMapMarkedAlt, FaTrophy, FaMedal } from 'react-icons/fa';
 
 export function AdminStats() {
   const { stats, isLoading, error } = useStats();
+  const { top3Towns, isLoading: top3Loading, error: top3Error } = useTop3Towns();
 
   if (isLoading) {
     return (
@@ -38,40 +40,104 @@ export function AdminStats() {
   return (
     <div className="space-y-6">
       {/* إحصائيات عامة */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* إجمالي الأصوات */}
-        <div className="bg-white rounded-2xl shadow-md p-6 border-r-4 border-turquoise">
-          <div className="flex items-center justify-between mb-4">
+      <div className="bg-white rounded-2xl shadow-md p-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* إجمالي الأصوات */}
+          <div className="flex items-center gap-4">
             <div className="bg-turquoise/10 p-3 rounded-xl">
               <FaVoteYea className="w-6 h-6 text-turquoise" />
             </div>
+            <div>
+              <h3 className="text-warm-grey text-sm font-semibold mb-1">إجمالي الأصوات</h3>
+              <p className="text-3xl font-black text-navy-blue">{stats.totalVotes.toLocaleString('ar-SA')}</p>
+            </div>
           </div>
-          <h3 className="text-warm-grey text-sm font-semibold mb-2">إجمالي الأصوات</h3>
-          <p className="text-3xl font-black text-navy-blue">{stats.totalVotes.toLocaleString('ar-SA')}</p>
-        </div>
 
-        {/* أصوات اليوم */}
-        <div className="bg-white rounded-2xl shadow-md p-6 border-r-4 border-green-500">
-          <div className="flex items-center justify-between mb-4">
+          {/* أصوات اليوم */}
+          <div className="flex items-center gap-4 border-r border-gray-200 md:pr-6">
             <div className="bg-green-100 p-3 rounded-xl">
               <FaCalendarDay className="w-6 h-6 text-green-600" />
             </div>
+            <div>
+              <h3 className="text-warm-grey text-sm font-semibold mb-1">أصوات اليوم</h3>
+              <p className="text-3xl font-black text-navy-blue">{stats.todayVotes.toLocaleString('ar-SA')}</p>
+            </div>
           </div>
-          <h3 className="text-warm-grey text-sm font-semibold mb-2">أصوات اليوم</h3>
-          <p className="text-3xl font-black text-navy-blue">{stats.todayVotes.toLocaleString('ar-SA')}</p>
-        </div>
 
-        {/* عدد الأحياء */}
-        <div className="bg-white rounded-2xl shadow-md p-6 border-r-4 border-blue-500">
-          <div className="flex items-center justify-between mb-4">
+          {/* عدد الأحياء */}
+          <div className="flex items-center gap-4 border-r border-gray-200 md:pr-6">
             <div className="bg-blue-100 p-3 rounded-xl">
               <FaMapMarkedAlt className="w-6 h-6 text-blue-600" />
             </div>
+            <div>
+              <h3 className="text-warm-grey text-sm font-semibold mb-1">عدد الأحياء</h3>
+              <p className="text-3xl font-black text-navy-blue">{stats.numberOfTowns.toLocaleString('ar-SA')}</p>
+            </div>
           </div>
-          <h3 className="text-warm-grey text-sm font-semibold mb-2">عدد الأحياء</h3>
-          <p className="text-3xl font-black text-navy-blue">{stats.numberOfTowns.toLocaleString('ar-SA')}</p>
         </div>
       </div>
+
+      {/* أفضل 3 أحياء */}
+      {!top3Loading && !top3Error && top3Towns.length > 0 && (
+        <div>
+          <div className="mb-6">
+            <div className="flex items-center gap-3">
+              <div className="bg-turquoise/10 p-2 rounded-lg">
+                <FaMedal className="w-5 h-5 text-turquoise" />
+              </div>
+              <h2 className="text-xl font-black text-navy-blue">أفضل 3 أحياء</h2>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {top3Towns.map((town) => {
+              const cardStyles = [
+                { 
+                  border: 'border-turquoise',
+                  rankBg: 'bg-turquoise/10',
+                  rankText: 'text-turquoise',
+                  accent: 'text-turquoise'
+                },
+                { 
+                  border: 'border-grey-blue',
+                  rankBg: 'bg-grey-blue/10',
+                  rankText: 'text-grey-blue',
+                  accent: 'text-grey-blue'
+                },
+                { 
+                  border: 'border-sand-brown',
+                  rankBg: 'bg-sand-brown/10',
+                  rankText: 'text-sand-brown',
+                  accent: 'text-sand-brown'
+                },
+              ];
+              const style = cardStyles[town.rank - 1] || cardStyles[0];
+              
+              return (
+                <div
+                  key={town.townId}
+                  className={`relative bg-white rounded-xl p-6 shadow-lg border-r-4 ${style.border} transform transition-all hover:scale-105`}
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`${style.rankBg} rounded-full w-12 h-12 flex items-center justify-center border-2 ${style.border}`}>
+                      <span className={`text-xl font-black ${style.rankText}`}>{town.rank}</span>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-black text-navy-blue mb-2">{town.name}</h3>
+                    <div className="flex items-center gap-2 mt-4">
+                      <FaTrophy className={`w-5 h-5 ${style.accent}`} />
+                      <span className={`text-2xl font-black ${style.accent}`}>
+                        {town.votes.toLocaleString('ar-SA')}
+                      </span>
+                      <span className="text-sm text-warm-grey">صوت</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* الأحياء المتقدمة */}
       {stats.leadingTowns && stats.leadingTowns.length > 0 && (

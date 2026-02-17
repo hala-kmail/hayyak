@@ -47,6 +47,7 @@ export default function RootLayout({
     <html lang="ar" dir="rtl" suppressHydrationWarning>
       <body
         className={`${cairo.variable} ${cairo.className} antialiased min-h-screen`}
+        suppressHydrationWarning
       >
         <ThemeProvider>
           <QueryClientProvider>{children}</QueryClientProvider>

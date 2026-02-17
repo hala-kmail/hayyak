@@ -159,9 +159,12 @@ export function usePublicTowns() {
   }, [neighborhoods, totalVotesFromStats]);
 
   const refetch = async () => {
-    await fetchTowns();
-    await fetchVotes();
-    await fetchTotalVotes();
+    // جلب البيانات بشكل متوازي (parallel) بدلاً من متتالي (sequential) لتحسين الأداء
+    await Promise.all([
+      fetchTowns(),
+      fetchVotes(),
+      fetchTotalVotes(),
+    ]);
   };
 
   return {

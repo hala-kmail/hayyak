@@ -10,41 +10,60 @@ export interface VoteResponse {
   error?: string;
 }
 
+// Timeout constant (10 seconds)
+const VOTE_TIMEOUT = 10000;
+
 /**
- * Submits a vote to the API
+ * Submits a vote to the API with timeout handling
  */
 export async function submitVote(
   townId: string,
   fingerprint: string
 ): Promise<VoteResponse> {
   try {
-    const response = await fetch('/api/votes', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        townId,
-        fingerprint,
-      }),
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), VOTE_TIMEOUT);
 
-    const data = await response.json();
+    try {
+      const response = await fetch('/api/votes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          townId,
+          fingerprint,
+        }),
+        signal: controller.signal,
+      });
 
-    if (!response.ok) {
-      if (response.status === 409) {
+      clearTimeout(timeoutId);
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 409) {
+          return {
+            success: false,
+            error: ERROR_MESSAGES.ALREADY_VOTED,
+          };
+        }
         return {
           success: false,
-          error: ERROR_MESSAGES.ALREADY_VOTED,
+          error: data.error || ERROR_MESSAGES.GENERIC_ERROR,
         };
       }
-      return {
-        success: false,
-        error: data.error || ERROR_MESSAGES.GENERIC_ERROR,
-      };
-    }
 
-    return { success: true };
+      return { success: true };
+    } catch (fetchError: any) {
+      clearTimeout(timeoutId);
+      if (fetchError.name === 'AbortError') {
+        return {
+          success: false,
+          error: 'انتهت مهلة الطلب. يرجى المحاولة مرة أخرى.',
+        };
+      }
+      throw fetchError;
+    }
   } catch (err) {
     console.error('Error submitting vote:', err);
     return {
@@ -56,6 +75,7 @@ export async function submitVote(
 
 /**
  * Handles vote success callback
+ * يغلق الـ modal ويستدعي callback التحديث بشكل متوازي لتحسين الأداء
  */
 export function handleVoteSuccess(
   onClose: () => void,
@@ -63,8 +83,12 @@ export function handleVoteSuccess(
 ): void {
   setTimeout(() => {
     onClose();
+    // استدعاء callback التحديث بشكل غير متزامن لعدم تأخير إغلاق الـ modal
     if (onVoteSuccess) {
-      onVoteSuccess();
+      // استخدام setTimeout(0) لضمان عدم تأخير إغلاق الـ modal
+      setTimeout(() => {
+        onVoteSuccess();
+      }, 0);
     } else {
       window.location.reload();
     }

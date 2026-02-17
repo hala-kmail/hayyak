@@ -16,7 +16,7 @@ async function getAuthHeaders(request: NextRequest): Promise<HeadersInit> {
   return headers;
 }
 
-// GET /api/admin/admins - جلب جميع الأدمنز
+// GET /api/admin/admins - جلب جميع مسؤولين النظام
 export async function GET(request: NextRequest) {
   try {
     const headers = await getAuthHeaders(request);
@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
   } catch (error: any) {
     console.error('Error fetching admins:', error);
     return NextResponse.json(
-      { error: 'حدث خطأ في جلب الأدمنز.' },
+      { error: 'حدث خطأ في جلب مسؤولين النظام.' },
       { status: 500 }
     );
   }

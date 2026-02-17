@@ -28,8 +28,8 @@ export function IntroLogo({ section, habeebError, onHabeebError }: LogoProps) {
     <img
       src={logoSrc}
       alt={section.title}
-      width={96}
-      height={96}
+      width={144}
+      height={144}
       className={introStyles.logoImage}
       onError={onHabeebError}
     />
@@ -37,8 +37,8 @@ export function IntroLogo({ section, habeebError, onHabeebError }: LogoProps) {
     <Image
       src={logoSrc}
       alt={section.title}
-      width={96}
-      height={96}
+      width={144}
+      height={144}
       className={introStyles.logoImageNext}
     />
   );

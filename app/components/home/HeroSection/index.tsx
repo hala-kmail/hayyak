@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useStats } from '@/app/hooks/useStats';
+import { useElectionStatus } from '@/app/hooks/useElectionStatus';
 import { HeroContent, HeroWaveSeparator } from './components';
 import { heroStyles } from './styles';
 import { HeroSectionProps } from './types';
@@ -20,6 +21,7 @@ export function HeroSection({
   votesToday: propVotesToday,
 }: HeroSectionProps) {
   const { stats } = useStats();
+  const { status, isLoading: isElectionStatusLoading } = useElectionStatus();
 
   // Merge API stats with prop values (API takes priority)
   const mergedStats = mergeStatsData(stats, {
@@ -27,6 +29,10 @@ export function HeroSection({
     neighborhoodsCount: propNeighborhoodsCount,
     votesToday: propVotesToday,
   });
+
+  // أثناء التحميل، افترض أن التصويت مفتوح (optimistic) لتجنب التغيير المفاجئ في الواجهة
+  // إذا كان التصويت فعلاً مغلقاً، سيتم تحديث الواجهة بعد تحميل البيانات
+  const isElectionOpen = isElectionStatusLoading ? true : (status?.isOpen ?? false);
 
   return (
     <section className={heroStyles.section}>
@@ -37,7 +43,7 @@ export function HeroSection({
 
         {/* Main content */}
         <div className={heroStyles.contentWrapper}>
-          <HeroContent stats={mergedStats} />
+          <HeroContent stats={mergedStats} isElectionOpen={isElectionOpen} />
         </div>
 
         {/* Wave separator */}

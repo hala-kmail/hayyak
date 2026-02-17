@@ -16,7 +16,7 @@ export function AdminsTable({ admins, isLoading, onToggle, onDelete }: AdminsTab
     return (
       <div className="bg-white rounded-2xl shadow-md p-12 text-center">
         <div className="inline-block w-8 h-8 border-2 border-turquoise border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-warm-grey">جاري تحميل الأدمنز...</p>
+        <p className="text-warm-grey">جاري تحميل مسؤولين النظام...</p>
       </div>
     );
   }

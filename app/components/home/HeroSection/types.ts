@@ -17,9 +17,15 @@ export interface HeroStatsData {
 
 export interface HeroContentProps {
   stats: HeroStatsData;
+  isElectionOpen: boolean;
+}
+export interface HeroCTAProps {
+  stats: HeroStatsData;
+  isElectionOpen: boolean;
 }
 
 export interface HeroStatItemProps {
+  
   value: number;
   label: string;
 }

@@ -15,7 +15,7 @@ export const DRAWER_DURATION_MS = 280;
 export const SCROLL_THRESHOLD = 50;
 
 export const LOGO_CONFIG = {
-  defaultSize: 56,
-  scrolledSize: 50,
-  mobileSize: 48,
+  defaultSize: 72,
+  scrolledSize: 64,
+  mobileSize: 56,
 } as const;

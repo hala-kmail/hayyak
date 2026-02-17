@@ -56,7 +56,7 @@ export default function AdminsPage() {
     <AdminLayout>
       <div>
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-black text-navy-blue">إدارة الأدمنز</h1>
+          <h1 className="text-3xl font-black text-navy-blue">إدارة مسؤولين النظام</h1>
           <button
             onClick={handleAdd}
             className="flex items-center gap-2 px-6 py-3 bg-turquoise text-white rounded-xl font-bold hover:shadow-lg hover:shadow-turquoise/30 transition-all"

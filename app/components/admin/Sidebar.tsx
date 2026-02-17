@@ -44,7 +44,7 @@ export function Sidebar() {
   const superAdminMenuItems: SidebarItem[] = [
     {
       href: '/admin/admins',
-      label: 'الأدمنز',
+      label: 'مسؤولين النظام',
       icon: <FaUsers className="w-5 h-5" />,
     },
   ];
@@ -76,7 +76,11 @@ export function Sidebar() {
       <nav className="flex-1 p-4">
         <ul className="space-y-2">
           {menuItems.map((item) => {
-            const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
+            // للصفحة الرئيسية، يجب أن يكون المسار مطابقاً تماماً
+            // للصفحات الأخرى، يمكن أن يبدأ المسار بـ href + '/'
+            const isActive = item.href === '/admin' 
+              ? pathname === item.href
+              : pathname === item.href || pathname?.startsWith(item.href + '/');
             return (
               <li key={item.href}>
                 <Link

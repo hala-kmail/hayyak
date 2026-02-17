@@ -51,7 +51,7 @@ export function useAdmins() {
       if (!response.ok) {
         const data = await response.json();
         const msg = data.message;
-        const errorText = Array.isArray(msg) ? msg.join(' ') : (msg || data.error || 'فشل في جلب الأدمنز.');
+        const errorText = Array.isArray(msg) ? msg.join(' ') : (msg || data.error || 'فشل في جلب مسؤولين النظام.');
         throw new Error(errorText);
       }
 
@@ -59,7 +59,7 @@ export function useAdmins() {
       setAdmins(Array.isArray(data) ? data : []);
     } catch (err: any) {
       console.error('Error fetching admins:', err);
-      setError(err.message || 'حدث خطأ في جلب الأدمنز.');
+      setError(err.message || 'حدث خطأ في جلب مسؤولين النظام.');
     } finally {
       setIsLoading(false);
     }

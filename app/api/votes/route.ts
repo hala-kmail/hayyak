@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
 
+// Timeout constant (8 seconds for external API)
+const EXTERNAL_API_TIMEOUT = 8000;
+
 /**
  * POST /api/votes
  * Submit a vote for a neighborhood
@@ -32,20 +35,26 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // إرسال التصويت للـ API الخارجي
-    const response = await fetch(`${API_BASE}/votes`, {
-      method: 'POST',
-      headers: {
-        'accept': '*/*',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        townId,
-        fingerprint,
-      }),
-    });
+    // إرسال التصويت للـ API الخارجي مع timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), EXTERNAL_API_TIMEOUT);
 
-    const data = await response.json();
+    try {
+      const response = await fetch(`${API_BASE}/votes`, {
+        method: 'POST',
+        headers: {
+          'accept': '*/*',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          townId,
+          fingerprint,
+        }),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+      const data = await response.json();
 
     if (!response.ok) {
       // معالجة الأخطاء من الـ API
@@ -54,7 +63,7 @@ export async function POST(request: NextRequest) {
       // إذا كان الخطأ 409 (Conflict) - يعني تم التصويت مسبقاً
       if (response.status === 409) {
         return NextResponse.json(
-          { error: 'لقد قمت بالتصويت مسبقاً من هذا الجهاز.' },
+          { error: 'لقد قمت بالتصويت مسبقاً .' },
           { status: 409 }
         );
       }
@@ -74,6 +83,17 @@ export async function POST(request: NextRequest) {
       },
       { status: response.status }
     );
+    } catch (fetchError: any) {
+      clearTimeout(timeoutId);
+      if (fetchError.name === 'AbortError') {
+        console.error('External API timeout:', fetchError);
+        return NextResponse.json(
+          { error: 'انتهت مهلة الاتصال بالخادم. يرجى المحاولة مرة أخرى.' },
+          { status: 504 }
+        );
+      }
+      throw fetchError;
+    }
   } catch (error: any) {
     console.error('Error processing vote:', error);
     

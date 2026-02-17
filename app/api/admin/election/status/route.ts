@@ -32,7 +32,12 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(data, { status: response.status });
     }
 
-    return NextResponse.json(data);
+    // إضافة cache headers للاستجابة - يتم تحديث البيانات كل 10 ثوانٍ
+    return NextResponse.json(data, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=10, stale-while-revalidate=30',
+      },
+    });
   } catch (error: any) {
     console.error('Error fetching election status:', error);
     return NextResponse.json(
