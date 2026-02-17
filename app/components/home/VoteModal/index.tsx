@@ -80,7 +80,7 @@ export function VoteModal({
                   visitorId={visitorId}
                   isSubmitting={isSubmitting}
                   voteError={voteError}
-                  fingerprintError={fingerprintError || undefined}
+                  fingerprintError={fingerprintError || null}
                   onVote={handleVoteForThis}
                   onVoteForAnother={onVoteForAnother}
                 />

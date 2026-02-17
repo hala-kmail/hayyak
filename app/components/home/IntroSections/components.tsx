@@ -25,6 +25,8 @@ export function IntroLogo({ section, habeebError, onHabeebError }: LogoProps) {
 
   const isAlhabib = isAlhabibSection(section.id);
   const imageEl = isAlhabib ? (
+    // Using img for Alhabib section to support onError handler
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={logoSrc}
       alt={section.title}

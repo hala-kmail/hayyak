@@ -3,7 +3,7 @@
  * Following Interface Segregation Principle - separate interfaces for different concerns
  */
 
-import type { NeighborhoodItem } from '../../data';
+import type { NeighborhoodItem } from '../data';
 
 export interface NeighborhoodCardProps {
   neighborhood: NeighborhoodItem;

@@ -18,12 +18,13 @@ async function getAuthHeaders(request: NextRequest): Promise<HeadersInit> {
 // PATCH /api/admin/admins/[id]/toggle - تبديل حالة الأدمن
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const headers = await getAuthHeaders(request);
     
-    const response = await fetch(`${API_BASE}/auth/admins/${params.id}/toggle`, {
+    const response = await fetch(`${API_BASE}/auth/admins/${id}/toggle`, {
       method: 'PATCH',
       headers,
     });

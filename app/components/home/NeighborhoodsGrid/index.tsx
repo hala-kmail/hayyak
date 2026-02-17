@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import type { NeighborhoodItem } from '../../data';
+import type { NeighborhoodItem } from '../data';
 import { VoteModal } from '../VoteModal';
 import { Tabs, SearchBox, ScrollButtons, EmptyState, GridCard, SectionHeader } from './components';
 import { gridStyles } from './styles';

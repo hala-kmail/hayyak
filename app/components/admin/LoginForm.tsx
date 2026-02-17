@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { FaLock, FaUser, FaExclamationTriangle, FaSpinner } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaLock, FaUser, FaExclamationTriangle, FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa';
 import Image from 'next/image';
 
 interface LoginFormProps {
@@ -23,6 +23,12 @@ export function LoginForm({
   onPasswordChange,
   onSubmit,
 }: LoginFormProps) {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 flex items-center justify-center p-4" dir="rtl">
       <div className="max-w-md w-full">
@@ -79,15 +85,27 @@ export function LoginForm({
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 text-warm-grey">
                   <FaLock className="w-5 h-5" />
                 </div>
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-warm-grey hover:text-navy-blue transition-colors"
+                  aria-label={showPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'}
+                >
+                  {showPassword ? (
+                    <FaEyeSlash className="w-5 h-5" />
+                  ) : (
+                    <FaEye className="w-5 h-5" />
+                  )}
+                </button>
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => {
                     onPasswordChange(e.target.value);
                   }}
                   required
-                  className="w-full pr-12 pl-4 py-3 border-2 border-gray-200 rounded-xl focus:border-turquoise focus:outline-none transition-colors text-navy-blue"
+                  className="w-full pr-12 pl-12 py-3 border-2 border-gray-200 rounded-xl focus:border-turquoise focus:outline-none transition-colors text-navy-blue"
                   placeholder="••••••••"
                 />
               </div>

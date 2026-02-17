@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getAccessToken } from '@/lib/auth';
 
 export interface ElectionConfig {
@@ -138,13 +138,13 @@ export function useElectionConfig() {
     }
   };
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     await Promise.all([fetchConfig(), fetchStatus()]);
-  };
+  }, []);
 
   useEffect(() => {
     refresh();
-  }, []);
+  }, [refresh]);
 
   return {
     config,

@@ -18,12 +18,13 @@ async function getAuthHeaders(request: NextRequest): Promise<HeadersInit> {
 // DELETE /api/admin/admins/[id] - حذف أدمن
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const headers = await getAuthHeaders(request);
     
-    const response = await fetch(`${API_BASE}/auth/admins/${params.id}`, {
+    const response = await fetch(`${API_BASE}/auth/admins/${id}`, {
       method: 'DELETE',
       headers,
     });

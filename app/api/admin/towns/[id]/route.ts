@@ -23,10 +23,10 @@ async function getAuthHeaders(request: NextRequest, includeContentType: boolean 
 // PATCH /api/admin/towns/[id] - تعديل حي
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
     const headers = await getAuthHeaders(request);
     
@@ -55,10 +55,10 @@ export async function PATCH(
 // DELETE /api/admin/towns/[id] - حذف حي
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     // لا نرسل Content-Type في DELETE request
     const headers = await getAuthHeaders(request, false);
     

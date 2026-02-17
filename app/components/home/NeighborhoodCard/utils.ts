@@ -3,7 +3,7 @@
  * Following Single Responsibility Principle - only contains business logic
  */
 
-import type { NeighborhoodItem } from '../../data';
+import type { NeighborhoodItem } from '../data';
 
 /**
  * Calculates progress percentage for a neighborhood
