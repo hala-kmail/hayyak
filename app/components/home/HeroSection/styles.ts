@@ -1,0 +1,42 @@
+/**
+ * Style constants for HeroSection component
+ * Following Single Responsibility Principle - only contains style definitions
+ */
+
+export const heroStyles = {
+  section: 'relative overflow-hidden bg-white border-b-[5px] border-white',
+  container: 'relative h-[640px] md:h-[680px] w-full bg-gradient-to-br from-navy-blue to-turquoise flex items-center overflow-hidden',
+  backgroundBlur1: 'absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] animate-pulse-slow',
+  backgroundBlur2: 'absolute bottom-[-10%] left-[0%] w-[400px] h-[400px] bg-turquoise/10 rounded-full blur-[100px]',
+  contentWrapper: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10',
+  mainContent: 'flex flex-col lg:flex-row items-center justify-between gap-12',
+  textContent: 'lg:w-3/5 text-center lg:text-right text-white w-full flex flex-col items-center lg:items-start',
+  badge: 'inline-flex items-center gap-2 bg-white/10 backdrop-blur-lg px-5 py-2 rounded-2xl text-xs font-black mb-8 border border-white/20 shadow-xl shadow-black/5 animate-fade-in-up',
+  badgeIndicator: 'flex h-2 w-2 relative',
+  badgePing: 'animate-ping absolute inline-flex h-full w-full rounded-full bg-turquoise opacity-75',
+  badgeDot: 'relative inline-flex rounded-full h-2 w-2 bg-turquoise',
+  title: 'text-4xl md:text-6xl font-black mb-6 leading-[1.2] drop-shadow-md',
+  titleAccent: 'text-turquoise',
+  description: 'text-lg md:text-xl text-white/80 font-medium max-w-xl mb-10 leading-relaxed',
+  ctaWrapper: 'flex flex-wrap gap-4 justify-center lg:justify-start',
+  ctaButton: 'px-8 py-3 bg-white text-navy-blue rounded-xl font-black text-base hover:bg-turquoise hover:text-white transition-all duration-300 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-turquoise/20 flex items-center gap-3 group active:scale-[0.97] border border-white/20 hover:border-turquoise/30',
+  ctaIcon: 'w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform duration-300',
+  visualContent: 'lg:w-2/5  lg:flex flex-col items-center justify-center gap-8',
+  visualWrapper: 'relative group hidden lg:flex',
+  visualContainer: 'relative w-80 h-80 flex items-center justify-center',
+  visualBackdrop: 'absolute inset-0 bg-white/10 backdrop-blur-2xl rounded-full border border-white/20 shadow-2xl animate-float',
+  visualCard: 'relative z-10 bg-white p-10 rounded-[3rem] shadow-2xl rotate-3 group-hover:rotate-0 transition-transform duration-700 flex flex-col items-center',
+  visualIcon: 'w-24 h-24 bg-gradient-to-tr from-turquoise to-lime-green rounded-full flex items-center justify-center text-white text-5xl shadow-lg mb-4',
+  visualStars: 'flex gap-1 text-sand-brown mb-2',
+  visualText: 'text-navy-blue font-black text-lg',
+  visualHeart: 'absolute top-0 -right-4 w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-rose-500 text-2xl animate-float [animation-delay:1s] border border-gray-50',
+  visualSparkle: 'absolute -bottom-4 -left-2 w-20 h-20 bg-quite-purple text-white rounded-3xl shadow-xl flex items-center justify-center text-3xl animate-float [animation-delay:2s]',
+  statsWrapper: 'mt-10 flex w-full justify-center',
+  statsContainer: 'flex flex-row items-center justify-center gap-4 sm:gap-6',
+  statItem: 'text-center',
+  statValue: 'text-xl font-black text-white leading-tight',
+  statLabel: 'text-[10px] font-bold text-white/80 uppercase tracking-tight',
+  statDivider: 'w-px h-10 bg-white/20',
+  waveContainer: 'absolute bottom-[-1px] left-0 w-full leading-[0] z-10',
+  waveSvg: 'w-full h-auto',
+} as const;

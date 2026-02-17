@@ -31,7 +31,7 @@ export default function HomePage() {
         <IntroSections />
        
         {/* قسم الأحياء المشاركة */}
-        <div id="districts" className="py-20 relative bg-white">
+        <div id="districts" className="py-20 relative bg-white" style={{ marginBottom: '-3px' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 relative">
             <span className="text-turquoise font-black tracking-[0.3em] uppercase text-[10px] mb-2 block">
               المنافسة مشتعلة

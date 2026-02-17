@@ -90,7 +90,7 @@ export function IntroSections() {
         alt={section.title}
         width={96}
         height={96}
-        className="object-contain w-20  md:w-28 "
+        className="object-contain w-24  md:w-28 "
         onError={() => setHabeebError(true)}
       />
     ) : (
@@ -127,7 +127,7 @@ export function IntroSections() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {sections.map((section, index) => (
             <div
               key={section.id}

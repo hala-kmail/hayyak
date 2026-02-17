@@ -54,7 +54,9 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-[100] pointer-events-none">
+      <header className={`fixed top-0 inset-x-0 pointer-events-none transition-all duration-300 ${
+        mobileMenuOpen ? 'lg:z-[100] z-[30]' : 'z-[100]'
+      }`}>
         <nav
           className={`w-full transition-all duration-500 ${
             scrolled ? 'pt-0' : 'pt-6'
@@ -69,7 +71,12 @@ export function Header() {
           >
             <div className="max-w-7xl mx-auto flex items-center justify-between h-16 sm:h-20 px-4 sm:px-6 lg:px-8">
               {/* اللوجو */}
-              <Link href="/" className="flex items-center gap-3 group">
+              <Link 
+                href="/" 
+                className={`flex items-center gap-3 group transition-opacity duration-300 ${
+                  mobileMenuOpen ? 'opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto' : 'opacity-100'
+                }`}
+              >
                 <div className="relative">
                   <Image
                     src="/images/sakany.png"
@@ -155,14 +162,14 @@ export function Header() {
       {mobileMenuOpen && (
         <>
           <div
-            className={`lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+            className={`lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[90] transition-opacity duration-300 ${
               drawerAnimateIn ? 'opacity-100' : 'opacity-0'
             }`}
             onClick={closeMenu}
             aria-hidden
           />
           <div
-            className={`lg:hidden fixed top-0 bottom-0 right-0 w-80 max-w-[85vw] bg-white z-50 flex flex-col shadow-2xl transition-transform duration-300 ${
+            className={`lg:hidden fixed top-0 bottom-0 right-0 w-80 max-w-[85vw] bg-white z-[110] flex flex-col shadow-2xl transition-transform duration-300 ${
               drawerAnimateIn ? 'translate-x-0' : 'translate-x-full'
             }`}
             role="dialog"

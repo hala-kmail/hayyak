@@ -4,30 +4,26 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-navy-blue text-white py-12 md:py-16 relative overflow-hidden">
-      {/* موجة مثلثية علوية - متجهة للأعلى */}
-      <div className="absolute top-0 left-0 w-full leading-[0] z-10" style={{ marginTop: 0, paddingTop: 0 }}>
+    <footer className="bg-navy-blue text-white py-12 md:py-16 relative overflow-hidden" style={{ marginTop: '-3px' }}>
+      {/* موجة المثلث العلوي - تبدأ أعلى قليلاً ليتداخل مع القسم الأبيض ويملأ أي فجوة */}
+      <div
+        className="absolute left-0 w-full z-10 pointer-events-none"
+        style={{ top: '0px', height: '99px', lineHeight: 0 }}
+      >
         <svg
           viewBox="0 0 1440 100"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-auto"
           preserveAspectRatio="none"
-          style={{ display: 'block', verticalAlign: 'bottom' }}
+          className="w-full h-full"
+          style={{ display: 'block', verticalAlign: 'top' }}
         >
-          {/* الخلفية - الأزرق الداكن (navy blue) */}
           <path
-            fill="rgb(28, 39, 95)"
-            d="M0,100 L720,0 L1440,100 L1440,100 L0,100 Z"
-          />
-          {/* الموجة البيضاء - مثلث يبدأ من القمة (Y=0 في الوسط) */}
-          <path
-            fill="#FFFFFF"
             d="M0,100 L720,0 L1440,100 L1440,0 L720,0 L0,0 Z"
+            fill="#FFFFFF"
           />
         </svg>
       </div>
 
-      {/* تأثيرات خلفية خفيفة */}
+      {/* تأثيرات الخلفية الخفيفة */}
       <div className="absolute top-0 left-0 w-full h-full opacity-5">
         <div className="absolute top-10 right-10 w-64 h-64 bg-turquoise rounded-full blur-3xl" />
         <div className="absolute bottom-10 left-10 w-48 h-48 bg-lime-green rounded-full blur-3xl" />

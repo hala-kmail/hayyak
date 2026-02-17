@@ -103,7 +103,7 @@ export function NeighborhoodsGrid({
                 onClick={() => {
                   setActiveTab('all');
                 }}
-                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                className={`flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-bold transition-all ${
                   activeTab === 'all'
                     ? 'bg-white text-turquoise shadow-sm'
                     : 'text-warm-grey hover:text-navy-blue'
@@ -115,7 +115,7 @@ export function NeighborhoodsGrid({
                 onClick={() => {
                   setActiveTab('top');
                 }}
-                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                className={`flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-bold transition-all ${
                   activeTab === 'top'
                     ? 'bg-white text-turquoise shadow-sm'
                     : 'text-warm-grey hover:text-navy-blue'
