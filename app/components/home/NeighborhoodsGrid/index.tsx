@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import type { NeighborhoodItem } from '../data';
 import { VoteModal } from '../VoteModal';
 import { Tabs, SearchBox, ScrollButtons, EmptyState, GridCard, SectionHeader } from './components';
@@ -8,7 +8,6 @@ import { gridStyles } from './styles';
 import { useHorizontalScroll } from './hooks';
 import {
   getBaseNeighborhoods,
-  filterNeighborhoods,
   getMaxVotes,
   calculateProgress,
   isLeader,
@@ -30,18 +29,70 @@ export function NeighborhoodsGrid({
   neighborhoods,
   totalVotes,
   onVoteSuccess,
-}: NeighborhoodsGridProps) {
+  searchTowns,
+}: NeighborhoodsGridProps & { searchTowns?: (query: string) => Promise<void> }) {
   const [selectedNeighborhood, setSelectedNeighborhood] =
     useState<NeighborhoodItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('top');
   const [searchQuery, setSearchQuery] = useState('');
   const { scrollContainerRef, scroll } = useHorizontalScroll();
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const isInitialMount = useRef(true);
+  const previousSearchQueryRef = useRef<string>('');
 
+  // البحث من الباك إند مع debounce
+  useEffect(() => {
+    // تجاهل التحميل الأولي
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      previousSearchQueryRef.current = searchQuery;
+      return;
+    }
+
+    // تجاهل إذا لم يتغير نص البحث
+    if (previousSearchQueryRef.current === searchQuery) {
+      return;
+    }
+
+    // حفظ القيمة القديمة قبل التحديث
+    const previousQuery = previousSearchQueryRef.current;
+    const hadSearchBefore = previousQuery.trim().length > 0;
+    const hasSearchNow = searchQuery.trim().length > 0;
+    
+    previousSearchQueryRef.current = searchQuery;
+
+    // إلغاء البحث السابق إذا كان موجوداً
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    // إذا كان هناك نص بحث، انتظر 500ms قبل البحث
+    if (hasSearchNow && searchTowns) {
+      debounceTimerRef.current = setTimeout(() => {
+        searchTowns(searchQuery.trim());
+      }, 500);
+    } else if (!hasSearchNow && searchTowns && hadSearchBefore) {
+      // إذا تم مسح البحث (كان هناك بحث سابق)، إعادة جلب جميع الأحياء فوراً
+      searchTowns('');
+    }
+
+    // تنظيف عند إلغاء المكون أو تغيير searchQuery
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, [searchQuery, searchTowns]);
+
+  // إذا كان هناك بحث، استخدم نتائج البحث مباشرة (التي تأتي من الباك إند)
+  // وإلا استخدم التبويب النشط (أفضل 3 أو جميع الأحياء)
+  const displayNeighborhoods = searchQuery.trim() 
+    ? sortNeighborhoodsByVotes(neighborhoods) 
+    : getBaseNeighborhoods(neighborhoods, activeTab);
+  
   const maxVotes = getMaxVotes(neighborhoods);
   const sortedNeighborhoods = sortNeighborhoodsByVotes(neighborhoods);
-  const baseNeighborhoods = getBaseNeighborhoods(neighborhoods, activeTab);
-  const displayNeighborhoods = filterNeighborhoods(baseNeighborhoods, searchQuery);
 
   const handleNeighborhoodClick = (neighborhood: NeighborhoodItem) => {
     setSelectedNeighborhood(neighborhood);
@@ -65,6 +116,7 @@ export function NeighborhoodsGrid({
 
   const isScrollable = activeTab === 'all' && !searchQuery;
   const cardWidth = getCardWidth(activeTab, !!searchQuery);
+  const showScrollButtons = activeTab === 'all';
 
   return (
     <section id="districts" className={gridStyles.section} style={{ marginBottom: '-3px' }}>
@@ -76,7 +128,7 @@ export function NeighborhoodsGrid({
             <SearchBox searchQuery={searchQuery} onSearchChange={setSearchQuery} />
           </div>
 
-          {isScrollable && <ScrollButtons onScroll={scroll} />}
+          {showScrollButtons && <ScrollButtons onScroll={scroll} />}
         </div>
 
         <div

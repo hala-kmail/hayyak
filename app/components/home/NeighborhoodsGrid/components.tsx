@@ -22,14 +22,7 @@ interface TabsProps {
 export function Tabs({ activeTab, onTabChange }: TabsProps) {
   return (
     <div className={gridStyles.tabsContainer}>
-      <button
-        onClick={() => {
-          onTabChange('all');
-        }}
-        className={gridStyles.tabButton(activeTab === 'all')}
-      >
-        جميع الأحياء
-      </button>
+      
       <button
         onClick={() => {
           onTabChange('top');
@@ -37,6 +30,14 @@ export function Tabs({ activeTab, onTabChange }: TabsProps) {
         className={gridStyles.tabButton(activeTab === 'top')}
       >
         المتصدرون
+      </button>
+      <button
+        onClick={() => {
+          onTabChange('all');
+        }}
+        className={gridStyles.tabButton(activeTab === 'all')}
+      >
+        جميع الأحياء
       </button>
     </div>
   );

@@ -33,7 +33,7 @@ export const gridStyles = {
   emptyStateTitle: 'text-warm-grey text-lg font-medium',
   emptyStateSubtitle: 'text-warm-grey text-sm mt-2',
   cardsContainer: (isScrollable: boolean) =>
-    `flex gap-4 ${isScrollable ? 'flex-nowrap' : 'flex-wrap justify-center'}`,
+    `flex gap-4 ${isScrollable ? 'flex-nowrap' : 'flex-wrap '}`,
   card: (isLeader: boolean, width: string) =>
     `group relative flex-shrink-0 bg-white rounded-xl p-6 shadow-sm border transition-all duration-300 hover:shadow-md hover:scale-[1.02] cursor-pointer active:scale-[0.98] ${
       isLeader

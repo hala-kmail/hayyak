@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import type { NeighborhoodItem } from '@/app/components/home/data';
 import { fetchTownsFromAPI, type Town } from './useTowns';
 
@@ -53,9 +53,11 @@ export function usePublicTowns() {
   const [votesError, setVotesError] = useState<string | null>(null);
   const [totalVotesFromStats, setTotalVotesFromStats] = useState<number>(0);
   const [votesTodayFromStats, setVotesTodayFromStats] = useState<number>(0);
+  const [searchResults, setSearchResults] = useState<Town[] | null>(null);
+  const [isSearching, setIsSearching] = useState(false);
 
   // استخدام نفس الدالة من useTowns.ts
-  const fetchTowns = async () => {
+  const fetchTowns = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
@@ -70,10 +72,10 @@ export function usePublicTowns() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   // جلب الأصوات من API الخارجي مباشرة
-  const fetchVotes = async () => {
+  const fetchVotes = useCallback(async () => {
     setVotesLoading(true);
     setVotesError(null);
     
@@ -105,7 +107,7 @@ export function usePublicTowns() {
     } finally {
       setVotesLoading(false);
     }
-  };
+  }, []);
 
   // جلب إجمالي الأصوات وأصوات اليوم من API stats
   const fetchTotalVotes = async () => {
@@ -128,15 +130,70 @@ export function usePublicTowns() {
     }
   };
 
+  // البحث عن الأحياء من الباك إند
+  const searchTowns = useCallback(async (query: string): Promise<void> => {
+    if (!query || query.trim() === '') {
+      // إعادة جلب جميع الأحياء عند مسح البحث أولاً
+      await fetchTowns();
+      await fetchVotes();
+      // ثم إعادة تعيين نتائج البحث
+      setSearchResults(null);
+      setIsSearching(false);
+      return;
+    }
+
+    setIsSearching(true);
+    setError(null);
+
+    try {
+      const url = `/api/towns/search?q=${encodeURIComponent(query)}`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        const errorText = data.error || 'فشل في البحث عن الأحياء.';
+        throw new Error(errorText);
+      }
+
+      const data = await response.json();
+      const searchedTowns: TownWithVotes[] = Array.isArray(data) ? data : [];
+      
+      // تحديث خريطة الأصوات للنتائج المبحوثة
+      setVotesMap((prevVotesMap) => {
+        const newVotesMap = { ...prevVotesMap };
+        searchedTowns.forEach((town: TownWithVotes) => {
+          newVotesMap[town.id] = town.votes ?? 0;
+        });
+        return newVotesMap;
+      });
+      
+      setSearchResults(searchedTowns as Town[]);
+    } catch (err: any) {
+      console.error('Error searching towns:', err);
+      setError(err.message || 'حدث خطأ في البحث عن الأحياء.');
+      setSearchResults([]);
+    } finally {
+      setIsSearching(false);
+    }
+  }, [fetchTowns, fetchVotes]);
+
   useEffect(() => {
     fetchTowns();
     fetchVotes();
     fetchTotalVotes();
-  }, []);
+  }, [fetchTowns, fetchVotes]);
 
   // تحويل الأحياء إلى NeighborhoodItem مع الأصوات
   const neighborhoods = useMemo(() => {
-    const townsWithVotes: TownWithVotes[] = towns.map((town) => {
+    // استخدام نتائج البحث إذا كانت متوفرة، وإلا استخدام الأحياء العادية
+    const townsToUse = searchResults !== null ? searchResults : towns;
+    
+    const townsWithVotes: TownWithVotes[] = townsToUse.map((town) => {
       // استخدام الأصوات من API الخارجي
       const votes = votesMap[town.id] ?? 0;
       return {
@@ -151,7 +208,7 @@ export function usePublicTowns() {
     return townsWithVotes.map((town, index) =>
       transformTownToNeighborhood(town, index, totalVotesForPercentage)
     );
-  }, [towns, votesMap, totalVotesFromStats]);
+  }, [towns, searchResults, votesMap, totalVotesFromStats]);
 
   const totalVotes = useMemo(() => {
     // استخدام إجمالي الأصوات من API stats إذا كان متوفراً، وإلا حسابها من الأحياء
@@ -170,14 +227,17 @@ export function usePublicTowns() {
   // عرض البيانات حتى لو كانت بعض الطلبات لا تزال قيد التنفيذ
   // هذا يضمن عرض أفضل 3 أحياء مباشرة عند توفر البيانات الأساسية
   const isDataReady = towns.length > 0 && Object.keys(votesMap).length > 0;
+  // لا نعرض loading عند البحث، فقط عند التحميل الأولي
   const shouldShowLoading = isLoading && votesLoading && !isDataReady;
 
   return {
     neighborhoods,
     isLoading: shouldShowLoading,
+    isSearching,
     error: error || votesError,
     totalVotes,
     votesToday: votesTodayFromStats,
     refetch,
+    searchTowns,
   };
 }

@@ -21,7 +21,7 @@ export function HeroSection({
   votesToday: propVotesToday,
 }: HeroSectionProps) {
   const { stats } = useStats();
-  const { status, isLoading: isElectionStatusLoading } = useElectionStatus();
+  const { status, isLoading: isElectionStatusLoading, isInitialLoad } = useElectionStatus();
 
   // Merge API stats with prop values (API takes priority)
   const mergedStats = mergeStatsData(stats, {
@@ -30,9 +30,9 @@ export function HeroSection({
     votesToday: propVotesToday,
   });
 
-  // أثناء التحميل، افترض أن التصويت مفتوح (optimistic) لتجنب التغيير المفاجئ في الواجهة
-  // إذا كان التصويت فعلاً مغلقاً، سيتم تحديث الواجهة بعد تحميل البيانات
-  const isElectionOpen = isElectionStatusLoading ? true : (status?.isOpen ?? false);
+  // أثناء التحميل الأول فقط، افترض أن التصويت مفتوح (optimistic) لتجنب التغيير المفاجئ في الواجهة
+  // بعد التحميل الأول، استخدم القيمة الفعلية حتى أثناء إعادة الجلب لتجنب الوميض
+  const isElectionOpen = isInitialLoad && isElectionStatusLoading ? true : (status?.isOpen ?? false);
 
   return (
     <section className={heroStyles.section}>

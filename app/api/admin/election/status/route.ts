@@ -1,36 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
-
-async function getAuthHeaders(request: NextRequest): Promise<HeadersInit> {
-  const authHeader = request.headers.get('authorization');
-  const headers: HeadersInit = {
-    'accept': '*/*',
-    'Content-Type': 'application/json',
-  };
-  
-  if (authHeader) {
-    headers['Authorization'] = authHeader;
-  }
-  
-  return headers;
-}
+import { fetchElectionStatus } from '@/app/lib/electionStatus';
 
 // GET /api/admin/election/status - جلب حالة التصويت
 export async function GET(request: NextRequest) {
   try {
-    const headers = await getAuthHeaders(request);
-    
-    const response = await fetch(`${API_BASE}/election/status`, {
-      method: 'GET',
-      headers,
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      return NextResponse.json(data, { status: response.status });
-    }
+    const authHeader = request.headers.get('authorization');
+    const data = await fetchElectionStatus(authHeader);
 
     // تقليل الـ cache لضمان تحديث البيانات فوراً عند التغيير
     return NextResponse.json(data, {
@@ -43,7 +18,7 @@ export async function GET(request: NextRequest) {
   } catch (error: any) {
     console.error('Error fetching election status:', error);
     return NextResponse.json(
-      { error: 'حدث خطأ في جلب حالة التصويت.' },
+      { error: error.message || 'حدث خطأ في جلب حالة التصويت.' },
       { status: 500 }
     );
   }

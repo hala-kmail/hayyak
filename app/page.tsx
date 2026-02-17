@@ -23,13 +23,16 @@ import { pageStyles } from './page/styles';
  * - Dependency Inversion: Depends on abstractions (hooks, components) not concrete implementations
  */
 export default function HomePage() {
-  const { neighborhoods, isLoading, error, totalVotes, votesToday, refetch } =
+  const { neighborhoods, isLoading, error, totalVotes, votesToday, refetch, searchTowns } =
     usePublicTowns();
-  const { status, isLoading: isElectionStatusLoading } = useElectionStatus();
+  const { status, isLoading: isElectionStatusLoading, isInitialLoad } = useElectionStatus();
 
-  // أثناء التحميل، افترض أن التصويت مفتوح (optimistic) لتجنب التغيير المفاجئ في الواجهة
-  // إذا كان التصويت فعلاً مغلقاً، سيتم تحديث الواجهة بعد تحميل البيانات
-  const isElectionOpen = isElectionStatusLoading ? true : (status?.isOpen ?? false);
+  // أثناء التحميل الأول فقط، افترض أن التصويت مفتوح (optimistic) لتجنب التغيير المفاجئ في الواجهة
+  // بعد التحميل الأول، استخدم القيمة الفعلية حتى أثناء إعادة الجلب لتجنب الوميض
+  const isElectionOpen = isInitialLoad && isElectionStatusLoading ? true : (status?.isOpen ?? false);
+
+  // عرض LoadingState فقط عند التحميل الأولي، وليس عند البحث
+  const showLoading = isLoading && neighborhoods.length === 0;
 
   return (
     <div className={pageStyles.container}>
@@ -49,15 +52,17 @@ export default function HomePage() {
           <div className={pageStyles.districtsSection} style={{ marginBottom: '-3px' }}>
             <HowItWorks />
 
-            {isLoading ? (
+            {showLoading ? (
               <LoadingState />
             ) : error ? (
               <ErrorState error={error} onRetry={refetch} />
             ) : (
               <NeighborhoodsGrid
+                key="neighborhoods-grid"
                 neighborhoods={neighborhoods}
                 totalVotes={totalVotes}
                 onVoteSuccess={refetch}
+                searchTowns={searchTowns}
               />
             )}
           </div>
