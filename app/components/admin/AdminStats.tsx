@@ -89,7 +89,7 @@ export function AdminStats() {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {top3Towns.map((town) => {
+            {top3Towns.map((town, index) => {
               const cardStyles = [
                 { 
                   border: 'border-turquoise',
@@ -114,7 +114,7 @@ export function AdminStats() {
               
               return (
                 <div
-                  key={town.townId}
+                  key={`top3-${town.townId || town.rank || index}`}
                   className={`relative bg-white rounded-xl p-6 shadow-lg border-r-4 ${style.border} transform transition-all hover:scale-105`}
                 >
                   <div className="flex items-center justify-between mb-4">

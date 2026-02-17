@@ -44,6 +44,7 @@ export default function HomePage() {
           totalVotes={totalVotes}
           neighborhoodsCount={neighborhoods.length}
           votesToday={votesToday}
+          isElectionOpen={isElectionOpen}
         />
 
         <IntroSections />

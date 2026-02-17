@@ -30,6 +30,11 @@ const cairo = Cairo({
 export const metadata: Metadata = {
   title: 'سكني سابع جار',
   description: 'صوت لحيك خله يفوز بحوامة رمضان',
+  icons: {
+    icon: '/images/sakany.png',
+    shortcut: '/images/sakany.png',
+    apple: '/images/sakany.png',
+  },
 };
 
 /**

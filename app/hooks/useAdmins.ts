@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { getAccessToken } from '@/lib/auth';
 
 export interface Admin {
@@ -18,7 +18,7 @@ export interface CreateAdminData {
   password: string;
 }
 
-const API_BASE = '/api/admin/admins';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
 
 function getAuthHeaders(): HeadersInit {
   const token = getAccessToken();
@@ -37,13 +37,19 @@ export function useAdmins() {
   const [admins, setAdmins] = useState<Admin[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const isFetchingRef = useRef(false);
 
-  const fetchAdmins = async () => {
+  const fetchAdmins = useCallback(async () => {
+    if (isFetchingRef.current) {
+      return; // منع الاستدعاء المزدوج
+    }
+
+    isFetchingRef.current = true;
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(`${API_BASE}`, {
+      const response = await fetch(`${API_BASE}/auth/admins`, {
         method: 'GET',
         headers: getAuthHeaders(),
       });
@@ -62,15 +68,16 @@ export function useAdmins() {
       setError(err.message || 'حدث خطأ في جلب مسؤولين النظام.');
     } finally {
       setIsLoading(false);
+      isFetchingRef.current = false;
     }
-  };
+  }, []);
 
   const createAdmin = async (adminData: CreateAdminData): Promise<Admin | null> => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(`${API_BASE}`, {
+      const response = await fetch(`${API_BASE}/auth/admins`, {
         method: 'POST',
         headers: getAuthHeaders(),
         body: JSON.stringify(adminData),
@@ -101,7 +108,7 @@ export function useAdmins() {
     setError(null);
 
     try {
-      const response = await fetch(`${API_BASE}/${id}`, {
+      const response = await fetch(`${API_BASE}/auth/admins/${id}`, {
         method: 'DELETE',
         headers: getAuthHeaders(),
       });
@@ -129,7 +136,7 @@ export function useAdmins() {
     setError(null);
 
     try {
-      const response = await fetch(`${API_BASE}/${id}/toggle`, {
+      const response = await fetch(`${API_BASE}/auth/admins/${id}/toggle`, {
         method: 'PATCH',
         headers: getAuthHeaders(),
       });
@@ -156,7 +163,7 @@ export function useAdmins() {
 
   useEffect(() => {
     fetchAdmins();
-  }, []);
+  }, [fetchAdmins]);
 
   return {
     admins,

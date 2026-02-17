@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 export interface StatsData {
   totalVotes: number;
@@ -17,8 +17,14 @@ export function useStats() {
   const [stats, setStats] = useState<StatsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const isFetchingRef = useRef(false);
 
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
+    if (isFetchingRef.current) {
+      return; // منع الاستدعاء المزدوج
+    }
+
+    isFetchingRef.current = true;
     setIsLoading(true);
     setError(null);
 
@@ -44,12 +50,13 @@ export function useStats() {
       setStats(null);
     } finally {
       setIsLoading(false);
+      isFetchingRef.current = false;
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchStats();
-  }, []);
+  }, [fetchStats]);
 
   return {
     stats,

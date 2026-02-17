@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { getAccessToken } from '@/lib/auth';
 
 export interface ElectionConfig {
@@ -28,7 +28,7 @@ export interface UpdateElectionConfigData {
   endAt?: string | null;
 }
 
-const API_BASE = '/api/admin/election';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
 
 function getAuthHeaders(): HeadersInit {
   const token = getAccessToken();
@@ -48,13 +48,20 @@ export function useElectionConfig() {
   const [status, setStatus] = useState<ElectionStatus | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const isFetchingConfigRef = useRef(false);
+  const isFetchingStatusRef = useRef(false);
 
-  const fetchConfig = async () => {
+  const fetchConfig = useCallback(async () => {
+    if (isFetchingConfigRef.current) {
+      return; // منع الاستدعاء المزدوج
+    }
+
+    isFetchingConfigRef.current = true;
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(`${API_BASE}/config`, {
+      const response = await fetch(`${API_BASE}/election/config`, {
         method: 'GET',
         headers: getAuthHeaders(),
       });
@@ -73,15 +80,21 @@ export function useElectionConfig() {
       setError(err.message || 'حدث خطأ في جلب إعدادات التصويت.');
     } finally {
       setIsLoading(false);
+      isFetchingConfigRef.current = false;
     }
-  };
+  }, []);
 
-  const fetchStatus = async () => {
+  const fetchStatus = useCallback(async () => {
+    if (isFetchingStatusRef.current) {
+      return; // منع الاستدعاء المزدوج
+    }
+
+    isFetchingStatusRef.current = true;
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(`${API_BASE}/status`, {
+      const response = await fetch(`${API_BASE}/election/status`, {
         method: 'GET',
         headers: getAuthHeaders(),
       });
@@ -100,15 +113,16 @@ export function useElectionConfig() {
       setError(err.message || 'حدث خطأ في جلب حالة التصويت.');
     } finally {
       setIsLoading(false);
+      isFetchingStatusRef.current = false;
     }
-  };
+  }, []);
 
   const updateConfig = async (configData: UpdateElectionConfigData): Promise<ElectionConfig | null> => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(`${API_BASE}/config`, {
+      const response = await fetch(`${API_BASE}/election/config`, {
         method: 'PATCH',
         headers: getAuthHeaders(),
         body: JSON.stringify(configData),
@@ -140,7 +154,7 @@ export function useElectionConfig() {
 
   const refresh = useCallback(async () => {
     await Promise.all([fetchConfig(), fetchStatus()]);
-  }, []);
+  }, [fetchConfig, fetchStatus]);
 
   useEffect(() => {
     refresh();

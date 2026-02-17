@@ -1,9 +1,15 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { fetchElectionStatus, type ElectionStatus } from '@/app/lib/electionStatus';
+import { getAccessToken } from '@/lib/auth';
 
-export type { ElectionStatus };
+export interface ElectionStatus {
+  isOpen: boolean;
+  mode: 'manual' | 'scheduled';
+  timezone?: string;
+  startAt?: string | null;
+  endAt?: string | null;
+}
 
 export function useElectionStatus() {
   const [status, setStatus] = useState<ElectionStatus | null>(null);
@@ -11,13 +17,40 @@ export function useElectionStatus() {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const isInitialLoadRef = useRef(true);
+  const isFetchingRef = useRef(false);
 
   const fetchStatus = useCallback(async () => {
+    if (isFetchingRef.current) {
+      return; // منع الاستدعاء المزدوج
+    }
+
+    isFetchingRef.current = true;
     setIsLoading(true);
     setError(null);
 
     try {
-      const data = await fetchElectionStatus();
+      const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'https://api-sakani-election.orapexdev.com/api';
+      const token = getAccessToken();
+      const headers: HeadersInit = {
+        'accept': '*/*',
+        'Content-Type': 'application/json',
+      };
+      
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      
+      const response = await fetch(`${API_BASE}/election/status`, {
+        method: 'GET',
+        headers,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'فشل في جلب حالة التصويت');
+      }
+
+      const data: ElectionStatus = await response.json();
       setStatus(data);
       // بعد التحميل الأول، لا نعد هذا تحميلاً أولياً
       if (isInitialLoadRef.current) {
@@ -35,16 +68,17 @@ export function useElectionStatus() {
       }
     } finally {
       setIsLoading(false);
+      isFetchingRef.current = false;
     }
   }, []);
 
   useEffect(() => {
     fetchStatus();
 
-    // إعادة جلب البيانات تلقائياً كل 5 ثوانٍ للتأكد من تحديث الحالة
+    // إعادة جلب البيانات تلقائياً كل 30 ثانية بدلاً من 10 لتقليل الحمل على الخادم
     const interval = setInterval(() => {
       fetchStatus();
-    }, 5000);
+    }, 30000);
 
     return () => {
       clearInterval(interval);

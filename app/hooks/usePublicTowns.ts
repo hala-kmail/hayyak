@@ -183,9 +183,12 @@ export function usePublicTowns() {
   }, [fetchTowns, fetchVotes]);
 
   useEffect(() => {
-    fetchTowns();
-    fetchVotes();
-    fetchTotalVotes();
+    // جلب البيانات بشكل متوازي (parallel) لتحسين الأداء
+    Promise.all([
+      fetchTowns(),
+      fetchVotes(),
+      fetchTotalVotes(),
+    ]);
   }, [fetchTowns, fetchVotes]);
 
   // تحويل الأحياء إلى NeighborhoodItem مع الأصوات

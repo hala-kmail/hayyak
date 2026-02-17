@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import type { NeighborhoodItem } from '../data';
 import { VoteModal } from '../VoteModal';
 import { Tabs, SearchBox, ScrollButtons, EmptyState, GridCard, SectionHeader } from './components';
@@ -87,24 +87,26 @@ export function NeighborhoodsGrid({
 
   // إذا كان هناك بحث، استخدم نتائج البحث مباشرة (التي تأتي من الباك إند)
   // وإلا استخدم التبويب النشط (أفضل 3 أو جميع الأحياء)
-  const displayNeighborhoods = searchQuery.trim() 
-    ? sortNeighborhoodsByVotes(neighborhoods) 
-    : getBaseNeighborhoods(neighborhoods, activeTab);
+  const sortedNeighborhoods = useMemo(() => sortNeighborhoodsByVotes(neighborhoods), [neighborhoods]);
+  const maxVotes = useMemo(() => getMaxVotes(neighborhoods), [neighborhoods]);
   
-  const maxVotes = getMaxVotes(neighborhoods);
-  const sortedNeighborhoods = sortNeighborhoodsByVotes(neighborhoods);
+  const displayNeighborhoods = useMemo(() => {
+    return searchQuery.trim() 
+      ? sortedNeighborhoods 
+      : getBaseNeighborhoods(neighborhoods, activeTab);
+  }, [searchQuery, neighborhoods, activeTab, sortedNeighborhoods]);
 
-  const handleNeighborhoodClick = (neighborhood: NeighborhoodItem) => {
+  const handleNeighborhoodClick = useCallback((neighborhood: NeighborhoodItem) => {
     setSelectedNeighborhood(neighborhood);
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
     setSelectedNeighborhood(null);
-  };
+  }, []);
 
-  const handleVoteForAnother = () => {
+  const handleVoteForAnother = useCallback(() => {
     handleCloseModal();
     setTimeout(() => {
       const districtsSection = document.getElementById('districts');
@@ -112,11 +114,11 @@ export function NeighborhoodsGrid({
         districtsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }, 300);
-  };
+  }, [handleCloseModal]);
 
-  const isScrollable = activeTab === 'all' && !searchQuery;
-  const cardWidth = getCardWidth(activeTab, !!searchQuery);
-  const showScrollButtons = activeTab === 'all';
+  const isScrollable = useMemo(() => activeTab === 'all' && !searchQuery, [activeTab, searchQuery]);
+  const cardWidth = useMemo(() => getCardWidth(activeTab, !!searchQuery), [activeTab, searchQuery]);
+  const showScrollButtons = useMemo(() => activeTab === 'all', [activeTab]);
 
   return (
     <section id="districts" className={gridStyles.section} style={{ marginBottom: '-3px' }}>

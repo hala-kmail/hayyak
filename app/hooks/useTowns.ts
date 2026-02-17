@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { getAccessToken } from '@/lib/auth';
 
 export interface Town {
@@ -71,8 +71,14 @@ export function useTowns() {
   const [towns, setTowns] = useState<Town[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const isFetchingRef = useRef(false);
 
-  const fetchTowns = async () => {
+  const fetchTowns = useCallback(async () => {
+    if (isFetchingRef.current) {
+      return; // منع الاستدعاء المزدوج
+    }
+
+    isFetchingRef.current = true;
     setIsLoading(true);
     setError(null);
 
@@ -84,8 +90,9 @@ export function useTowns() {
       setError(err.message || 'حدث خطأ في جلب الأحياء.');
     } finally {
       setIsLoading(false);
+      isFetchingRef.current = false;
     }
-  };
+  }, []);
 
   const searchTowns = async (query: string): Promise<void> => {
     if (!query || query.trim() === '') {
@@ -280,7 +287,7 @@ export function useTowns() {
 
   useEffect(() => {
     fetchTowns();
-  }, []);
+  }, [fetchTowns]);
 
   return {
     towns,

@@ -1,12 +1,9 @@
 'use client';
 
-import React from 'react';
-import { useStats } from '@/app/hooks/useStats';
-import { useElectionStatus } from '@/app/hooks/useElectionStatus';
+import React, { useMemo } from 'react';
 import { HeroContent, HeroWaveSeparator } from './components';
 import { heroStyles } from './styles';
 import { HeroSectionProps } from './types';
-import { mergeStatsData } from './utils';
 
 /**
  * HeroSection Component
@@ -15,24 +12,19 @@ import { mergeStatsData } from './utils';
  * - Open/Closed: Extensible via props without modifying internal logic
  * - Dependency Inversion: Depends on abstractions (hooks, utils) not concrete implementations
  */
-export function HeroSection({
+export const HeroSection = React.memo(function HeroSection({
   totalVotes: propTotalVotes,
   neighborhoodsCount: propNeighborhoodsCount,
   votesToday: propVotesToday,
-}: HeroSectionProps) {
-  const { stats } = useStats();
-  const { status, isLoading: isElectionStatusLoading, isInitialLoad } = useElectionStatus();
-
-  // Merge API stats with prop values (API takes priority)
-  const mergedStats = mergeStatsData(stats, {
-    totalVotes: propTotalVotes,
-    neighborhoodsCount: propNeighborhoodsCount,
-    votesToday: propVotesToday,
-  });
-
-  // أثناء التحميل الأول فقط، افترض أن التصويت مفتوح (optimistic) لتجنب التغيير المفاجئ في الواجهة
-  // بعد التحميل الأول، استخدم القيمة الفعلية حتى أثناء إعادة الجلب لتجنب الوميض
-  const isElectionOpen = isInitialLoad && isElectionStatusLoading ? true : (status?.isOpen ?? false);
+  isElectionOpen,
+}: HeroSectionProps & { isElectionOpen: boolean }) {
+  // استخدام البيانات من props مباشرة بدلاً من جلبها مرة أخرى
+  // إضافة قيم افتراضية لتجنب undefined
+  const stats = useMemo(() => ({
+    totalVotes: propTotalVotes ?? 0,
+    neighborhoodsCount: propNeighborhoodsCount ?? 0,
+    votesToday: propVotesToday ?? 0,
+  }), [propTotalVotes, propNeighborhoodsCount, propVotesToday]);
 
   return (
     <section className={heroStyles.section}>
@@ -43,7 +35,7 @@ export function HeroSection({
 
         {/* Main content */}
         <div className={heroStyles.contentWrapper}>
-          <HeroContent stats={mergedStats} isElectionOpen={isElectionOpen} />
+          <HeroContent stats={stats} isElectionOpen={isElectionOpen} />
         </div>
 
         {/* Wave separator */}
@@ -51,4 +43,4 @@ export function HeroSection({
       </div>
     </section>
   );
-}
+});

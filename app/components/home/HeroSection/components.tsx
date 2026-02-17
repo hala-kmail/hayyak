@@ -18,7 +18,7 @@ interface HeroCTAProps {
  * Hero Badge Component
  * Following Single Responsibility Principle - only handles badge display
  */
-export function HeroBadge({ isOpen }: HeroBadgeProps) {
+export const HeroBadge = React.memo(function HeroBadge({ isOpen }: HeroBadgeProps) {
   if (!isOpen) {
     return (
       <div className={heroStyles.badge}>
@@ -36,16 +36,15 @@ export function HeroBadge({ isOpen }: HeroBadgeProps) {
       التصويت مفتوح الآن
     </div>
   );
-}
+});
 
 /**
  * Hero CTA Button Component
  * Following Single Responsibility Principle - only handles CTA button
  */
-export function HeroCTA({ isOpen }: HeroCTAProps) {
+export const HeroCTA = React.memo(function HeroCTA({ isOpen }: HeroCTAProps) {
   if (!isOpen) {
-    return null
-       
+    return null;
   }
   return (
     <div className={heroStyles.ctaWrapper}>
@@ -55,13 +54,13 @@ export function HeroCTA({ isOpen }: HeroCTAProps) {
       </a>
     </div>
   );
-}
+});
 
 /**
  * Hero Visual Badge Component
  * Following Single Responsibility Principle - only handles visual badge display
  */
-export function HeroVisualBadge() {
+export const HeroVisualBadge = React.memo(function HeroVisualBadge() {
   return (
     <div className={heroStyles.visualWrapper}>
       <div className={heroStyles.visualContainer}>
@@ -84,13 +83,13 @@ export function HeroVisualBadge() {
       </div>
     </div>
   );
-}
+});
 
 /**
  * Hero Stat Item Component
  * Following Single Responsibility Principle - only handles single stat display
  */
-export function HeroStatItem({ value, label}: HeroStatItemProps) {
+export const HeroStatItem = React.memo(function HeroStatItem({ value, label}: HeroStatItemProps) {
  
   return (
     <div className={heroStyles.statItem}>
@@ -100,13 +99,13 @@ export function HeroStatItem({ value, label}: HeroStatItemProps) {
       <div className={heroStyles.statLabel}>{label}</div>
     </div>
   );
-}
+});
 
 /**
  * Hero Stats Component
  * Following Single Responsibility Principle - only handles stats display
  */
-export function HeroStats({ stats, isOpen }: { stats: HeroStatsData; isOpen: boolean }) {
+export const HeroStats = React.memo(function HeroStats({ stats, isOpen }: { stats: HeroStatsData; isOpen: boolean }) {
   if (!isOpen) {
     return null;
   }
@@ -121,13 +120,13 @@ export function HeroStats({ stats, isOpen }: { stats: HeroStatsData; isOpen: boo
       </div>
     </div>
   );
-}
+});
 
 /**
  * Hero Content Component
  * Following Single Responsibility Principle - only handles content layout
  */
-export function HeroContent({ stats, isElectionOpen }: HeroContentProps) {
+export const HeroContent = React.memo(function HeroContent({ stats, isElectionOpen }: HeroContentProps) {
   return (
     <>
       <div className={heroStyles.mainContent}>
@@ -153,13 +152,13 @@ export function HeroContent({ stats, isElectionOpen }: HeroContentProps) {
       
     </>
   );
-}
+});
 
 /**
  * Hero Wave Separator Component
  * Following Single Responsibility Principle - only handles wave SVG
  */
-export function HeroWaveSeparator() {
+export const HeroWaveSeparator = React.memo(function HeroWaveSeparator() {
   return (
     <div className={heroStyles.waveContainer}>
       <svg
@@ -176,4 +175,4 @@ export function HeroWaveSeparator() {
       </svg>
     </div>
   );
-}
+});

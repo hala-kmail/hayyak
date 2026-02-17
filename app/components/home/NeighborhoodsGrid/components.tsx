@@ -19,7 +19,7 @@ interface TabsProps {
   onTabChange: (tab: TabType) => void;
 }
 
-export function Tabs({ activeTab, onTabChange }: TabsProps) {
+export const Tabs = React.memo(function Tabs({ activeTab, onTabChange }: TabsProps) {
   return (
     <div className={gridStyles.tabsContainer}>
       
@@ -41,7 +41,7 @@ export function Tabs({ activeTab, onTabChange }: TabsProps) {
       </button>
     </div>
   );
-}
+});
 
 /**
  * Search Box Component
@@ -52,7 +52,7 @@ interface SearchBoxProps {
   onSearchChange: (query: string) => void;
 }
 
-export function SearchBox({ searchQuery, onSearchChange }: SearchBoxProps) {
+export const SearchBox = React.memo(function SearchBox({ searchQuery, onSearchChange }: SearchBoxProps) {
   return (
     <div className={gridStyles.searchContainer}>
       <div className={gridStyles.searchIcon}>
@@ -69,7 +69,7 @@ export function SearchBox({ searchQuery, onSearchChange }: SearchBoxProps) {
       />
     </div>
   );
-}
+});
 
 /**
  * Scroll Buttons Component
@@ -79,7 +79,7 @@ interface ScrollButtonsProps {
   onScroll: (direction: 'left' | 'right') => void;
 }
 
-export function ScrollButtons({ onScroll }: ScrollButtonsProps) {
+export const ScrollButtons = React.memo(function ScrollButtons({ onScroll }: ScrollButtonsProps) {
   return (
     <div className={gridStyles.scrollButtonsContainer}>
       <button
@@ -100,13 +100,13 @@ export function ScrollButtons({ onScroll }: ScrollButtonsProps) {
       </button>
     </div>
   );
-}
+});
 
 /**
  * Section Header Component
  * Following Single Responsibility Principle - only handles section header display
  */
-export function SectionHeader() {
+export const SectionHeader = React.memo(function SectionHeader() {
   return (
     <div className={gridStyles.headerContainer}>
       <span className={gridStyles.headerBadge}>
@@ -118,13 +118,13 @@ export function SectionHeader() {
       <div className={gridStyles.headerDivider} />
     </div>
   );
-}
+});
 
 /**
  * Empty State Component
  * Following Single Responsibility Principle - only handles empty state display
  */
-export function EmptyState() {
+export const EmptyState = React.memo(function EmptyState() {
   return (
     <div className={gridStyles.emptyState}>
       <p className={gridStyles.emptyStateTitle}>
@@ -135,13 +135,13 @@ export function EmptyState() {
       </p>
     </div>
   );
-}
+});
 
 /**
  * Grid Card Component
  * Following Single Responsibility Principle - only handles single card display
  */
-export function GridCard({
+export const GridCard = React.memo(function GridCard({
   neighborhood,
  
   progress,
@@ -197,4 +197,4 @@ export function GridCard({
       </div>
     </button>
   );
-}
+});

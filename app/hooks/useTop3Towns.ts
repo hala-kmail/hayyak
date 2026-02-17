@@ -1,36 +1,27 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { fetchTop3TownsFromAPI, type Top3Town } from '@/app/lib/top3Towns';
 
-export interface Top3Town {
-  rank: number;
-  townId: string;
-  name: string;
-  votes: number;
-}
+export type { Top3Town };
 
 export function useTop3Towns() {
   const [top3Towns, setTop3Towns] = useState<Top3Town[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const isFetchingRef = useRef(false);
 
-  const fetchTop3Towns = async () => {
+  const fetchTop3Towns = useCallback(async () => {
+    if (isFetchingRef.current) {
+      return; // منع الاستدعاء المزدوج
+    }
+
+    isFetchingRef.current = true;
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch('/api/towns/top-3', {
-        method: 'GET',
-        headers: {
-          'accept': '*/*',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('فشل في جلب أفضل 3 أحياء.');
-      }
-
-      const data: Top3Town[] = await response.json();
+      const data = await fetchTop3TownsFromAPI();
       setTop3Towns(data);
     } catch (err: any) {
       console.error('Error fetching top 3 towns:', err);
@@ -38,12 +29,13 @@ export function useTop3Towns() {
       setTop3Towns([]);
     } finally {
       setIsLoading(false);
+      isFetchingRef.current = false;
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchTop3Towns();
-  }, []);
+  }, [fetchTop3Towns]);
 
   return {
     top3Towns,
