@@ -84,13 +84,12 @@ export function useFingerprint() {
         // Generate device fingerprint fresh each time (no storage)
         const deviceId = await generateDeviceFingerprint();
         
-        // طباعة البصمة في Console
-        console.log('🔐 Device Fingerprint Generated:', deviceId);
+      
 
         setVisitorId(deviceId);
         setIsLoading(false);
       } catch (err) {
-        console.error('Error generating fingerprint:', err);
+       
         setError('فشل في توليد بصمة الجهاز. يرجى المحاولة لاحقاً.');
         setIsLoading(false);
       }

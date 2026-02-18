@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
       // إذا كان الخطأ 409 (Conflict) - يعني تم التصويت مسبقاً
       if (response.status === 409) {
         return NextResponse.json(
-          { error: 'لقد قمت بالتصويت مسبقاً .' },
+          { error: 'لقد قمت بالتصويت مسبقاً.' },
           { status: 409 }
         );
       }

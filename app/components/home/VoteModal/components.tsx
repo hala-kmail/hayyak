@@ -5,7 +5,6 @@ import {
   FaTimes,
   FaCheckCircle,
   FaChevronLeft,
-  FaShieldAlt,
   FaExclamationTriangle,
 } from 'react-icons/fa';
 import {
@@ -14,7 +13,7 @@ import {
   VoteFormProps,
 } from './types';
 import { modalStyles } from './styles';
-import { PRIVACY_DISCLAIMER } from './constants';
+
 
 /**
  * Vote Modal Header Component
@@ -115,22 +114,7 @@ export function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
   );
 }
 
-/**
- * Privacy Disclaimer Component
- * Following Single Responsibility Principle - only handles privacy disclaimer
- */
-export function PrivacyDisclaimer() {
-  return (
-    <div className={modalStyles.privacyContainer}>
-      <div className={modalStyles.privacyContent}>
-        <FaShieldAlt className={modalStyles.privacyIcon} />
-        <div className={modalStyles.privacyText}>
-          <p className={modalStyles.privacyMessage}>{PRIVACY_DISCLAIMER}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
+
 
 /**
  * Vote Form Component
@@ -152,7 +136,7 @@ export function VoteForm({
       )}
 
       <NeighborhoodCard neighborhood={neighborhood} />
-      <PrivacyDisclaimer />
+   
 
       {voteError && <ErrorAlert title={voteError} message="" />}
 

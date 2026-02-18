@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import { FOOTER_CONTENT } from './constants';
+import { FOOTER_CONTENT, SUCCESS_PARTNERS } from './constants';
 import {
   FooterWaveSeparator,
   FooterBackgroundEffects,
   FooterContent,
+  FooterPartners,
   FooterCopyright,
 } from './components';
 import { footerStyles } from './styles';
@@ -31,6 +32,7 @@ const Footer: React.FC = () => {
           title={FOOTER_CONTENT.title}
           description={FOOTER_CONTENT.description}
         />
+        <FooterPartners partners={SUCCESS_PARTNERS} />
         <FooterCopyright copyright={FOOTER_CONTENT.copyright} />
       </div>
     </footer>

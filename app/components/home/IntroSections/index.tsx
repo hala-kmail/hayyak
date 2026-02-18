@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { INTRO_SECTIONS_DATA } from './constants';
+import { INTRO_SECTIONS_DATA, INTRO_SECTIONS_HEADER } from './constants';
 import { IntroSectionCard } from './components';
 import { introStyles } from './styles';
 import { useIntersectionObserver } from './hooks';
@@ -29,15 +29,29 @@ export function IntroSections() {
       </div>
 
       <div className={introStyles.container}>
+        <div className={introStyles.headerWrapper}>
+          <h2 className={introStyles.headerTitle}>{INTRO_SECTIONS_HEADER.title}</h2>
+          <div className={introStyles.headerAccentLine} />
+          <p className={introStyles.headerDescription}>
+            {INTRO_SECTIONS_HEADER.description}
+          </p>
+        </div>
         <div className={introStyles.grid}>
-          {INTRO_SECTIONS_DATA.map((section) => (
-            <IntroSectionCard
-              key={section.id}
-              section={section}
-              isVisible={isVisible}
-              habeebError={habeebError}
-              onHabeebError={handleHabeebError}
-            />
+          {INTRO_SECTIONS_DATA.map((section, idx) => (
+            <React.Fragment key={section.id}>
+              <IntroSectionCard
+                section={section}
+                isVisible={isVisible}
+                habeebError={habeebError}
+                onHabeebError={handleHabeebError}
+              />
+              {idx !== INTRO_SECTIONS_DATA.length - 1 && (
+                <div
+                  className={introStyles.divider(isVisible)}
+                  style={{ transitionDelay: `${idx * 150 + 100}ms` }}
+                />
+              )}
+            </React.Fragment>
           ))}
         </div>
       </div>

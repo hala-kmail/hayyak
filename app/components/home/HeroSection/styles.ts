@@ -5,7 +5,7 @@
 
 export const heroStyles = {
   section: 'relative overflow-hidden bg-white border-b-[5px] border-white',
-  container: 'relative h-[640px] md:h-[680px] w-full bg-gradient-to-br from-navy-blue to-turquoise flex items-center overflow-hidden',
+  container: 'relative h-[680px] md:h-[680px] w-full bg-gradient-to-br from-navy-blue to-turquoise flex items-center overflow-hidden',
   backgroundBlur1: 'absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] animate-pulse-slow',
   backgroundBlur2: 'absolute bottom-[-10%] left-[0%] w-[400px] h-[400px] bg-turquoise/10 rounded-full blur-[100px]',
   contentWrapper: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10',

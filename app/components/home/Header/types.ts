@@ -6,6 +6,7 @@
 export interface NavLink {
   href: string;
   label: string;
+  sectionId?: string;
 }
 
 export interface HeaderLogoProps {

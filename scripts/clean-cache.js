@@ -17,7 +17,7 @@ function deleteDir(dirPath) {
 
   try {
     fs.rmSync(dirPath, { recursive: true, force: true });
-    console.log(`✓ Deleted: ${dirPath}`);
+  
     return true;
   } catch (error) {
     console.error(`✗ Failed to delete ${dirPath}:`, error.message);
@@ -25,7 +25,7 @@ function deleteDir(dirPath) {
   }
 }
 
-console.log('🧹 Cleaning Next.js cache...\n');
+
 
 let deletedCount = 0;
 cacheDirs.forEach((dir) => {
@@ -35,8 +35,4 @@ cacheDirs.forEach((dir) => {
   }
 });
 
-if (deletedCount > 0) {
-  console.log(`\n✅ Successfully cleaned ${deletedCount} cache directory/directories`);
-} else {
-  console.log('\n✨ Cache directories are already clean');
-}
+

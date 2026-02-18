@@ -5,12 +5,14 @@ import { FaPlus } from 'react-icons/fa';
 import { AdminsTable } from '@/app/components/admin/AdminsTable';
 import { AdminFormModal } from '@/app/components/admin/AdminFormModal';
 import { DeleteConfirmationModal } from '@/app/components/admin/DeleteConfirmationModal';
+import { deleteAdminAction } from '@/app/admin/actions/admins';
 import { useAdminsPage } from './hooks';
 import { PageHeader, AlertBanner, sharedStyles } from '../shared';
 
 /**
  * AdminsPageContent Component
  * Following Single Responsibility Principle - only orchestrates admins CRUD UI
+ * Uses Server Actions + useActionState for create/delete
  */
 export function AdminsPageContent() {
   const {
@@ -21,10 +23,8 @@ export function AdminsPageContent() {
     isDeleteModalOpen,
     adminToDelete,
     handleAdd,
-    handleSubmit,
+    handleSuccess,
     handleDeleteClick,
-    handleDeleteConfirm,
-    handleToggle,
     closeModal,
     closeDeleteModal,
   } = useAdminsPage();
@@ -46,19 +46,21 @@ export function AdminsPageContent() {
       <AdminsTable
         admins={admins}
         isLoading={isLoading}
-        onToggle={handleToggle}
+        onToggleSuccess={handleSuccess}
         onDelete={handleDeleteClick}
       />
 
       {isModalOpen && (
-        <AdminFormModal isOpen={isModalOpen} onClose={closeModal} onSubmit={handleSubmit} />
+        <AdminFormModal isOpen={isModalOpen} onClose={closeModal} onSuccess={handleSuccess} />
       )}
 
       {isDeleteModalOpen && adminToDelete && (
         <DeleteConfirmationModal
           isOpen={isDeleteModalOpen}
           onClose={closeDeleteModal}
-          onConfirm={handleDeleteConfirm}
+          onSuccess={handleSuccess}
+          action={deleteAdminAction}
+          id={adminToDelete.id}
           title="تأكيد حذف الأدمن"
           message="هل أنت متأكد من حذف هذا الأدمن؟"
           itemName={adminToDelete.name}

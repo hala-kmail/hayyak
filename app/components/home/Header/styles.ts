@@ -9,12 +9,12 @@ export const headerStyles = {
       mobileMenuOpen ? 'lg:z-[100] z-[30]' : 'z-[100]'
     }`,
   nav: (scrolled: boolean) =>
-    `w-full transition-all duration-500 ${scrolled ? 'pt-0' : 'pt-6'}`,
+    `w-full transition-all duration-500 ${scrolled ? 'pt-0' : 'pt-3'}`,
   navContainer: (scrolled: boolean) =>
     `pointer-events-auto transition-all duration-500 ${
       scrolled ? 'bg-white shadow-lg' : 'bg-transparent'
     }`,
-  navInner: 'max-w-7xl mx-auto flex items-center justify-between h-16 sm:h-20 px-4 sm:px-6 lg:px-8',
+  navInner: 'max-w-7xl mx-auto flex items-center justify-between h-12 sm:h-20 px-4 sm:px-6 lg:px-8',
   logoLink: (mobileMenuOpen: boolean) =>
     `flex items-center gap-3 group transition-opacity duration-300 ${
       mobileMenuOpen
@@ -26,6 +26,9 @@ export const headerStyles = {
     `font-black text-xl sm:text-2xl transition-colors duration-500 hidden sm:block ${
       scrolled ? 'text-navy-blue' : 'text-white'
     }`,
+  lantern: 'hidden lg:block absolute pointer-events-none transition-all duration-500',
+  lanternLeft: 'top-1/2 -translate-y-1/2 left-[-40px] w-10 h-14 opacity-80',
+  lanternRight: 'top-1/2 -translate-y-1/2 right-[-40px] w-10 h-14 opacity-80 scale-x-[-1]',
   desktopNav: 'hidden lg:flex items-center gap-1',
   navLink: (scrolled: boolean) =>
     `px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 relative group ${

@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { ScreenLayout } from '@/base';
 import {
   Header,
@@ -8,6 +9,7 @@ import {
   NeighborhoodsGrid,
   PageAccent,
   HowItWorks,
+  PrizeSection,
   Footer,
 } from '@/app/components/home';
 import { usePublicTowns } from '@/app/hooks/usePublicTowns';
@@ -34,6 +36,18 @@ export default function HomePage() {
   // عرض LoadingState فقط عند التحميل الأولي، وليس عند البحث
   const showLoading = isLoading && neighborhoods.length === 0;
 
+  // التمرير إلى السكشن عند فتح الصفحة بـ hash (مثلاً من النافبار أو رابط مباشر)
+  useEffect(() => {
+    const hash = typeof window !== 'undefined' ? window.location.hash.slice(1) : '';
+    if (!hash) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className={pageStyles.container}>
       <PageAccent />
@@ -46,8 +60,8 @@ export default function HomePage() {
           votesToday={votesToday}
           isElectionOpen={isElectionOpen}
         />
-
-        <IntroSections />
+<PrizeSection />
+      
 
         {isElectionOpen && (
           <div className={pageStyles.districtsSection} style={{ marginBottom: '-3px' }}>
@@ -69,6 +83,7 @@ export default function HomePage() {
           </div>
         )}
 
+<IntroSections />
         <Footer />
       </ScreenLayout>
     </div>

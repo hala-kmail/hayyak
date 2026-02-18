@@ -6,9 +6,9 @@
 import type { NavLink } from './types';
 
 export const NAV_LINKS: NavLink[] = [
-  { href: '/vote', label: 'التصويت' },
-  { href: '/award', label: 'الجائزة' },
-  { href: '/partner', label: 'شراء' },
+  { href: '/#vote', label: 'التصويت', sectionId: 'vote' },
+  { href: '/#prize', label: 'الجائزة', sectionId: 'prize' },
+ 
 ];
 
 export const DRAWER_DURATION_MS = 280;

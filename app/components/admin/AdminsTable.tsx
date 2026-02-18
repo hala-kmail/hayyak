@@ -3,6 +3,8 @@
 import React from 'react';
 import { Admin } from '@/app/hooks/useAdmins';
 import { FaTrash, FaToggleOn, FaToggleOff } from 'react-icons/fa';
+import { toggleAdminAction } from '@/app/admin/actions/admins';
+import { ToggleAdminForm } from './ToggleAdminForm';
 import { LoadingState, EmptyState } from './shared';
 import { formatDate } from './utils';
 import { tableStyles } from './styles/tableStyles';
@@ -10,11 +12,11 @@ import { tableStyles } from './styles/tableStyles';
 interface AdminsTableProps {
   admins: Admin[];
   isLoading: boolean;
-  onToggle: (id: string) => void;
+  onToggleSuccess: () => void;
   onDelete: (id: string) => void;
 }
 
-export function AdminsTable({ admins, isLoading, onToggle, onDelete }: AdminsTableProps) {
+export function AdminsTable({ admins, isLoading, onToggleSuccess, onDelete }: AdminsTableProps) {
   if (isLoading) {
     return <LoadingState message="جاري تحميل مسؤولين النظام..." />;
   }
@@ -63,25 +65,12 @@ export function AdminsTable({ admins, isLoading, onToggle, onDelete }: AdminsTab
                   <div className={tableStyles.actions}>
                     {admin.role !== 'super_admin' && (
                       <>
-                        <button
-                          onClick={() => {
-                            onToggle(admin.id);
-                          }}
-                          className={tableStyles.btnToggle(admin.isActive)}
-                          title={admin.isActive ? 'تعطيل' : 'تفعيل'}
-                        >
-                          {admin.isActive ? (
-                            <>
-                              <FaToggleOn className={tableStyles.iconScale} />
-                              <span className={tableStyles.iconHidden}>تعطيل</span>
-                            </>
-                          ) : (
-                            <>
-                              <FaToggleOff className={tableStyles.iconScale} />
-                              <span className={tableStyles.iconHidden}>تفعيل</span>
-                            </>
-                          )}
-                        </button>
+                        <ToggleAdminForm
+                          adminId={admin.id}
+                          isActive={admin.isActive}
+                          action={toggleAdminAction}
+                          onSuccess={onToggleSuccess}
+                        />
                         <button
                           onClick={() => {
                             onDelete(admin.id);

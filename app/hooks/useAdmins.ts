@@ -26,7 +26,7 @@ export function useAdmins() {
 
   const fetchAdmins = useCallback(async () => {
     if (isFetchingRef.current) {
-      return; // منع الاستدعاء المزدوج
+      return;
     }
 
     isFetchingRef.current = true;
@@ -48,103 +48,15 @@ export function useAdmins() {
 
       const data = await response.json();
       setAdmins(Array.isArray(data) ? data : []);
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'حدث خطأ في جلب مسؤولين النظام.';
       console.error('Error fetching admins:', err);
-      setError(err.message || 'حدث خطأ في جلب مسؤولين النظام.');
+      setError(message);
     } finally {
       setIsLoading(false);
       isFetchingRef.current = false;
     }
   }, []);
-
-  const createAdmin = async (adminData: CreateAdminData): Promise<Admin | null> => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch(`${API_BASE}/auth/admins`, {
-        method: 'POST',
-        headers: getClientAuthHeaders(),
-        body: JSON.stringify(adminData),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        const msg = data.message;
-        const errorText = Array.isArray(msg) ? msg.join(' ') : (msg || data.error || 'فشل في إضافة الأدمن.');
-        throw new Error(errorText);
-      }
-
-      const newAdmin = await response.json();
-      await fetchAdmins(); // Refresh list
-      setIsLoading(false);
-      return newAdmin;
-    } catch (err: any) {
-      console.error('Error creating admin:', err);
-      const errorMessage = err.message || 'حدث خطأ في إضافة الأدمن.';
-      setError(errorMessage);
-      setIsLoading(false);
-      throw err;
-    }
-  };
-
-  const deleteAdmin = async (id: string): Promise<boolean> => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch(`${API_BASE}/auth/admins/${id}`, {
-        method: 'DELETE',
-        headers: getClientAuthHeaders({ includeContentType: false }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        const msg = data.message;
-        const errorText = Array.isArray(msg) ? msg.join(' ') : (msg || data.error || 'فشل في حذف الأدمن.');
-        throw new Error(errorText);
-      }
-
-      await fetchAdmins(); // Refresh list
-      return true;
-    } catch (err: any) {
-      console.error('Error deleting admin:', err);
-      setError(err.message || 'حدث خطأ في حذف الأدمن.');
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const toggleAdminStatus = async (id: string): Promise<Admin | null> => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch(`${API_BASE}/auth/admins/${id}/toggle`, {
-        method: 'PATCH',
-        headers: getClientAuthHeaders({ includeContentType: false }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        const msg = data.message;
-        const errorText = Array.isArray(msg) ? msg.join(' ') : (msg || data.error || 'فشل في تبديل حالة الأدمن.');
-        throw new Error(errorText);
-      }
-
-      const updatedAdmin = await response.json();
-      await fetchAdmins(); // Refresh list
-      setIsLoading(false);
-      return updatedAdmin;
-    } catch (err: any) {
-      console.error('Error toggling admin status:', err);
-      const errorMessage = err.message || 'حدث خطأ في تبديل حالة الأدمن.';
-      setError(errorMessage);
-      setIsLoading(false);
-      throw err;
-    }
-  };
 
   useEffect(() => {
     fetchAdmins();
@@ -155,8 +67,5 @@ export function useAdmins() {
     isLoading,
     error,
     fetchAdmins,
-    createAdmin,
-    deleteAdmin,
-    toggleAdminStatus,
   };
 }

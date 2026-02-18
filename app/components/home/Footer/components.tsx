@@ -61,6 +61,35 @@ export function FooterContent({ title, description }: FooterContentProps) {
 }
 
 /**
+ * Footer Partners Component
+ * Following Single Responsibility Principle - only handles partners display
+ */
+interface FooterPartnersProps {
+  partners: Array<{ name: string; url: string }>;
+}
+
+export function FooterPartners({ partners }: FooterPartnersProps) {
+  return (
+    <div className={footerStyles.partnersSection}>
+      <h4 className={footerStyles.partnersTitle}>شركاء النجاح</h4>
+      <div className={footerStyles.partnersList}>
+        {partners.map((partner, index) => (
+          <a
+            key={index}
+            href={partner.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={footerStyles.partnerLink}
+          >
+            {partner.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
  * Footer Copyright Component
  * Following Single Responsibility Principle - only handles copyright display
  */

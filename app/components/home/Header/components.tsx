@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import {
   HeaderLogoProps,
   NavLinksProps,
@@ -10,6 +11,10 @@ import {
 } from './types';
 import { headerStyles } from './styles';
 import { NAV_LINKS, LOGO_CONFIG } from './constants';
+
+function scrollToSection(sectionId: string) {
+  document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+}
 
 /**
  * Header Logo Component
@@ -47,18 +52,37 @@ export function HeaderLogo({
  * Following Single Responsibility Principle - only handles desktop nav links
  */
 export function DesktopNavLinks({ scrolled }: NavLinksProps) {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+
   return (
     <nav className={headerStyles.desktopNav}>
-      {NAV_LINKS.map(({ href, label }) => (
-        <Link
-          key={href}
-          href={href}
-          className={headerStyles.navLink(scrolled)}
-        >
-          {label}
-          <span className={headerStyles.navLinkUnderline(scrolled)} />
-        </Link>
-      ))}
+      {NAV_LINKS.map(({ href, label, sectionId }) => {
+        const isSectionLink = isHome && sectionId;
+        return isSectionLink ? (
+          <a
+            key={href}
+            href={href}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection(sectionId);
+            }}
+            className={headerStyles.navLink(scrolled)}
+          >
+            {label}
+            <span className={headerStyles.navLinkUnderline(scrolled)} />
+          </a>
+        ) : (
+          <Link
+            key={href}
+            href={href}
+            className={headerStyles.navLink(scrolled)}
+          >
+            {label}
+            <span className={headerStyles.navLinkUnderline(scrolled)} />
+          </Link>
+        );
+      })}
     </nav>
   );
 }
@@ -115,6 +139,9 @@ export function MobileDrawer({
   drawerAnimateIn,
   onClose,
 }: MobileDrawerProps) {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+
   if (!mobileMenuOpen) {
     return null;
   }
@@ -146,16 +173,35 @@ export function MobileDrawer({
           </div>
         </div>
         <nav className={headerStyles.drawerNav}>
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              onClick={onClose}
-              className={headerStyles.drawerNavLink}
-            >
-              {label}
-            </Link>
-          ))}
+          {NAV_LINKS.map(({ href, label, sectionId }) => {
+            const isSectionLink = isHome && sectionId;
+            if (isSectionLink) {
+              return (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(sectionId);
+                    onClose();
+                  }}
+                  className={headerStyles.drawerNavLink}
+                >
+                  {label}
+                </a>
+              );
+            }
+            return (
+              <Link
+                key={href}
+                href={href}
+                onClick={onClose}
+                className={headerStyles.drawerNavLink}
+              >
+                {label}
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </>

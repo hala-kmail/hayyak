@@ -4,13 +4,14 @@
  */
 
 export const gridStyles = {
-  section: 'py-20 relative bg-white',
+  section: 'pt-0 pb-20 relative bg-gray-50 w-full',
   sectionMargin: 'mb-[-3px]',
   headerContainer: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 relative',
   headerBadge: 'text-turquoise font-black tracking-[0.3em] uppercase text-[10px] mb-2 block',
   headerTitle: 'text-2xl md:text-4xl font-black text-navy-blue mb-4',
   headerDivider: 'w-12 h-1 bg-turquoise mx-auto rounded-full mb-6',
-  contentContainer: 'max-w-7xl mx-auto px-4',
+  contentContainer: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
+  contentWrapper: ' p-6 md:p-10',
   navigationContainer: 'flex flex-col sm:flex-row items-stretch sm:items-center justify-between mb-4 gap-4',
   controlsWrapper: 'flex flex-col sm:flex-row gap-4 flex-1',
   tabsContainer: 'flex gap-2 bg-gray-100 rounded-xl p-1',

@@ -1,70 +1,37 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useActionState } from 'react';
 import { FaTimes, FaSpinner } from 'react-icons/fa';
-import { Town, CreateTownData, UpdateTownData } from '@/app/hooks/useTowns';
+import { Town } from '@/app/hooks/useTowns';
+import { createTownAction, updateTownAction, type TownActionState } from '@/app/admin/actions/towns';
 import { modalStyles } from './styles/modalStyles';
 
 interface TownFormModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: CreateTownData | UpdateTownData) => Promise<void>;
+  onSuccess: () => void;
   town?: Town | null;
 }
 
-export function TownFormModal({ isOpen, onClose, onSubmit, town }: TownFormModalProps) {
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+export function TownFormModal({ isOpen, onClose, onSuccess, town }: TownFormModalProps) {
+  const isEdit = Boolean(town?.id);
+  const action = isEdit ? updateTownAction : createTownAction;
+  const [state, formAction, isPending] = useActionState<TownActionState | null, FormData>(
+    action,
+    null
+  );
 
   useEffect(() => {
-    if (isOpen) {
-      if (town) {
-        setName(town.name);
-        setAddress(town.address);
-      } else {
-        setName('');
-        setAddress('');
-      }
-      setError(null);
-      setIsSubmitting(false);
+    if (state?.success) {
+      onClose();
+      onSuccess();
     }
-  }, [town, isOpen]);
+  }, [state?.success, onClose, onSuccess]);
 
   if (!isOpen) {
     return null;
   }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-
-    if (!name.trim()) {
-      setError('اسم الحي مطلوب');
-      return;
-    }
-
-    if (!address.trim()) {
-      setError('العنوان مطلوب');
-      return;
-    }
-
-    setIsSubmitting(true);
-    setError(null);
-    
-    try {
-      const data: CreateTownData | UpdateTownData = {
-        name: name.trim(),
-        address: address.trim(),
-      };
-      await onSubmit(data);
-      // عند النجاح، الصفحة الأم ستغلق الـ modal
-    } catch (err: any) {
-      setError(err.message || 'حدث خطأ أثناء الحفظ');
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <div className={modalStyles.overlay}>
@@ -81,18 +48,17 @@ export function TownFormModal({ isOpen, onClose, onSubmit, town }: TownFormModal
         </div>
 
         <div className={modalStyles.content}>
-          <form onSubmit={handleSubmit} className={modalStyles.form}>
+          <form action={formAction} className={modalStyles.form}>
+            {isEdit && town && <input type="hidden" name="id" value={town.id} readOnly />}
             <div>
               <label htmlFor="name" className={modalStyles.formLabel}>
                 اسم الحي
               </label>
               <input
                 id="name"
+                name="name"
                 type="text"
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
+                defaultValue={town?.name ?? ''}
                 required
                 className={modalStyles.formInput}
                 placeholder="مثال: الرياض"
@@ -105,29 +71,27 @@ export function TownFormModal({ isOpen, onClose, onSubmit, town }: TownFormModal
               </label>
               <input
                 id="address"
+                name="address"
                 type="text"
-                value={address}
-                onChange={(e) => {
-                  setAddress(e.target.value);
-                }}
+                defaultValue={town?.address ?? ''}
                 required
                 className={modalStyles.formInput}
                 placeholder="مثال: طريق الملك فهد، الرياض"
               />
             </div>
 
-            {error && (
+            {state?.error && (
               <div className={modalStyles.formError}>
-                <p className={modalStyles.formErrorText}>{error}</p>
+                <p className={modalStyles.formErrorText}>{state.error}</p>
               </div>
             )}
 
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isPending}
               className={modalStyles.submitBtn}
             >
-              {isSubmitting ? (
+              {isPending ? (
                 <>
                   <FaSpinner className="w-4 h-4 animate-spin" />
                   جاري الحفظ...

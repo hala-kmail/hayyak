@@ -15,6 +15,10 @@ export const footerStyles = {
   title: 'text-3xl md:text-4xl font-black mb-3 text-white',
   divider: 'w-16 h-1 bg-turquoise mx-auto rounded-full mb-6',
   description: 'text-gray-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed',
+  partnersSection: 'mt-12 mb-8',
+  partnersTitle: 'text-xl md:text-2xl font-bold mb-6 text-white text-center',
+  partnersList: 'flex flex-wrap justify-center items-center gap-6 md:gap-8',
+  partnerLink: 'text-gray-300 hover:text-white transition-colors duration-200 text-sm md:text-base font-medium no-underline hover:underline decoration-white/50 underline-offset-4',
   copyrightSection: 'pt-8 border-t border-white/10 text-center',
   copyright: 'text-gray-400 text-sm font-medium',
 } as const;

@@ -9,10 +9,18 @@ export const introStyles = {
   backgroundBlur1: 'absolute top-0 right-0 w-96 h-96 bg-turquoise/10 rounded-full blur-3xl',
   backgroundBlur2: 'absolute bottom-0 left-0 w-80 h-80 bg-quite-purple/10 rounded-full blur-3xl',
   container: 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10',
-  grid: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10',
+  headerWrapper: 'text-center mb-10 md:mb-12',
+  headerTitle: 'text-2xl md:text-3xl font-black text-navy-blue mb-2',
+  headerAccentLine: 'w-16 h-1 rounded-full bg-turquoise mx-auto mb-4 opacity-80',
+  headerDescription: 'text-warm-grey text-base md:text-lg leading-relaxed max-w-2xl mx-auto',
+  grid: 'flex flex-col lg:flex-row gap-8 md:gap-8 items-center justify-center',
   card: (isVisible: boolean) =>
-    `group relative ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} transition-all duration-500 ease-out`,
-  cardInner: 'h-full flex flex-col items-center text-center p-6 md:p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300',
+    `group relative flex-1 md:flex-initial ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} transition-all duration-500 ease-out`,
+  cardInner: 'h-full flex flex-col items-center text-center p-6 md:p-8 bg-white/80 backdrop-blur-sm transition-all duration-300',
+  divider: (isVisible: boolean) =>
+    `hidden md:block w-px h-12 bg-gradient-to-b from-transparent via-gray-300 to-transparent transition-all duration-700 ${
+      isVisible ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'
+    }`,
   logoWrapper: 'flex flex-row items-center justify-center gap-3 mb-4 shrink-0',
   logoContainer: 'flex items-center justify-center shrink-0',
   logoLink: 'inline-block hover:opacity-90 hover:scale-105 transition-all duration-300',

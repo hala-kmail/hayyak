@@ -5,6 +5,12 @@
 
 import type { SectionItem } from './types';
 
+export const INTRO_SECTIONS_HEADER = {
+  title: 'شركاء النجاح',
+  description:
+    'حملة حيك تفوز بحوامة رمضان بالشراكة مع منصة سكني وشركائها، لنخدمك ونخدم حيك.',
+} as const;
+
 export const LOGO_HABEEB = '/images/habeeb.svg';
 export const LOGO_SAKANI = '/images/sakany.png';
 

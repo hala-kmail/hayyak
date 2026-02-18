@@ -7,6 +7,13 @@ import { FaEye, FaMapMarkedAlt, FaVoteYea } from 'react-icons/fa';
 import React from 'react';
 import type { StepItem } from './types';
 
+export const HOW_IT_WORKS_INTRO = {
+  badge: 'طريقة سهلة',
+  title: 'طريقة التصويت',
+  description:
+    'صوّت لحيك في ثلاث خطوات بسيطة وشارك الرابط مع جيرانك ليفوز حيك بحوامة رمضان.',
+} as const;
+
 export const HOW_IT_WORKS_STEPS: StepItem[] = [
   {
     title: 'تصفح الأحياء',

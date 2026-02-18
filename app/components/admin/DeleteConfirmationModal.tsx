@@ -1,13 +1,21 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useActionState } from 'react';
 import { FaTimes, FaSpinner, FaExclamationTriangle } from 'react-icons/fa';
 import { modalStyles } from './styles/modalStyles';
+
+interface DeleteActionState {
+  success?: boolean;
+  error?: string;
+}
 
 interface DeleteConfirmationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => Promise<void>;
+  onSuccess: () => void;
+  action: (prevState: DeleteActionState | null, formData: FormData) => Promise<DeleteActionState>;
+  id: string;
   title: string;
   message: string;
   itemName?: string;
@@ -16,37 +24,28 @@ interface DeleteConfirmationModalProps {
 export function DeleteConfirmationModal({
   isOpen,
   onClose,
-  onConfirm,
+  onSuccess,
+  action,
+  id,
   title,
   message,
   itemName,
 }: DeleteConfirmationModalProps) {
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [state, formAction, isPending] = useActionState<DeleteActionState | null, FormData>(
+    action,
+    null
+  );
 
   useEffect(() => {
-    if (isOpen) {
-      setError(null);
-      setIsDeleting(false);
+    if (state?.success) {
+      onClose();
+      onSuccess();
     }
-  }, [isOpen]);
+  }, [state?.success, onClose, onSuccess]);
 
   if (!isOpen) {
     return null;
   }
-
-  const handleConfirm = async () => {
-    setIsDeleting(true);
-    setError(null);
-
-    try {
-      await onConfirm();
-      onClose();
-    } catch (err: any) {
-      setError(err.message || 'حدث خطأ أثناء الحذف');
-      setIsDeleting(false);
-    }
-  };
 
   return (
     <div className={modalStyles.overlay}>
@@ -57,7 +56,7 @@ export function DeleteConfirmationModal({
           <h2 className={modalStyles.title}>{title}</h2>
           <button
             onClick={onClose}
-            disabled={isDeleting}
+            disabled={isPending}
             className={modalStyles.closeBtnDisabled}
           >
             <FaTimes className="w-4 h-4" />
@@ -77,16 +76,28 @@ export function DeleteConfirmationModal({
             <p className={modalStyles.messageHint}>لا يمكن التراجع عن هذا الإجراء</p>
           </div>
 
-          <div className={modalStyles.buttonsGroup}>
-            <button onClick={onClose} disabled={isDeleting} className={modalStyles.cancelBtn}>
+          {state?.error && (
+            <div className={modalStyles.formError}>
+              <p className={modalStyles.formErrorText}>{state.error}</p>
+            </div>
+          )}
+
+          <form action={formAction} className={modalStyles.buttonsGroup}>
+            <input type="hidden" name="id" value={id} readOnly />
+            <button
+              type="button"
+              onClick={onClose}
+              disabled={isPending}
+              className={modalStyles.cancelBtn}
+            >
               إلغاء
             </button>
             <button
-              onClick={handleConfirm}
-              disabled={isDeleting}
+              type="submit"
+              disabled={isPending}
               className={modalStyles.confirmBtn}
             >
-              {isDeleting ? (
+              {isPending ? (
                 <>
                   <FaSpinner className="w-4 h-4 animate-spin" />
                   جاري الحذف...
@@ -95,7 +106,7 @@ export function DeleteConfirmationModal({
                 'حذف'
               )}
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

@@ -5,12 +5,14 @@ import { FaPlus } from 'react-icons/fa';
 import { TownsTable } from '@/app/components/admin/TownsTable';
 import { TownFormModal } from '@/app/components/admin/TownFormModal';
 import { DeleteConfirmationModal } from '@/app/components/admin/DeleteConfirmationModal';
+import { deleteTownAction } from '@/app/admin/actions/towns';
 import { useTownsPage } from './hooks';
 import { PageHeader, AlertBanner, SearchInput, sharedStyles } from '../shared';
 
 /**
  * TownsPageContent Component
  * Following Single Responsibility Principle - only orchestrates towns CRUD UI
+ * Uses Server Actions + useActionState for create/update/delete
  */
 export function TownsPageContent() {
   const {
@@ -24,9 +26,8 @@ export function TownsPageContent() {
     townToDelete,
     handleAdd,
     handleEdit,
-    handleSubmit,
+    handleSuccess,
     handleDeleteClick,
-    handleDeleteConfirm,
     handleSearchChange,
     closeModal,
     closeDeleteModal,
@@ -63,7 +64,7 @@ export function TownsPageContent() {
         <TownFormModal
           isOpen={isModalOpen}
           onClose={closeModal}
-          onSubmit={handleSubmit}
+          onSuccess={handleSuccess}
           town={editingTown}
         />
       )}
@@ -72,7 +73,9 @@ export function TownsPageContent() {
         <DeleteConfirmationModal
           isOpen={isDeleteModalOpen}
           onClose={closeDeleteModal}
-          onConfirm={handleDeleteConfirm}
+          onSuccess={handleSuccess}
+          action={deleteTownAction}
+          id={townToDelete.id}
           title="تأكيد حذف الحي"
           message="هل أنت متأكد من حذف هذا الحي؟"
           itemName={townToDelete.name}

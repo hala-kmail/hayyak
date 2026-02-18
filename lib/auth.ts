@@ -5,6 +5,7 @@
 const ACCESS_TOKEN_KEY = 'admin_accessToken';
 const USER_ROLE_KEY = 'admin_userRole';
 const ADMIN_SESSION_COOKIE = 'admin_session';
+const ADMIN_TOKEN_COOKIE = 'admin_token';
 
 /**
  * Get the stored access token
@@ -26,6 +27,8 @@ export function setAccessToken(token: string): void {
   localStorage.setItem(ACCESS_TOKEN_KEY, token);
   // Cookie للـ Middleware - يتحقق من وجود الجلسة دون كشف التوكن
   document.cookie = `${ADMIN_SESSION_COOKIE}=1; path=/; max-age=86400; SameSite=Lax`;
+  // Cookie للـ Server Actions - قراءة التوكن على السيرفر
+  document.cookie = `${ADMIN_TOKEN_COOKIE}=${encodeURIComponent(token)}; path=/; max-age=86400; SameSite=Lax`;
 }
 
 /**
@@ -58,6 +61,7 @@ export function removeAccessToken(): void {
   localStorage.removeItem(ACCESS_TOKEN_KEY);
   localStorage.removeItem(USER_ROLE_KEY);
   document.cookie = `${ADMIN_SESSION_COOKIE}=; path=/; max-age=0`;
+  document.cookie = `${ADMIN_TOKEN_COOKIE}=; path=/; max-age=0`;
 }
 
 /**

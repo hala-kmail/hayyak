@@ -128,53 +128,55 @@ export function NeighborhoodsGrid({
 
   return (
     <section id="districts" className={gridStyles.section} style={{ marginBottom: '-3px' }}>
-      <SectionHeader />
       <div className={gridStyles.contentContainer}>
-        <div className={gridStyles.navigationContainer}>
-          <div className={gridStyles.controlsWrapper}>
-            <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
-            <SearchBox searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+        <div className={gridStyles.contentWrapper}>
+          <SectionHeader />
+          <div className={gridStyles.navigationContainer}>
+            <div className={gridStyles.controlsWrapper}>
+              <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
+              <SearchBox searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+            </div>
+
+            {showScrollButtons && <ScrollButtons onScroll={scroll} />}
           </div>
 
-          {showScrollButtons && <ScrollButtons onScroll={scroll} />}
-        </div>
+          <div
+            ref={scrollContainerRef}
+            className={gridStyles.scrollContainer(isScrollable)}
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
+          >
+            {displayNeighborhoods.length === 0 ? (
+              <EmptyState />
+            ) : (
+              <div className={gridStyles.cardsContainer(isScrollable)}>
+                {displayNeighborhoods.map((neighborhood) => {
+                  const votes = neighborhood.votes ?? 0;
+                  const isLeaderNeighborhood = isLeader(votes, maxVotes);
+                  const rank = getRank(neighborhood.id, sortedNeighborhoods);
+                  const iconConfig = NEIGHBORHOOD_ICONS[0];
 
-        <div
-          ref={scrollContainerRef}
-          className={gridStyles.scrollContainer(isScrollable)}
-          style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-          }}
-        >
-          {displayNeighborhoods.length === 0 ? (
-            <EmptyState />
-          ) : (
-            <div className={gridStyles.cardsContainer(isScrollable)}>
-              {displayNeighborhoods.map((neighborhood) => {
-                const votes = neighborhood.votes ?? 0;
-                const isLeaderNeighborhood = isLeader(votes, maxVotes);
-                const rank = getRank(neighborhood.id, sortedNeighborhoods);
-                const iconConfig = NEIGHBORHOOD_ICONS[0];
-
-                return (
-                  <GridCard
-                    key={neighborhood.id}
-                    neighborhood={neighborhood}
-                    totalVotes={totalVotes}
-                    maxVotes={maxVotes}
-                    rank={rank}
-                    isLeader={isLeaderNeighborhood}
-                    iconConfig={iconConfig}
-                    onClick={() => {
-                      handleNeighborhoodClick(neighborhood);
-                    }}
-                    cardWidth={cardWidth}
-                  />
-                );
-              })}
-            </div>
-          )}
+                  return (
+                    <GridCard
+                      key={neighborhood.id}
+                      neighborhood={neighborhood}
+                      totalVotes={totalVotes}
+                      maxVotes={maxVotes}
+                      rank={rank}
+                      isLeader={isLeaderNeighborhood}
+                      iconConfig={iconConfig}
+                      onClick={() => {
+                        handleNeighborhoodClick(neighborhood);
+                      }}
+                      cardWidth={cardWidth}
+                    />
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

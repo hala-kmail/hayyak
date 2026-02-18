@@ -5,7 +5,7 @@
 
 export const pageStyles = {
   container: 'min-h-screen bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100',
-  districtsSection: 'py-20 relative bg-white',
+  districtsSection: 'relative bg-gray-50 w-full',
   districtsSectionMargin: 'mb-[-3px]',
   loadingContainer: 'text-center py-12',
   loadingSpinner: 'inline-block w-8 h-8 border-2 border-turquoise border-t-transparent rounded-full animate-spin mb-4',

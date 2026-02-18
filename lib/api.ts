@@ -31,6 +31,26 @@ export function getClientAuthHeaders(options?: { includeContentType?: boolean })
 }
 
 /**
+ * إنشاء Headers للطلبات من الـ Server (من token)
+ * للاستخدام في Server Actions
+ */
+export function getServerAuthHeadersFromToken(
+  token: string | null,
+  options?: { includeContentType?: boolean }
+): HeadersInit {
+  const headers: Record<string, string> = {
+    accept: '*/*',
+  };
+  if (options?.includeContentType !== false) {
+    headers['Content-Type'] = 'application/json';
+  }
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  return headers;
+}
+
+/**
  * إنشاء Headers للطلبات من الـ Server (من request)
  * للاستخدام في API routes
  */

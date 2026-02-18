@@ -1,16 +1,16 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { useTowns, Town, CreateTownData, UpdateTownData } from '@/app/hooks/useTowns';
+import { useTowns, Town } from '@/app/hooks/useTowns';
 import { useDeleteModal } from '../hooks/useDeleteModal';
 
 /**
  * useTownsPage Hook
  * Following Single Responsibility Principle - only handles towns page state and handlers
+ * CRUD operations use Server Actions (TownFormModal, DeleteConfirmationModal)
  */
 export function useTownsPage() {
-  const { towns, isLoading, error, createTown, updateTown, deleteTown, searchTowns, fetchTowns } =
-    useTowns();
+  const { towns, isLoading, error, searchTowns, fetchTowns } = useTowns();
   const {
     isOpen: isDeleteModalOpen,
     itemToDelete: townToDelete,
@@ -37,22 +37,9 @@ export function useTownsPage() {
     setEditingTown(null);
   }, []);
 
-  const handleSubmit = useCallback(
-    async (data: CreateTownData | UpdateTownData) => {
-      try {
-        if (editingTown) {
-          await updateTown(editingTown.id, data);
-        } else {
-          await createTown(data as CreateTownData);
-        }
-        setIsModalOpen(false);
-        setEditingTown(null);
-      } catch {
-        // Error displayed in modal via hook
-      }
-    },
-    [editingTown, createTown, updateTown]
-  );
+  const handleSuccess = useCallback(() => {
+    fetchTowns();
+  }, [fetchTowns]);
 
   const handleDeleteClick = useCallback(
     (id: string) => {
@@ -63,13 +50,6 @@ export function useTownsPage() {
     },
     [towns, openDeleteModal]
   );
-
-  const handleDeleteConfirm = useCallback(async () => {
-    if (townToDelete) {
-      await deleteTown(townToDelete.id);
-      closeDeleteModal();
-    }
-  }, [townToDelete, deleteTown, closeDeleteModal]);
 
   const handleSearchChange = useCallback(
     async (query: string) => {
@@ -94,9 +74,8 @@ export function useTownsPage() {
     townToDelete,
     handleAdd,
     handleEdit,
-    handleSubmit,
+    handleSuccess,
     handleDeleteClick,
-    handleDeleteConfirm,
     handleSearchChange,
     closeModal,
     closeDeleteModal,
