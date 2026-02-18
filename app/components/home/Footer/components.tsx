@@ -65,7 +65,7 @@ export function FooterContent({ title, description }: FooterContentProps) {
  * Following Single Responsibility Principle - only handles partners display
  */
 interface FooterPartnersProps {
-  partners: Array<{ name: string; url: string }>;
+  partners: readonly { name: string; url: string }[];
 }
 
 export function FooterPartners({ partners }: FooterPartnersProps) {
