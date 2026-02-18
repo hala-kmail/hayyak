@@ -16,6 +16,7 @@ export const HeroSection = React.memo(function HeroSection({
   totalVotes: propTotalVotes,
   neighborhoodsCount: propNeighborhoodsCount,
   votesToday: propVotesToday,
+  uniqueVisitors: propUniqueVisitors,
   isElectionOpen,
 }: HeroSectionProps & { isElectionOpen: boolean }) {
   // استخدام البيانات من props مباشرة بدلاً من جلبها مرة أخرى
@@ -24,7 +25,8 @@ export const HeroSection = React.memo(function HeroSection({
     totalVotes: propTotalVotes ?? 0,
     neighborhoodsCount: propNeighborhoodsCount ?? 0,
     votesToday: propVotesToday ?? 0,
-  }), [propTotalVotes, propNeighborhoodsCount, propVotesToday]);
+    uniqueVisitors: propUniqueVisitors ?? 0,
+  }), [propTotalVotes, propNeighborhoodsCount, propVotesToday, propUniqueVisitors]);
 
   return (
     <section className={heroStyles.section}>

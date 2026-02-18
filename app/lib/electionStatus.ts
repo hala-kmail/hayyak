@@ -33,9 +33,9 @@ export async function fetchElectionStatus(authHeader?: string | null): Promise<E
   return data;
 }
 
-// Client-side function - uses API route
+// Client-side function - calls backend directly
 export async function fetchElectionStatusFromAPI(): Promise<ElectionStatus> {
-  const response = await fetch(`/api/admin/election/status?t=${Date.now()}`, {
+  const response = await fetch(`${API_BASE}/election/status?t=${Date.now()}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

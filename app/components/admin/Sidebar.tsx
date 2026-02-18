@@ -74,8 +74,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             <Image
               src="/images/sakany.png"
               alt="سكني"
-              width={40}
-              height={40}
+              width={32}
+              height={32}
               className={layoutStyles.sidebarLogoImage}
               style={{ width: 'auto', height: 'auto' }}
             />

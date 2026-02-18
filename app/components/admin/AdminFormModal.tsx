@@ -37,7 +37,7 @@ export function AdminFormModal({ isOpen, onClose, onSuccess }: AdminFormModalPro
         <div className={modalStyles.header}>
           <h2 className={modalStyles.title}>إضافة أدمن جديد</h2>
           <button onClick={onClose} className={modalStyles.closeBtn}>
-            <FaTimes className="w-4 h-4" />
+            <FaTimes className="w-3.5 h-3.5" />
           </button>
         </div>
 
@@ -99,7 +99,7 @@ export function AdminFormModal({ isOpen, onClose, onSuccess }: AdminFormModalPro
             >
               {isPending ? (
                 <>
-                  <FaSpinner className="w-4 h-4 animate-spin" />
+                  <FaSpinner className="w-3.5 h-3.5 animate-spin" />
                   جاري الحفظ...
                 </>
               ) : (

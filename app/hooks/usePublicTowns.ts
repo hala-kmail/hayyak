@@ -101,7 +101,7 @@ export function usePublicTowns() {
     setError(null);
 
     try {
-      const url = `/api/towns/search?q=${encodeURIComponent(query)}`;
+      const url = `${API_BASE}/towns/search?q=${encodeURIComponent(query)}`;
       const response = await fetch(url, {
         method: 'GET',
         headers: {

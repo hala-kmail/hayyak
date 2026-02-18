@@ -35,7 +35,7 @@ export function AdminsPageContent() {
         title="إدارة مسؤولين النظام"
         action={
           <button onClick={handleAdd} className={sharedStyles.buttonPrimary}>
-            <FaPlus className="w-4 h-4" />
+            <FaPlus className="w-3.5 h-3.5" />
             إضافة مسؤول جديد
           </button>
         }

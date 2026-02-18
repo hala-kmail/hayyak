@@ -31,34 +31,35 @@ export function LoginForm({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 flex items-center justify-center p-4" dir="rtl">
-      <div className="max-w-md w-full">
+      <div className="max-w-sm w-full">
         {/* Logo Section */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
+        <div className="text-center mb-6">
+          <div className="flex justify-center mb-3">
             <Image
               src="/images/sakany.png"
               alt="سكني"
-              width={80}
-              height={80}
+              width={56}
+              height={56}
               className="object-contain"
+              style={{ width: 'auto', height: 'auto' }}
               priority
             />
           </div>
-          <h1 className="text-3xl font-black text-navy-blue mb-2">تسجيل الدخول للإدارة</h1>
-          <p className="text-warm-grey text-sm">أدخل بياناتك للوصول إلى لوحة التحكم</p>
+          <h1 className="text-xl font-bold text-navy-blue mb-1.5">تسجيل الدخول للإدارة</h1>
+          <p className="text-warm-grey text-xs">أدخل بياناتك للوصول إلى لوحة التحكم</p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8">
-          <form onSubmit={onSubmit} className="space-y-6">
+        <div className="bg-white rounded-xl shadow-lg p-5">
+          <form onSubmit={onSubmit} className="space-y-4">
             {/* البريد الإلكتروني */}
             <div>
-              <label htmlFor="email" className="block text-sm font-bold text-navy-blue mb-2">
+              <label htmlFor="email" className="block text-xs font-bold text-navy-blue mb-1.5">
                 البريد الإلكتروني
               </label>
               <div className="relative">
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-warm-grey">
-                  <FaUser className="w-5 h-5" />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-warm-grey">
+                  <FaUser className="w-4 h-4" />
                 </div>
                 <input
                   id="email"
@@ -69,7 +70,7 @@ export function LoginForm({
                   }}
                   required
                   autoComplete="email"
-                  className="w-full pr-12 pl-4 py-3 border-2 border-gray-200 rounded-xl focus:border-turquoise focus:outline-none transition-colors text-navy-blue"
+                  className="w-full pr-10 pl-3 py-2 text-sm border border-gray-200 rounded-lg focus:border-turquoise focus:outline-none transition-colors text-navy-blue"
                   placeholder="example@email.com"
                   dir="ltr"
                 />
@@ -78,23 +79,23 @@ export function LoginForm({
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-bold text-navy-blue mb-2">
+              <label htmlFor="password" className="block text-xs font-bold text-navy-blue mb-1.5">
                 كلمة المرور
               </label>
               <div className="relative">
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-warm-grey">
-                  <FaLock className="w-5 h-5" />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-warm-grey">
+                  <FaLock className="w-4 h-4" />
                 </div>
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-warm-grey hover:text-navy-blue transition-colors"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-warm-grey hover:text-navy-blue transition-colors"
                   aria-label={showPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'}
                 >
                   {showPassword ? (
-                    <FaEyeSlash className="w-5 h-5" />
+                    <FaEyeSlash className="w-4 h-4" />
                   ) : (
-                    <FaEye className="w-5 h-5" />
+                    <FaEye className="w-4 h-4" />
                   )}
                 </button>
                 <input
@@ -105,7 +106,7 @@ export function LoginForm({
                     onPasswordChange(e.target.value);
                   }}
                   required
-                  className="w-full pr-12 pl-12 py-3 border-2 border-gray-200 rounded-xl focus:border-turquoise focus:outline-none transition-colors text-navy-blue"
+                  className="w-full pr-10 pl-10 py-2 text-sm border border-gray-200 rounded-lg focus:border-turquoise focus:outline-none transition-colors text-navy-blue"
                   placeholder="••••••••"
                 />
               </div>
@@ -113,11 +114,11 @@ export function LoginForm({
 
             {/* Error Message */}
             {error && (
-              <div className="bg-red-50 border-2 border-red-200 rounded-xl p-4">
-                <div className="flex items-start gap-3">
-                  <FaExclamationTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                <div className="flex items-start gap-2">
+                  <FaExclamationTriangle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
                   <div className="text-right flex-1">
-                    <p className="text-sm font-bold text-red-800">{error}</p>
+                    <p className="text-xs font-semibold text-red-800">{error}</p>
                   </div>
                 </div>
               </div>
@@ -127,7 +128,7 @@ export function LoginForm({
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 bg-turquoise text-white rounded-xl font-black text-base hover:shadow-lg hover:shadow-turquoise/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-2.5 text-sm bg-turquoise text-white rounded-lg font-semibold hover:shadow-md hover:shadow-turquoise/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
             >
               {isLoading ? (
                 <>
@@ -142,7 +143,7 @@ export function LoginForm({
         </div>
 
         {/* Footer Note */}
-        <p className="text-center text-xs text-warm-grey mt-6">
+        <p className="text-center text-xs text-warm-grey mt-4">
           هذه الصفحة مخصصة للمسؤولين فقط
         </p>
       </div>

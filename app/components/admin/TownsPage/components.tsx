@@ -39,7 +39,7 @@ export function TownsPageContent() {
         title="الأحياء"
         action={
           <button onClick={handleAdd} className={sharedStyles.buttonPrimary}>
-            <FaPlus className="w-4 h-4" />
+            <FaPlus className="w-3.5 h-3.5" />
             إضافة حي جديد
           </button>
         }

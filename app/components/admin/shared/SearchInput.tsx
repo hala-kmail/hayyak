@@ -14,7 +14,7 @@ export function SearchInput({ value, onChange, placeholder = 'ابحث...' }: Se
     <div className={sharedStyles.searchContainer}>
       <div className={sharedStyles.searchWrapper}>
         <div className={sharedStyles.searchIcon}>
-          <FaSearch className="w-5 h-5" />
+          <FaSearch className="w-4 h-4" />
         </div>
         <input
           type="text"

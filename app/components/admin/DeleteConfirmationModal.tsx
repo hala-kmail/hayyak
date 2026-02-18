@@ -59,7 +59,7 @@ export function DeleteConfirmationModal({
             disabled={isPending}
             className={modalStyles.closeBtnDisabled}
           >
-            <FaTimes className="w-4 h-4" />
+            <FaTimes className="w-3.5 h-3.5" />
           </button>
         </div>
 
@@ -99,7 +99,7 @@ export function DeleteConfirmationModal({
             >
               {isPending ? (
                 <>
-                  <FaSpinner className="w-4 h-4 animate-spin" />
+                  <FaSpinner className="w-3.5 h-3.5 animate-spin" />
                   جاري الحذف...
                 </>
               ) : (

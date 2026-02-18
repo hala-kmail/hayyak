@@ -14,6 +14,7 @@ import {
 } from '@/app/components/home';
 import { usePublicTowns } from '@/app/hooks/usePublicTowns';
 import { useElectionStatus } from '@/app/hooks/useElectionStatus';
+import { useVisitorCount } from '@/app/hooks/useVisitorCount';
 import { LoadingState, ErrorState } from './page/components';
 import { pageStyles } from './page/styles';
 
@@ -28,6 +29,7 @@ export default function HomePage() {
   const { neighborhoods, isLoading, error, totalVotes, votesToday, refetch, searchTowns } =
     usePublicTowns();
   const { status, isLoading: isElectionStatusLoading, isInitialLoad } = useElectionStatus();
+  const { uniqueVisitors } = useVisitorCount();
 
   // أثناء التحميل الأول فقط، افترض أن التصويت مفتوح (optimistic) لتجنب التغيير المفاجئ في الواجهة
   // بعد التحميل الأول، استخدم القيمة الفعلية حتى أثناء إعادة الجلب لتجنب الوميض
@@ -58,6 +60,7 @@ export default function HomePage() {
           totalVotes={totalVotes}
           neighborhoodsCount={neighborhoods.length}
           votesToday={votesToday}
+          uniqueVisitors={uniqueVisitors ?? 0}
           isElectionOpen={isElectionOpen}
         />
 <PrizeSection />

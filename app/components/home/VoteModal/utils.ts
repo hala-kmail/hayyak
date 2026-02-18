@@ -16,10 +16,12 @@ const VOTE_TIMEOUT = 10000;
 
 /**
  * Submits a vote to the API with timeout handling
+ * Payload: { townId, fingerprint, phoneNumber }
  */
 export async function submitVote(
   townId: string,
-  fingerprint: string
+  fingerprint: string,
+  phoneNumber: string
 ): Promise<VoteResponse> {
   try {
     const controller = new AbortController();
@@ -34,6 +36,7 @@ export async function submitVote(
         body: JSON.stringify({
           townId,
           fingerprint,
+          phoneNumber,
         }),
         signal: controller.signal,
       });

@@ -123,12 +123,17 @@ export function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
 export function VoteForm({
   neighborhood,
   visitorId,
+  phoneNumber,
+  onPhoneChange,
+  phoneError,
   isSubmitting,
   voteError,
   fingerprintError,
   onVote,
   onVoteForAnother,
 }: VoteFormProps) {
+  const canSubmit = visitorId && phoneNumber.trim() && !phoneError;
+
   return (
     <div className="space-y-6">
       {fingerprintError && (
@@ -136,14 +141,32 @@ export function VoteForm({
       )}
 
       <NeighborhoodCard neighborhood={neighborhood} />
-   
+
+      <div>
+        <label htmlFor="vote-phone" className="block text-sm font-bold text-navy-blue mb-2">
+          رقم الهاتف
+        </label>
+        <input
+          id="vote-phone"
+          type="tel"
+          dir="ltr"
+          value={phoneNumber}
+          onChange={(e) => onPhoneChange(e.target.value)}
+          placeholder="+966501234567"
+          disabled={isSubmitting}
+          className={`${modalStyles.phoneInput} ${phoneError ? modalStyles.phoneInputError : ''}`}
+        />
+        {phoneError && (
+          <p className="text-red-600 text-xs mt-1">{phoneError}</p>
+        )}
+      </div>
 
       {voteError && <ErrorAlert title={voteError} message="" />}
 
       <div className={modalStyles.buttonsContainer}>
         <button
           onClick={onVote}
-          disabled={isSubmitting || !visitorId}
+          disabled={isSubmitting || !canSubmit}
           className={modalStyles.voteButton}
         >
           {isSubmitting ? (

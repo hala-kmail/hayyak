@@ -26,6 +26,8 @@ export const modalStyles = {
   errorTextContainer: 'text-right flex-1',
   errorTitle: 'text-sm font-bold text-red-800 mb-1',
   errorMessage: 'text-xs text-red-600',
+  phoneInput: 'w-full px-4 py-3 rounded-xl border-2 border-gray-200 text-navy-blue placeholder:text-warm-grey focus:border-turquoise focus:outline-none transition-colors',
+  phoneInputError: 'border-red-300 focus:border-red-500',
   neighborhoodCard: 'bg-white rounded-2xl p-4 border-2 border-turquoise/20',
   neighborhoodCardContent: 'flex items-center gap-3',
   neighborhoodIcon: 'w-12 h-12 bg-turquoise/10 rounded-xl flex items-center justify-center text-2xl',

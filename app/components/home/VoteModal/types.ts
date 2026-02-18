@@ -26,6 +26,9 @@ export interface VoteSuccessProps {
 export interface VoteFormProps {
   neighborhood: NeighborhoodItem;
   visitorId: string | null;
+  phoneNumber: string;
+  onPhoneChange: (value: string) => void;
+  phoneError: string | null;
   isSubmitting: boolean;
   voteError: string | null;
   fingerprintError: string | null;

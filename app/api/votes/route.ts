@@ -11,7 +11,8 @@ const EXTERNAL_API_TIMEOUT = 8000;
  * Request body:
  * {
  *   townId: string,
- *   fingerprint: string (visitorId from FingerprintJS)
+ *   fingerprint: string (visitorId from FingerprintJS),
+ *   phoneNumber: string (e.g. +966501234567)
  * }
  * 
  * يتم إرسال معلومات إضافية للباك إند للتحقق من التصويت المكرر:
@@ -62,7 +63,7 @@ function getClientIP(request: NextRequest): string {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { townId, fingerprint } = body;
+    const { townId, fingerprint, phoneNumber } = body;
 
     // Validate input
     if (!townId || typeof townId !== 'string') {
@@ -75,6 +76,13 @@ export async function POST(request: NextRequest) {
     if (!fingerprint || typeof fingerprint !== 'string') {
       return NextResponse.json(
         { error: 'Valid fingerprint is required' },
+        { status: 400 }
+      );
+    }
+
+    if (!phoneNumber || typeof phoneNumber !== 'string') {
+      return NextResponse.json(
+        { error: 'رقم الهاتف مطلوب للتصويت' },
         { status: 400 }
       );
     }
@@ -98,6 +106,7 @@ export async function POST(request: NextRequest) {
         body: JSON.stringify({
           townId,
           fingerprint,
+          phoneNumber,
           // إرسال معلومات إضافية للتحقق من التصويت المكرر
           ipAddress: clientIP,
           userAgent,

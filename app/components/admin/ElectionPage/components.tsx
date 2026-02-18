@@ -184,7 +184,7 @@ export function ElectionForm({
               disabled={isSaving || isLoading}
               className={electionStyles.formSubmit}
             >
-              <FaSave className="w-4 h-4" />
+              <FaSave className="w-3.5 h-3.5" />
               {isSaving ? 'جاري الحفظ...' : 'حفظ الإعدادات'}
             </button>
           </div>

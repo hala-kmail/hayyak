@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { FaVoteYea, FaCalendarDay, FaMapMarkedAlt, FaTrophy } from 'react-icons/fa';
-import { StatCard, Top3Card, LeadingTownsTable } from './components';
+import { StatCard, Top3Card, LeadingTownsTable, VisitorStatsSection } from './components';
 import { useAdminStats } from './hooks';
 import { TOP3_CARD_STYLES } from './constants';
 import { LoadingState, EmptyState, AlertBanner } from '../shared';
@@ -16,7 +16,19 @@ import { adminStatsStyles } from './styles';
  * - Dependency Inversion: Depends on hooks and components abstractions
  */
 export function AdminStats() {
-  const { stats, top3Towns, isLoading, error, top3Loading, top3Error } = useAdminStats();
+  const {
+    stats,
+    top3Towns,
+    isLoading,
+    error,
+    top3Loading,
+    top3Error,
+    visitorStats,
+    visitorStatsLoading,
+    visitorStatsError,
+    visitorDays,
+    setVisitorDays,
+  } = useAdminStats();
 
   if (isLoading) {
     return <LoadingState message="جاري تحميل الإحصائيات..." />;
@@ -44,19 +56,19 @@ export function AdminStats() {
       <div className={adminStatsStyles.card}>
         <div className={adminStatsStyles.statsGrid}>
           <StatCard
-            icon={<FaVoteYea className="w-6 h-6 text-turquoise" />}
+            icon={<FaVoteYea className="w-5 h-5 text-turquoise" />}
             iconBgClass="bg-turquoise/10"
             label="إجمالي الأصوات"
             value={stats.totalVotes.toLocaleString('ar-SA')}
           />
           <StatCard
-            icon={<FaCalendarDay className="w-6 h-6 text-green-600" />}
+            icon={<FaCalendarDay className="w-5 h-5 text-green-600" />}
             iconBgClass="bg-green-100"
             label="أصوات اليوم"
             value={stats.todayVotes.toLocaleString('ar-SA')}
           />
           <StatCard
-            icon={<FaMapMarkedAlt className="w-6 h-6 text-blue-600" />}
+            icon={<FaMapMarkedAlt className="w-5 h-5 text-blue-600" />}
             iconBgClass="bg-blue-100"
             label="عدد الأحياء"
             value={stats.numberOfTowns.toLocaleString('ar-SA')}
@@ -64,13 +76,22 @@ export function AdminStats() {
         </div>
       </div>
 
+      {/* إحصائيات الزوار */}
+      <VisitorStatsSection
+        stats={visitorStats}
+        isLoading={visitorStatsLoading}
+        error={visitorStatsError}
+        days={visitorDays}
+        onDaysChange={setVisitorDays}
+      />
+
       {/* أفضل 3 أحياء */}
       {!top3Loading && !top3Error && top3Towns.length > 0 && (
         <div>
           <div className={adminStatsStyles.top3Section}>
             <div className={adminStatsStyles.top3Header}>
               <div className={adminStatsStyles.top3IconWrapper}>
-                <FaTrophy className="w-5 h-5 text-turquoise" />
+                <FaTrophy className="w-4 h-4 text-turquoise" />
               </div>
               <h2 className={adminStatsStyles.top3Title}>أفضل 3 أحياء</h2>
             </div>
@@ -98,7 +119,7 @@ export function AdminStats() {
           <div className={adminStatsStyles.leadingHeader}>
             <div className={adminStatsStyles.top3Header}>
               <div className={adminStatsStyles.leadingIconWrapper}>
-                <FaTrophy className="w-5 h-5 text-yellow-600" />
+                <FaTrophy className="w-4 h-4 text-yellow-600" />
               </div>
               <h2 className={adminStatsStyles.top3Title}>الأحياء المتقدمة</h2>
             </div>

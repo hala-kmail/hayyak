@@ -11,6 +11,7 @@ import '@/styles/globals.css';
 import { Cairo } from 'next/font/google';
 import { QueryClientProvider } from '@/providers';
 import { ThemeProvider } from '@/providers';
+import { VisitorTracker } from '@/app/components/shared/VisitorTracker';
 import type { Metadata } from 'next';
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -54,6 +55,7 @@ export default function RootLayout({
         className={`${cairo.variable} ${cairo.className} antialiased min-h-screen`}
         suppressHydrationWarning
       >
+        <VisitorTracker />
         <ThemeProvider>
           <QueryClientProvider>{children}</QueryClientProvider>
         </ThemeProvider>

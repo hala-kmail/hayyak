@@ -51,7 +51,7 @@ export function TownsTable({ towns, isLoading, onEdit, onDelete }: TownsTablePro
                       className={tableStyles.btnEdit}
                       title="تعديل"
                     >
-                      <FaEdit className="w-4 h-4" />
+                      <FaEdit className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => {
@@ -60,7 +60,7 @@ export function TownsTable({ towns, isLoading, onEdit, onDelete }: TownsTablePro
                       className={tableStyles.btnDelete}
                       title="حذف"
                     >
-                      <FaTrash className="w-4 h-4" />
+                      <FaTrash className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </td>

@@ -117,6 +117,8 @@ export const HeroStats = React.memo(function HeroStats({ stats, isOpen }: { stat
         <HeroStatItem value={stats.votesToday} label="صوت اليوم" />
         <div className={heroStyles.statDivider} />
         <HeroStatItem value={stats.totalVotes} label="إجمالي الأصوات" />
+        <div className={heroStyles.statDivider} />
+        <HeroStatItem value={stats.uniqueVisitors} label="عدد الزوار" />
       </div>
     </div>
   );

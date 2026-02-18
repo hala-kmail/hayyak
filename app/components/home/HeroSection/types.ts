@@ -7,12 +7,14 @@ export interface HeroSectionProps {
   totalVotes?: number;
   neighborhoodsCount?: number;
   votesToday?: number;
+  uniqueVisitors?: number;
 }
 
 export interface HeroStatsData {
   totalVotes: number;
   neighborhoodsCount: number;
   votesToday: number;
+  uniqueVisitors: number;
 }
 
 export interface HeroContentProps {
