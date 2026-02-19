@@ -18,5 +18,6 @@ export function mergeStatsData(
     totalVotes: apiStats?.totalVotes ?? props.totalVotes ?? 0,
     neighborhoodsCount: apiStats?.numberOfTowns ?? props.neighborhoodsCount ?? 3,
     votesToday: apiStats?.todayVotes ?? props.votesToday ?? 342,
+    uniqueVisitors: props.uniqueVisitors ?? 0,
   };
 }
