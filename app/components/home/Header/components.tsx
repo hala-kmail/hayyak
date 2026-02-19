@@ -1,10 +1,11 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   HeaderLogoProps,
+  HeaderLogoEndProps,
   NavLinksProps,
   MobileMenuButtonProps,
   MobileDrawerProps,
@@ -23,8 +24,16 @@ function scrollToSection(sectionId: string) {
 export function HeaderLogo({
   scrolled,
   mobileMenuOpen,
+  variant = 'desktop',
 }: HeaderLogoProps) {
-  const logoSize = scrolled ? LOGO_CONFIG.scrolledSize : LOGO_CONFIG.defaultSize;
+  const logoSize =
+    variant === 'mobile'
+      ? scrolled
+        ? 44
+        : 48
+      : scrolled
+        ? LOGO_CONFIG.scrolledSize
+        : LOGO_CONFIG.defaultSize;
 
   return (
     <Link
@@ -37,12 +46,40 @@ export function HeaderLogo({
           alt="سكني"
           width={logoSize}
           height={logoSize}
-          className={headerStyles.logoImage}
-          style={{ width: 'auto', height: 'auto' }}
+          className={`${headerStyles.logoImage} ${variant === 'mobile' ? 'w-11 h-11' : ''}`}
           priority
         />
       </div>
       <span className={headerStyles.logoText(scrolled)}>سابع جار</span>
+    </Link>
+  );
+}
+
+/**
+ * Header Logo Component
+ * Following Single Responsibility Principle - only handles logo display
+ */
+export function HeaderLogoEnd({ scrolled }: HeaderLogoEndProps) {
+  const src = scrolled ? '/images/habeeb-dark.png' : '/images/habeeb-white.png';
+
+  return (
+    <Link
+      href="https://www.alhabibinv.com/"
+      className="flex items-center shrink-0"
+      target="_blank"
+      rel="noreferrer"
+      aria-label="محمد الحبيب"
+    >
+      <div className="relative w-[92px] sm:w-[110px] lg:w-[120px]">
+        <Image
+          src={src}
+          alt="محمد الحبيب"
+          width={120}
+          height={44}
+          className="block w-full h-auto object-contain"
+          priority
+        />
+      </div>
     </Link>
   );
 }
@@ -83,6 +120,8 @@ export function DesktopNavLinks({ scrolled }: NavLinksProps) {
           </Link>
         );
       })}
+
+      
     </nav>
   );
 }
@@ -102,7 +141,7 @@ export function MobileMenuButton({
       onClick={onClick}
       className={headerStyles.mobileMenuButton(scrolled)}
       aria-expanded={mobileMenuOpen}
-      aria-label="القائمة"
+      aria-label="Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©"
     >
       <svg
         className={headerStyles.menuIcon}
@@ -156,14 +195,14 @@ export function MobileDrawer({
       <div
         className={headerStyles.drawer(drawerAnimateIn)}
         role="dialog"
-        aria-label="القائمة"
+        aria-label="Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©"
       >
         <div className={headerStyles.drawerHeader}>
           <div className={headerStyles.drawerHeaderInner}>
             <Link href="/" className={headerStyles.drawerLogoLink} onClick={onClose}>
               <Image
                 src="/images/sakany.png"
-                alt="سكني"
+                alt="Ø³ÙƒÙ†ÙŠ"
                 width={LOGO_CONFIG.mobileSize}
                 height={LOGO_CONFIG.mobileSize}
                 className={headerStyles.drawerLogoImage}

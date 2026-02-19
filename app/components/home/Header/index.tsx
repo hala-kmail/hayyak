@@ -3,6 +3,7 @@
 import React from 'react';
 import {
   HeaderLogo,
+  HeaderLogoEnd,
   DesktopNavLinks,
   MobileMenuButton,
   MobileDrawer,
@@ -27,19 +28,39 @@ export function Header() {
       <header className={headerStyles.header(mobileMenuOpen)}>
         <nav className={headerStyles.nav(scrolled)}>
           <div className={headerStyles.navContainer(scrolled)}>
-          <div className={headerStyles.navInner}>
-            <HeaderLogo scrolled={scrolled} mobileMenuOpen={mobileMenuOpen} />
-            <div className="hidden lg:flex items-center gap-4">
-              <DesktopNavLinks scrolled={scrolled} />
+            <div className={headerStyles.navInner}>
+              <div className="hidden lg:flex w-full items-center">
+                <HeaderLogo
+                  scrolled={scrolled}
+                  mobileMenuOpen={mobileMenuOpen}
+                  variant="desktop"
+                />
+
+                <div className="flex-1 flex items-center justify-end ml-4">
+                  <DesktopNavLinks scrolled={scrolled} />
+                </div>
+
+                <HeaderLogoEnd scrolled={scrolled} />
+              </div>
+
+              <div className="lg:hidden flex w-full items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <MobileMenuButton
+                    scrolled={scrolled}
+                    mobileMenuOpen={mobileMenuOpen}
+                    onClick={toggleMenu}
+                  />
+
+                  <HeaderLogo
+                    scrolled={scrolled}
+                    mobileMenuOpen={mobileMenuOpen}
+                    variant="mobile"
+                  />
+                </div>
+
+                <HeaderLogoEnd scrolled={scrolled} />
+              </div>
             </div>
-            <div className="lg:hidden flex items-center gap-2">
-              <MobileMenuButton
-                scrolled={scrolled}
-                mobileMenuOpen={mobileMenuOpen}
-                onClick={toggleMenu}
-              />
-            </div>
-          </div>
           </div>
         </nav>
       </header>

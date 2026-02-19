@@ -12,6 +12,11 @@ export interface NavLink {
 export interface HeaderLogoProps {
   scrolled: boolean;
   mobileMenuOpen: boolean;
+  variant?: 'desktop' | 'mobile';
+}
+
+export interface HeaderLogoEndProps {
+  scrolled: boolean;
 }
 
 export interface NavLinksProps {
