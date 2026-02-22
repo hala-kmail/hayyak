@@ -4,12 +4,12 @@
  */
 
 export const gridStyles = {
-  section: 'pt-0 pb-20 relative bg-gray-50 w-full',
+  section: 'pt-0 pb-20 relative bg-gray-bg w-full',
   sectionMargin: 'mb-[-3px]',
   headerContainer: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 relative',
   headerBadge: 'text-turquoise font-black tracking-[0.3em] uppercase text-[10px] mb-2 block',
   headerTitle: 'text-2xl md:text-4xl font-black text-navy-blue mb-4',
-  headerDivider: 'w-12 h-1 bg-turquoise mx-auto rounded-full mb-6',
+  headerDivider: 'w-12 h-1 bg-gold mx-auto rounded-full mb-6',
   contentContainer: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
   contentWrapper: ' p-6 md:p-10',
   navigationContainer: 'flex flex-col sm:flex-row items-stretch sm:items-center justify-between mb-4 gap-4',
@@ -21,7 +21,7 @@ export const gridStyles = {
         ? 'bg-white text-turquoise shadow-sm'
         : 'text-warm-grey hover:text-navy-blue'
     }`,
-  searchContainer: 'relative bg-gray-100 rounded-xl p-1 flex-1 max-w-md',
+  searchContainer: 'relative bg-gray-100 rounded-xl p-1 flex-1 ',
   searchIcon: 'absolute right-3 top-1/2 -translate-y-1/2 text-warm-grey pointer-events-none',
   searchIconSvg: 'w-4 h-4',
   searchInput: 'w-full pr-10 pl-4 py-2 rounded-lg bg-white text-sm text-right font-bold text-warm-grey placeholder-warm-grey focus:outline-none focus:text-navy-blue transition-all',
@@ -36,7 +36,7 @@ export const gridStyles = {
   cardsContainer: (isScrollable: boolean) =>
     `flex gap-4 ${isScrollable ? 'flex-nowrap' : 'flex-wrap '}`,
   card: (isLeader: boolean, width: string) =>
-    `group relative flex-shrink-0 bg-white rounded-xl p-6 shadow-sm border transition-all duration-300 hover:shadow-md hover:scale-[1.02] cursor-pointer active:scale-[0.98] ${
+    `group relative flex-shrink-0 bg-white rounded-xl p-6 shadow-sm border-r-4 transition-all duration-300 hover:shadow-md hover:scale-[1.02] cursor-pointer active:scale-[0.98] ${
       isLeader
         ? 'border-turquoise bg-turquoise/5'
         : 'border-gray-100 hover:border-turquoise/30'
@@ -55,14 +55,14 @@ export const gridStyles = {
     }`,
   iconContainer: (isLeader: boolean) =>
     `w-12 h-12 rounded-lg flex items-center justify-center transition-colors ${
-      isLeader ? 'bg-turquoise/10' : 'bg-gray-50'
+      isLeader ? 'bg-turquoise/10' : 'bg-gray-bg'
     }`,
   icon: (isLeader: boolean, iconColor: string) =>
     `w-6 h-6 ${isLeader ? 'text-turquoise' : iconColor}`,
   cardTextSection: 'text-right',
   cardTitle: (isLeader: boolean) =>
     `text-lg font-black transition-colors mb-1 ${
-      isLeader ? 'text-turquoise' : 'text-navy-blue group-hover:text-turquoise'
+      isLeader ? 'text-turquoise' : 'text-navy-blue group-hover:text-gold'
     }`,
   cardLocation: 'text-xs text-warm-grey',
   votesSection: 'text-left flex-shrink-0',
@@ -72,9 +72,11 @@ export const gridStyles = {
   progressBar: 'h-3 w-full bg-gray-100 rounded-full overflow-hidden',
   progressFill: (isLeader: boolean) =>
     `h-full rounded-full transition-all duration-1000 ease-out ${
-      isLeader ? 'bg-turquoise' : 'bg-turquoise'
+      isLeader ? 'bg-turquoise' : 'bg-gold'
     }`,
   progressFooter: 'flex justify-between items-center mt-1',
   progressLabel: 'text-xs font-bold text-navy-blue/70',
-  progressValue: 'text-base font-black text-turquoise',
+  progressValue:(isLeader: boolean) => `text-base font-black ${
+    isLeader ? 'text-turquoise' : 'text-gold'
+  }`,
 } as const;

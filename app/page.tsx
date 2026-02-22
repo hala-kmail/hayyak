@@ -5,7 +5,7 @@ import { ScreenLayout } from '@/base';
 import {
   Header,
   HeroSection,
-  IntroSections,
+  PartnersSection,
   NeighborhoodsGrid,
   PageAccent,
   HowItWorks,
@@ -86,7 +86,7 @@ export default function HomePage() {
           </div>
         )}
 
-<IntroSections />
+        <PartnersSection />
         <Footer />
       </ScreenLayout>
     </div>

@@ -4,9 +4,9 @@
  */
 
 export const layoutStyles = {
-  layout: 'min-h-screen bg-gray-50',
+  layout: 'min-h-screen bg-gray-bg',
   mobileMenuBtn:
-    'lg:hidden fixed top-3 right-3 z-30 p-2 bg-white rounded-lg shadow-md border border-gray-200 hover:bg-gray-50 transition-colors',
+    'lg:hidden fixed top-3 right-3 z-30 p-2 bg-white rounded-lg shadow-md border border-gray-200 hover:bg-gray-bg transition-colors',
   mobileMenuIcon: 'w-4 h-4 text-navy-blue',
   main: 'lg:mr-52 p-3 lg:p-5 pt-16 lg:pt-5',
 

@@ -12,7 +12,7 @@ export const prizeStyles = {
   contentWrapper:
     'bg-white/80 backdrop-blur-sm rounded-2xl  p-6 md:p-10 relative z-20',
   title: 'text-2xl md:text-3xl font-black text-navy-blue text-center mb-2',
-  accentLine: 'w-16 h-1 rounded-full bg-turquoise mx-auto mb-6 opacity-80',
+  accentLine: 'w-16 h-1 rounded-full bg-gold mx-auto mb-6 opacity-80',
   description:
     'text-warm-grey text-base md:text-lg leading-relaxed text-center max-w-2xl mx-auto mb-8',
   carouselWrapper: 'relative max-w-2xl mx-auto',

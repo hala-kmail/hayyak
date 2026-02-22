@@ -4,6 +4,7 @@
  */
 export const themeColorKeys = [
   '--primary-turquoise',
+  '--primary-gold',
   '--primary-grey',
   '--lime-green',
   '--grey-blue',
@@ -11,6 +12,7 @@ export const themeColorKeys = [
   '--warm-grey',
   '--sand-brown',
   '--quite-purple',
+  '--gray-bg',
 ] as const;
 
 export type ThemeColorKey = (typeof themeColorKeys)[number];

@@ -109,9 +109,9 @@ export const ScrollButtons = React.memo(function ScrollButtons({ onScroll }: Scr
 export const SectionHeader = React.memo(function SectionHeader() {
   return (
     <div className={gridStyles.headerContainer}>
-      <span className={gridStyles.headerBadge}>
+      {/* <span className={gridStyles.headerBadge}>
         المنافسة مشتعلة
-      </span>
+      </span> */}
       <h2 className={gridStyles.headerTitle}>
         الأحياء المشاركة
       </h2>
@@ -184,7 +184,7 @@ export const GridCard = React.memo(function GridCard({
         </div>
         <div className={gridStyles.progressFooter}>
           <span className={gridStyles.progressLabel}>نسبة التقدم</span>
-          <span className={gridStyles.progressValue}>
+          <span className={gridStyles.progressValue(isLeader)}>
             {Math.round(Number(neighborhood.percentage) || 0)}%
           </span>
         </div>

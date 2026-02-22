@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       colors: {
         'primary-turquoise': 'rgb(var(--primary-turquoise))',
+        'primary-gold': 'rgb(var(--primary-gold))',
         'primary-grey': 'rgb(var(--primary-grey))',
         grey: 'rgb(var(--primary-grey))', // الرمادي الأساسي (نفس primary-grey)
         'lime-green': 'rgb(var(--lime-green))',
@@ -20,6 +21,8 @@ module.exports = {
         'sand-brown-light': 'rgb(var(--sand-brown-light))', // بني رملي فاتح
         'quite-purple': 'rgb(var(--quite-purple))',
         turquoise: 'rgb(var(--primary-turquoise))',
+        gold: 'rgb(var(--primary-gold))',
+        'gray-bg': 'rgb(var(--gray-bg))',
       },
       fontFamily: {
         sans: ['var(--font-cairo)', 'system-ui', 'sans-serif'],

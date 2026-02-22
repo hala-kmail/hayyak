@@ -41,11 +41,11 @@ export const adminStatsStyles = {
 
   tableWrapper: 'overflow-x-auto',
   table: 'w-full',
-  tableHead: 'bg-gray-50 border-b border-gray-200',
+  tableHead: 'bg-gray-bg border-b border-gray-200',
   tableTh: 'px-4 py-2.5 text-right text-xs font-bold text-navy-blue',
   tableThW16: 'px-4 py-2.5 text-right text-xs font-bold text-navy-blue w-12',
   tableBody: 'divide-y divide-gray-200',
-  tableRow: 'hover:bg-gray-50 transition-colors',
+  tableRow: 'hover:bg-gray-bg transition-colors',
   tableCell: 'px-4 py-2.5 text-xs text-warm-grey',
   tableCellSemibold: 'px-4 py-2.5 text-xs font-semibold text-navy-blue',
   tableCellCenter: 'px-4 py-2.5',

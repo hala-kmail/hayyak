@@ -168,7 +168,7 @@ export function VisitorStatsSection({
           <h3 className={adminStatsStyles.visitorTableTitle}>الزوار الفريدون حسب اليوم (آخر {days} يوم)</h3>
           <div className="overflow-x-auto rounded-lg border border-gray-200">
             <table className={adminStatsStyles.visitorByDayTable}>
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-bg">
                 <tr>
                   <th className="px-3 py-2 text-right text-xs font-bold text-navy-blue">التاريخ</th>
                   <th className="px-3 py-2 text-right text-xs font-bold text-navy-blue">الزوار الفريدون</th>
@@ -196,7 +196,7 @@ export function VisitorStatsSection({
           <h3 className={adminStatsStyles.visitorTableTitle}>الزوار الفريدون حسب الدولة</h3>
           <div className="overflow-x-auto rounded-lg border border-gray-200">
             <table className={adminStatsStyles.visitorByDayTable}>
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-bg">
                 <tr>
                   <th className="px-3 py-2 text-right text-xs font-bold text-navy-blue">الدولة</th>
                   <th className="px-3 py-2 text-right text-xs font-bold text-navy-blue">الزوار الفريدون</th>

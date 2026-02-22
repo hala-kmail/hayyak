@@ -8,7 +8,7 @@ import React from 'react';
 import type { StepItem } from './types';
 
 export const HOW_IT_WORKS_INTRO = {
-  badge: 'طريقة سهلة',
+  badge: '',
   title: 'طريقة التصويت',
   description:
     'صوّت لحيك في ثلاث خطوات بسيطة وشارك الرابط مع جيرانك ليفوز حيك بحوامة رمضان.',
@@ -34,3 +34,4 @@ export const HOW_IT_WORKS_STEPS: StepItem[] = [
     color: 'bg-lime-green',
   },
 ];
+

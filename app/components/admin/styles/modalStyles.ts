@@ -11,9 +11,9 @@ export const modalStyles = {
   header: 'sticky top-0 bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between rounded-t-xl z-10',
   title: 'text-base font-bold text-navy-blue',
   closeBtn:
-    'w-8 h-8 rounded-lg bg-gray-50 hover:bg-gray-100 flex items-center justify-center text-warm-grey hover:text-navy-blue transition-colors',
+    'w-8 h-8 rounded-lg bg-gray-bg hover:bg-gray-100 flex items-center justify-center text-warm-grey hover:text-navy-blue transition-colors',
   closeBtnDisabled:
-    'w-8 h-8 rounded-lg bg-gray-50 hover:bg-gray-100 flex items-center justify-center text-warm-grey hover:text-navy-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
+    'w-8 h-8 rounded-lg bg-gray-bg hover:bg-gray-100 flex items-center justify-center text-warm-grey hover:text-navy-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
   content: 'px-4 py-4',
   form: 'space-y-4',
   formLabel: 'block text-xs font-bold text-navy-blue mb-1.5',

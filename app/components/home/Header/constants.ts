@@ -8,7 +8,7 @@ import type { NavLink } from './types';
 export const NAV_LINKS: NavLink[] = [
   { href: '/#vote', label: 'التصويت', sectionId: 'vote' },
   { href: '/#prize', label: 'الجائزة', sectionId: 'prize' },
- 
+  { href: '/#partners', label: 'الشركاء', sectionId: 'partners' },
 ];
 
 export const DRAWER_DURATION_MS = 280;
@@ -19,3 +19,4 @@ export const LOGO_CONFIG = {
   scrolledSize: 64,
   mobileSize: 56,
 } as const;
+

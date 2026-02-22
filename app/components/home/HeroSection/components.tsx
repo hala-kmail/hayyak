@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FaChevronLeft, FaStar, FaHome, FaHeart } from 'react-icons/fa';
+import { FaChevronLeft, FaStar, FaHome, FaHeart, FaMagic } from 'react-icons/fa';
 import { AnimatedCounter } from '@/base/components/ui/AnimatedCounter';
 import { heroStyles } from './styles';
 import { HeroContentProps, HeroStatItemProps, HeroStatsData } from './types';
@@ -79,7 +79,9 @@ export const HeroVisualBadge = React.memo(function HeroVisualBadge() {
         <div className={heroStyles.visualHeart}>
           <FaHeart />
         </div>
-        <div className={heroStyles.visualSparkle}>✨</div>
+        <div className={heroStyles.visualSparkle} aria-hidden>
+          <FaMagic />
+        </div>
       </div>
     </div>
   );
@@ -169,10 +171,16 @@ export const HeroWaveSeparator = React.memo(function HeroWaveSeparator() {
         className={heroStyles.waveSvg}
         preserveAspectRatio="none"
       >
-        <path fill="#ffffff" d="M0,0 L720,80 L1440,0 L1440,100 L0,100 Z" />
+        <defs>
+          <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#00C8AF" />
+            <stop offset="100%" stopColor="#CEB888" />
+          </linearGradient>
+        </defs>
+        <path fill="#fffff5" d="M0,0 L720,80 L1440,0 L1440,100 L0,100 Z" />
         <path
-          fill="#00a89d"
-          d="M0,0 L720,80 L1440,0 L1440,20 L720,100 L0,20 Z"
+          fill="#00c8af"
+          d="M0,0 L720,80 L1440,0 L1440,0 L720,100 L0,0 Z"
         />
       </svg>
     </div>
