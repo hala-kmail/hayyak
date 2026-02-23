@@ -90,6 +90,9 @@
   --text-subhead: 30px;
   --text-body: 18px;
   --text-cta: 18px;
+
+  /* iOS Safari viewport fix - 100vh includes address bar; --vh set by ViewportHeightFix */
+  --vh: 1vh;
 }
 
 html {

@@ -18,22 +18,22 @@ export function VisitorTracker() {
       return;
     }
     // التحقق من وجود المفتاح في sessionStorage لمنع التكرار
-    const hasVotedSession = sessionStorage.getItem('has_voted_session');
-    
-    if (hasVotedSession) {
-      // إذا كان المفتاح موجوداً، لا نرسل الطلب
-      return;
+    // Safari private mode throws QuotaExceededError on sessionStorage access - wrap in try/catch
+    try {
+      const hasVotedSession = sessionStorage.getItem('has_voted_session');
+      if (hasVotedSession) {
+        return;
+      }
+    } catch {
+      return; // Safari private mode - storage unavailable
     }
 
-    // الحصول على رابط الـ API من متغيرات البيئة
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    
     if (!apiUrl) {
       console.warn('NEXT_PUBLIC_API_URL is not defined');
       return;
     }
 
-    // إرسال طلب POST إلى endpoint الزوار
     const sendVisitorRequest = async () => {
       try {
         const response = await fetch(`${apiUrl}/visitors`, {
@@ -46,22 +46,22 @@ export function VisitorTracker() {
           }),
         });
 
-        // التحقق من نجاح الطلب
         if (response.ok) {
-          // تخزين المفتاح في sessionStorage بعد نجاح الطلب
-          sessionStorage.setItem('has_voted_session', 'true');
+          try {
+            sessionStorage.setItem('has_voted_session', 'true');
+          } catch {
+            // Safari private mode - ignore
+          }
         } else {
-          // في حالة فشل الطلب، لا نخزن المفتاح حتى يتم إعادة المحاولة
           console.error('Failed to track visitor:', response.status, response.statusText);
         }
       } catch (error) {
-        // في حالة حدوث خطأ، لا نخزن المفتاح حتى يتم إعادة المحاولة
         console.error('Error tracking visitor:', error);
       }
     };
 
     sendVisitorRequest();
-  }, []); // يعمل مرة واحدة فقط عند تحميل المكون
+  }, []);
 
   // المكون لا يعرض أي شيء
   return null;
