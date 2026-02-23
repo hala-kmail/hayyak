@@ -30,7 +30,7 @@ export function LoginForm({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 flex items-center justify-center p-4" dir="rtl">
+    <div className="min-h-screen bg-gradient-to-b from-gray-bg via-white to-gray-bg flex items-center justify-center p-4" dir="rtl">
       <div className="max-w-sm w-full">
         {/* Logo Section */}
         <div className="text-center mb-6">
@@ -106,11 +106,11 @@ export function LoginForm({
 
             {/* Error Message */}
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+              <div className="bg-navy-blue/10 border border-gray-200 rounded-lg p-3">
                 <div className="flex items-start gap-2">
-                  <FaExclamationTriangle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                  <FaExclamationTriangle className="w-4 h-4 text-navy-blue flex-shrink-0 mt-0.5" />
                   <div className="text-right flex-1">
-                    <p className="text-xs font-semibold text-red-800">{error}</p>
+                    <p className="text-xs font-semibold text-navy-blue">{error}</p>
                   </div>
                 </div>
               </div>

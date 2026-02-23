@@ -7,12 +7,12 @@ export const sharedStyles = {
   pageHeader: 'flex items-center justify-between mb-4',
   pageTitle: 'text-xl font-bold text-navy-blue',
 
-  alertError: 'bg-red-50 border border-red-200 rounded-lg p-3 mb-4',
-  alertSuccess: 'bg-green-50 border border-green-200 rounded-lg p-3 mb-4',
-  alertInfo: 'bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4',
-  alertTextError: 'text-xs font-semibold text-red-800',
-  alertTextSuccess: 'text-xs font-semibold text-green-800',
-  alertTextInfo: 'text-xs font-semibold text-blue-800',
+  alertError: 'bg-navy-blue/10 border border-gray-200 rounded-lg p-3 mb-4',
+  alertSuccess: 'bg-lime-green/10 border border-lime-green/30 rounded-lg p-3 mb-4',
+  alertInfo: 'bg-grey-blue/10 border border-grey-blue/30 rounded-lg p-3 mb-4',
+  alertTextError: 'text-xs font-semibold text-navy-blue',
+  alertTextSuccess: 'text-xs font-semibold text-navy-blue',
+  alertTextInfo: 'text-xs font-semibold text-navy-blue',
 
   searchContainer: 'mb-4',
   searchWrapper: 'relative',
@@ -31,5 +31,5 @@ export const sharedStyles = {
   buttonPrimary:
     'flex items-center gap-1.5 px-4 py-2 text-sm bg-gold text-white rounded-lg font-semibold hover:shadow-md hover:shadow-gold/30 transition-all',
   buttonSecondary:
-    'flex items-center gap-1.5 px-3 py-1.5 text-sm bg-gray-100 text-navy-blue rounded-lg font-medium hover:bg-gray-200 transition-all disabled:opacity-50',
+    'flex items-center gap-1.5 px-3 py-1.5 text-sm bg-gray-bg text-navy-blue rounded-lg font-medium hover:bg-navy-blue/10 transition-all disabled:opacity-50',
 } as const;

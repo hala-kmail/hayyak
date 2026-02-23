@@ -23,25 +23,25 @@ export const tableStyles = {
   rankBadgeText: 'text-xs font-bold text-gold',
   roleBadge: (isSuperAdmin: boolean) =>
     `px-2 py-0.5 rounded-md text-xs font-bold ${
-      isSuperAdmin ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
+      isSuperAdmin ? 'bg-quite-purple/10 text-navy-blue' : 'bg-grey-blue/10 text-navy-blue'
     }`,
   statusBadge: (isActive: boolean) =>
     `px-2 py-0.5 rounded-md text-xs font-bold ${
-      isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+      isActive ? 'bg-lime-green/10 text-navy-blue' : 'bg-navy-blue/10 text-navy-blue'
     }`,
   statusBadgeVotes: 'px-2 py-0.5 rounded-md text-xs font-bold',
   actions: 'flex items-center justify-center gap-2',
   actionsSmall: 'flex items-center justify-center gap-1.5',
   btnEdit: 'w-8 h-8 flex items-center justify-center rounded-lg bg-gold/10 text-gold hover:bg-gold hover:text-white transition-all',
-  btnDelete: 'w-8 h-8 flex items-center justify-center rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all',
+  btnDelete: 'w-8 h-8 flex items-center justify-center rounded-lg bg-navy-blue/10 text-navy-blue hover:bg-navy-blue hover:text-white transition-all',
   btnToggle: (isActive: boolean) =>
     `group flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium text-xs transition-all shadow-sm hover:shadow ${
       isActive
-        ? 'bg-green-50 text-green-700 hover:bg-green-100 border border-green-200'
-        : 'bg-gray-bg text-gray-700 hover:bg-gray-100 border border-gray-200'
+        ? 'bg-lime-green/10 text-navy-blue hover:bg-lime-green/20 border border-lime-green/30'
+        : 'bg-gray-bg text-navy-blue hover:bg-navy-blue/10 border border-gray-200'
     }`,
   btnDeleteAction:
-    'group flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium text-xs bg-red-50 text-red-700 hover:bg-red-100 border border-red-200 transition-all shadow-sm hover:shadow',
+    'group flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium text-xs bg-navy-blue/10 text-navy-blue hover:bg-navy-blue/20 border border-gray-200 transition-all shadow-sm hover:shadow',
   iconScale: 'w-3.5 h-3.5 group-hover:scale-110 transition-transform',
   iconHidden: 'hidden sm:inline',
 } as const;

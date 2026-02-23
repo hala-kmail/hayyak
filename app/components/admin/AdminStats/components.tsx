@@ -37,8 +37,8 @@ export function VisitorStatsSection({
       <div className={adminStatsStyles.visitorSection}>
         <div className={adminStatsStyles.visitorHeader}>
           <div className={adminStatsStyles.top3Header}>
-            <div className="bg-indigo-100 p-1.5 rounded-lg">
-              <FaUsers className="w-4 h-4 text-indigo-600" />
+            <div className="bg-grey-blue/10 p-1.5 rounded-lg">
+              <FaUsers className="w-4 h-4 text-grey-blue" />
             </div>
             <h2 className={adminStatsStyles.top3Title}>إحصائيات الزوار</h2>
           </div>
@@ -55,8 +55,8 @@ export function VisitorStatsSection({
       <div className={adminStatsStyles.visitorSection}>
         <div className={adminStatsStyles.visitorHeader}>
           <div className={adminStatsStyles.top3Header}>
-            <div className="bg-indigo-100 p-1.5 rounded-lg">
-              <FaUsers className="w-4 h-4 text-indigo-600" />
+            <div className="bg-grey-blue/10 p-1.5 rounded-lg">
+              <FaUsers className="w-4 h-4 text-grey-blue" />
             </div>
             <h2 className={adminStatsStyles.top3Title}>إحصائيات الزوار</h2>
           </div>
@@ -76,8 +76,8 @@ export function VisitorStatsSection({
     <div className={adminStatsStyles.visitorSection}>
       <div className={adminStatsStyles.visitorHeader}>
         <div className={adminStatsStyles.top3Header}>
-          <div className="bg-indigo-100 p-2 rounded-lg">
-            <FaUsers className="w-5 h-5 text-indigo-600" />
+          <div className="bg-grey-blue/10 p-2 rounded-lg">
+            <FaUsers className="w-5 h-5 text-grey-blue" />
           </div>
           <h2 className={adminStatsStyles.top3Title}>إحصائيات الزوار</h2>
         </div>
@@ -96,26 +96,26 @@ export function VisitorStatsSection({
 
       <div className={adminStatsStyles.visitorStatsGrid}>
         <StatCard
-          icon={<FaUsers className="w-5 h-5 text-indigo-600" />}
-          iconBgClass="bg-indigo-100"
+          icon={<FaUsers className="w-5 h-5 text-grey-blue" />}
+          iconBgClass="bg-grey-blue/10"
           label="الزوار الفريدون"
           value={(stats.uniqueVisitors ?? 0).toLocaleString('ar-SA')}
         />
         <StatCard
-          icon={<FaVoteYea className="w-5 h-5 text-emerald-600" />}
-          iconBgClass="bg-emerald-100"
+          icon={<FaVoteYea className="w-5 h-5 text-lime-green" />}
+          iconBgClass="bg-lime-green/10"
           label="إجمالي الأصوات"
           value={(stats.totalVotes ?? 0).toLocaleString('ar-SA')}
         />
         <StatCard
-          icon={<FaVoteYea className="w-5 h-5 text-indigo-600" />}
-          iconBgClass="bg-indigo-100"
+          icon={<FaVoteYea className="w-5 h-5 text-grey-blue" />}
+          iconBgClass="bg-grey-blue/10"
           label="نسبة المصوتين من الزوار"
           value={`${(stats.visitorsToVotersPercentage ?? 0).toFixed(1)}%`}
         />
         <StatCard
-          icon={<FaGlobe className="w-5 h-5 text-indigo-600" />}
-          iconBgClass="bg-indigo-100"
+          icon={<FaGlobe className="w-5 h-5 text-grey-blue" />}
+          iconBgClass="bg-grey-blue/10"
           label="الدول"
           value={(stats.visitorsByCountry?.length ?? 0).toLocaleString('ar-SA')}
         />
@@ -124,7 +124,7 @@ export function VisitorStatsSection({
       {/* من صوت ومن لم يصوت */}
       <div className={adminStatsStyles.visitorVotersSection}>
         <h3 className={adminStatsStyles.visitorVotersTitle}>
-          <FaUsers className="w-3 h-3 text-indigo-600" />
+          <FaUsers className="w-3 h-3 text-grey-blue" />
           توزيع الزوار: من صوت ومن لم يصوت
         </h3>
         <div className={adminStatsStyles.visitorVotersGrid}>

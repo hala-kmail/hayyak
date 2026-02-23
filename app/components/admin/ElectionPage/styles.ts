@@ -9,9 +9,9 @@ export const electionStyles = {
   statusGrid: 'grid grid-cols-1 md:grid-cols-2 gap-3',
   statusRow: 'flex items-center gap-2',
   statusLabel: 'text-sm font-medium text-warm-grey',
-  statusBadgeOpen: 'px-2 py-0.5 rounded-md text-xs font-bold bg-green-100 text-green-800',
-  statusBadgeClosed: 'px-2 py-0.5 rounded-md text-xs font-bold bg-red-100 text-red-800',
-  statusBadgeMode: 'px-2 py-0.5 rounded-md text-xs font-bold bg-blue-100 text-blue-800',
+  statusBadgeOpen: 'px-2 py-0.5 rounded-md text-xs font-bold bg-lime-green/10 text-navy-blue',
+  statusBadgeClosed: 'px-2 py-0.5 rounded-md text-xs font-bold bg-navy-blue/10 text-navy-blue',
+  statusBadgeMode: 'px-2 py-0.5 rounded-md text-xs font-bold bg-grey-blue/10 text-navy-blue',
   statusValue: 'text-sm text-navy-blue',
 
   formCard: 'bg-white rounded-xl shadow-sm p-4',

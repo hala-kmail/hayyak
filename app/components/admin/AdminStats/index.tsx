@@ -62,14 +62,14 @@ export function AdminStats() {
             value={stats.totalVotes.toLocaleString('ar-SA')}
           />
           <StatCard
-            icon={<FaCalendarDay className="w-5 h-5 text-green-600" />}
-            iconBgClass="bg-green-100"
+            icon={<FaCalendarDay className="w-5 h-5 text-lime-green" />}
+            iconBgClass="bg-lime-green/10"
             label="أصوات اليوم"
             value={stats.todayVotes.toLocaleString('ar-SA')}
           />
           <StatCard
-            icon={<FaMapMarkedAlt className="w-5 h-5 text-blue-600" />}
-            iconBgClass="bg-blue-100"
+            icon={<FaMapMarkedAlt className="w-5 h-5 text-grey-blue" />}
+            iconBgClass="bg-grey-blue/10"
             label="عدد الأحياء"
             value={stats.numberOfTowns.toLocaleString('ar-SA')}
           />
@@ -119,7 +119,7 @@ export function AdminStats() {
           <div className={adminStatsStyles.leadingHeader}>
             <div className={adminStatsStyles.top3Header}>
               <div className={adminStatsStyles.leadingIconWrapper}>
-                <FaTrophy className="w-4 h-4 text-yellow-600" />
+                <FaTrophy className="w-4 h-4 text-gold" />
               </div>
               <h2 className={adminStatsStyles.top3Title}>الأحياء المتقدمة</h2>
             </div>
