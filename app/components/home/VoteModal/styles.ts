@@ -49,4 +49,10 @@ export const modalStyles = {
   voteButtonSpinner: 'inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin',
   voteButtonIcon: 'w-3 h-3',
   cancelButton: 'w-full py-3 bg-white border-2 border-gray-200 text-navy-blue rounded-xl font-bold text-base hover:border-gold hover:bg-gray-bg transition-all disabled:opacity-50 disabled:cursor-not-allowed',
+
+  // Share section
+  shareSection: 'mt-6',
+  shareNativeButton: 'w-full py-4 bg-gold text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2.5 hover:shadow-lg hover:shadow-gold/30 transition-all duration-200 active:scale-[0.97]',
+  successCloseButton: 'mt-2 w-full py-3 bg-white border-2 border-gray-200 text-navy-blue rounded-xl font-bold text-sm hover:border-gold hover:bg-gray-bg transition-all active:scale-[0.97]',
+  alreadyVotedIconContainer: 'w-20 h-20 bg-navy-blue rounded-full flex items-center justify-center mx-auto mb-4',
 } as const;

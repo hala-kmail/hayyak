@@ -1,16 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   FaTimes,
   FaCheckCircle,
   FaChevronLeft,
   FaExclamationTriangle,
   FaMapMarkerAlt,
+  FaCheck,
+  FaShareAlt,
 } from 'react-icons/fa';
+import { FaArrowUpFromBracket } from 'react-icons/fa6';
 import {
   VoteModalHeaderProps,
   VoteSuccessProps,
+  AlreadyVotedShareProps,
   VoteFormProps,
 } from './types';
 import { modalStyles } from './styles';
@@ -31,11 +35,80 @@ export function VoteModalHeader({ onClose }: VoteModalHeaderProps) {
   );
 }
 
+function buildShareText(neighborhoodName: string): string {
+  return `صوّتت لـ ${neighborhoodName} في مسابقة حوّامة رمضان 🎉\nادعم حيّك وصوّت الحين!`;
+}
+
+function getShareUrl(): string {
+  if (typeof window === 'undefined') return '';
+  return window.location.origin;
+}
+
+function ShareButton({ neighborhoodName }: { neighborhoodName: string }) {
+  const [status, setStatus] = useState<'idle' | 'copied'>('idle');
+
+  const shareText = buildShareText(neighborhoodName);
+  const shareUrl = getShareUrl();
+
+  const canNativeShare = typeof navigator !== 'undefined' && !!navigator.share;
+
+  const copyToClipboard = useCallback(async () => {
+    const fullText = `${shareText}\n${shareUrl}`;
+    try {
+      await navigator.clipboard.writeText(fullText);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = fullText;
+      ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    setStatus('copied');
+    setTimeout(() => setStatus('idle'), 2500);
+  }, [shareText, shareUrl]);
+
+  const handleShare = useCallback(async () => {
+    if (canNativeShare) {
+      try {
+        await navigator.share({
+          title: 'صوّت لحيّك — حوّامة رمضان',
+          text: shareText,
+          url: shareUrl,
+        });
+        return;
+      } catch {
+        // المستخدم ألغى المشاركة أو المتصفح ما يدعم - ننسخ كفولباك
+      }
+    }
+    await copyToClipboard();
+  }, [canNativeShare, shareText, shareUrl, copyToClipboard]);
+
+  return (
+    <div className={modalStyles.shareSection}>
+      <button onClick={handleShare} className={modalStyles.shareNativeButton}>
+        {status === 'copied' ? (
+          <>
+            <FaCheck className="w-5 h-5" />
+            <span>تم نسخ الرابط!</span>
+          </>
+        ) : (
+          <>
+            <FaArrowUpFromBracket className="w-5 h-5" />
+            <span>شارك مع جيرانك</span>
+          </>
+        )}
+      </button>
+    </div>
+  );
+}
+
 /**
  * Vote Success Component
  * Following Single Responsibility Principle - only handles success display
  */
-export function VoteSuccess({ onClose, onVoteSuccess }: VoteSuccessProps) {
+export function VoteSuccess({ onClose, onVoteSuccess, neighborhoodName }: VoteSuccessProps) {
   return (
     <div className={modalStyles.successContainer}>
       <div className="text-center">
@@ -44,9 +117,37 @@ export function VoteSuccess({ onClose, onVoteSuccess }: VoteSuccessProps) {
         </div>
         <h3 className={modalStyles.successTitle}>تم التصويت بنجاح!</h3>
         <p className={modalStyles.successMessage}>
-          شكراً! صوتك يدفع حيّك خطوة نحو الفوز — شارك الرابط مع جيرانك
+          شكراً! صوتك يدفع حيّك خطوة نحو الفوز — شارك الرابط مع جيرانك وادعمهم
         </p>
       </div>
+      <ShareButton neighborhoodName={neighborhoodName} />
+      <button onClick={onClose} className={modalStyles.successCloseButton}>
+        إغلاق
+      </button>
+    </div>
+  );
+}
+
+/**
+ * Already Voted Share Component
+ * يظهر لما المستخدم يحاول يصوت وهو صوّت مسبقاً - يشجعه على المشاركة بدل عرض خطأ
+ */
+export function AlreadyVotedShare({ onClose, neighborhoodName }: AlreadyVotedShareProps) {
+  return (
+    <div className={modalStyles.successContainer}>
+      <div className="text-center">
+        <div className={modalStyles.alreadyVotedIconContainer}>
+          <FaShareAlt className={modalStyles.successIcon} />
+        </div>
+        <h3 className={modalStyles.successTitle}>أنت صوّتت مسبقاً!</h3>
+        <p className={modalStyles.successMessage}>
+          صوتك محسوب — ادعم حيّك أكثر بمشاركة الرابط مع أهلك وجيرانك
+        </p>
+      </div>
+      <ShareButton neighborhoodName={neighborhoodName} />
+      <button onClick={onClose} className={modalStyles.successCloseButton}>
+        إغلاق
+      </button>
     </div>
   );
 }

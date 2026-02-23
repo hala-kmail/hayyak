@@ -32,24 +32,46 @@ export const heroStyles = {
   visualText: 'font-headline text-navy-blue font-bold text-lg',
   visualHeart: 'absolute top-0 -right-4 w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-navy-blue text-2xl animate-float [animation-delay:1s] border border-gray-50',
   visualSparkle: 'absolute -bottom-4 -left-2 w-20 h-20 bg-navy-blue text-white rounded-3xl shadow-xl flex items-center justify-center text-3xl animate-float [animation-delay:2s]',
-  // Leading neighborhood – تصميم أنيق بلمسة ذهبية
+  // Leading neighborhood – بطاقة الحي المتصدر التفاعلية
   leadingCard:
-    'relative hidden lg:flex flex-col w-full max-w-[320px] rounded-2xl overflow-hidden animate-fade-in-up',
+    'relative hidden lg:flex flex-col items-center w-full max-w-[320px] pt-10 animate-slide-in-right group/card',
+  leadingCardTrophy:
+    'absolute -top-1 inset-x-0 mx-auto z-20 w-[76px] h-[76px] rounded-full bg-gradient-to-br from-gold via-gold to-sand-brown flex items-center justify-center shadow-[0_8px_30px_rgba(206,184,136,0.5)] animate-float border-[3px] border-white/80 group-hover/card:scale-110 transition-transform duration-500',
+  leadingCardTrophyIcon: 'w-8 h-8 text-white drop-shadow-md',
+  leadingCardTrophyRing:
+    'absolute inset-0 rounded-full border-2 border-gold/40 animate-glow-pulse pointer-events-none',
+  leadingCardOuter:
+    'relative w-full rounded-3xl p-[2px] bg-gradient-to-br from-gold/80 via-white/70 to-navy-blue/50 shadow-2xl hover:shadow-[0_20px_60px_rgba(206,184,136,0.35)] transition-all duration-500 hover:scale-[1.03] cursor-default',
+  leadingCardShimmer:
+    'absolute inset-0 rounded-3xl overflow-hidden pointer-events-none',
+  leadingCardShimmerBar:
+    'absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent animate-shimmer',
   leadingCardInner:
-    'bg-white/95 backdrop-blur-md border border-white/60 shadow-xl rounded-2xl text-right overflow-hidden',
-  leadingCardAccent: 'absolute top-0 right-0 w-1.5 h-full min-h-[120px] bg-gradient-to-b from-gold via-gold to-navy-blue/80',
-  leadingCardContent: 'relative pr-5 py-5 pl-4',
-  leadingCardLabel:
-    'inline-flex items-center gap-1.5 text-[11px] font-bold text-gold uppercase tracking-[0.2em] mb-2',
-  leadingCardName: 'font-headline text-xl md:text-2xl font-black text-navy-blue leading-tight',
-  leadingCardLocation: 'text-sm text-warm-grey/90 mt-0.5',
-  leadingCardVotesWrap: 'mt-4 flex items-baseline gap-2',
-  leadingCardVotesNumber: 'font-black text-2xl text-navy-blue tabular-nums',
-  leadingCardVotesLabel: 'text-sm font-medium text-navy-blue/70',
-  leadingCardProgress: 'mt-3',
-  leadingCardProgressBar: 'h-1.5 rounded-full bg-navy-blue/15 overflow-hidden',
-  leadingCardProgressFill: 'h-full rounded-full bg-gold transition-all duration-700',
-  leadingCardProgressText: 'text-[11px] text-navy-blue/60 mt-1',
+    'relative bg-gradient-to-b from-white via-white to-gold/[0.03] rounded-[22px] text-right overflow-hidden',
+  leadingCardGlow:
+    'absolute -top-10 -right-10 w-32 h-32 bg-gold/15 rounded-full blur-3xl animate-glow-pulse pointer-events-none',
+  leadingCardContent: 'relative px-6 pt-12 pb-6',
+  leadingCardBadgeText:
+    'block text-center text-[11px] font-bold text-gold tracking-widest uppercase mb-3',
+  leadingCardDivider:
+    'h-px bg-gradient-to-l from-transparent via-gold/25 to-transparent mb-4',
+  leadingCardName:
+    'font-headline text-2xl font-black text-navy-blue leading-tight text-center group-hover/card:text-gold transition-colors duration-300',
+  leadingCardStats: 'mt-6 flex items-stretch gap-3',
+  leadingCardVotesBlock:
+    'flex-1 flex flex-col items-center justify-center bg-navy-blue/[0.04] rounded-2xl py-4 px-3 border border-navy-blue/10 group-hover/card:border-gold/25 transition-colors duration-300',
+  leadingCardVotesNumber:
+    'font-black text-3xl text-navy-blue tabular-nums leading-none',
+  leadingCardVotesLabel: 'text-[11px] font-medium text-warm-grey mt-1.5',
+  leadingCardPercentBlock:
+    'flex flex-col items-center justify-center bg-gradient-to-br from-gold/10 to-gold/[0.03] rounded-2xl py-4 px-4 min-w-[80px] border border-gold/15',
+  leadingCardPercentNumber:
+    'font-black text-3xl text-gold leading-none',
+  leadingCardPercentSign: 'text-base font-bold text-gold/60',
+  leadingCardPercentLabel: 'text-[11px] font-medium text-gold/70 mt-1.5',
+  leadingCardCta:
+    'mt-6 flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-gradient-to-r from-navy-blue to-navy-blue/90 text-white text-sm font-bold hover:from-gold hover:to-gold hover:text-navy-blue transition-all duration-300 shadow-lg hover:shadow-gold/25 active:scale-[0.97]',
+  leadingCardCtaIcon: 'w-4 h-4 group-hover/card:-translate-x-1 transition-transform duration-300',
   waveContainer: 'absolute bottom-[-1px] left-0 w-full leading-[0] z-10',
   waveSvg: 'w-full h-auto',
 } as const;

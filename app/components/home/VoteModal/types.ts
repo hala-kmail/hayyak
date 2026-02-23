@@ -21,6 +21,12 @@ export interface VoteModalHeaderProps {
 export interface VoteSuccessProps {
   onClose: () => void;
   onVoteSuccess?: () => void;
+  neighborhoodName: string;
+}
+
+export interface AlreadyVotedShareProps {
+  onClose: () => void;
+  neighborhoodName: string;
 }
 
 export interface VoteFormProps {

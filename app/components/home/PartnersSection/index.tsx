@@ -18,7 +18,7 @@ export function PartnersSection() {
         <header className={styles.header}>
           <h2 className={styles.title}>{PARTNERS_SECTION_COPY.title}</h2>
           <div className={styles.accent} />
-          <p className={styles.description}>{PARTNERS_SECTION_COPY.description}</p>
+          {/* <p className={styles.description}>{PARTNERS_SECTION_COPY.description}</p> */}
         </header>
 
         <div className={styles.grid}>

@@ -10,13 +10,14 @@ export function useVoteModal(isOpen: boolean) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [voteError, setVoteError] = useState<string | null>(null);
   const [voteSuccess, setVoteSuccess] = useState(false);
+  const [alreadyVoted, setAlreadyVoted] = useState(false);
 
-  // Reset state when modal opens/closes
   useEffect(() => {
     if (isOpen) {
       setIsSubmitting(false);
       setVoteError(null);
       setVoteSuccess(false);
+      setAlreadyVoted(false);
     }
   }, [isOpen]);
 
@@ -24,8 +25,10 @@ export function useVoteModal(isOpen: boolean) {
     isSubmitting,
     voteError,
     voteSuccess,
+    alreadyVoted,
     setIsSubmitting,
     setVoteError,
     setVoteSuccess,
+    setAlreadyVoted,
   };
 }

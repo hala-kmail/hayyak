@@ -3,12 +3,13 @@
  * Following Single Responsibility Principle - only contains business logic
  */
 
-import { ERROR_MESSAGES, SUCCESS_AUTO_CLOSE_DELAY } from './constants';
+import { ERROR_MESSAGES } from './constants';
 import { API_BASE } from '@/lib/api';
 
 export interface VoteResponse {
   success: boolean;
   error?: string;
+  alreadyVoted?: boolean;
 }
 
 // Timeout constant (10 seconds)
@@ -49,6 +50,7 @@ export async function submitVote(
           return {
             success: false,
             error: ERROR_MESSAGES.ALREADY_VOTED,
+            alreadyVoted: true,
           };
         }
         return {
@@ -79,22 +81,13 @@ export async function submitVote(
 
 /**
  * Handles vote success callback
- * يغلق الـ modal ويستدعي callback التحديث بشكل متوازي لتحسين الأداء
+ * يُحدّث البيانات فوراً لكن يبقي الـ modal مفتوحاً ليتمكن المستخدم من مشاركة النتيجة
  */
 export function handleVoteSuccess(
   onClose: () => void,
   onVoteSuccess?: () => void
 ): void {
-  setTimeout(() => {
-    onClose();
-    // استدعاء callback التحديث بشكل غير متزامن لعدم تأخير إغلاق الـ modal
-    if (onVoteSuccess) {
-      // استخدام setTimeout(0) لضمان عدم تأخير إغلاق الـ modal
-      setTimeout(() => {
-        onVoteSuccess();
-      }, 0);
-    } else {
-      window.location.reload();
-    }
-  }, SUCCESS_AUTO_CLOSE_DELAY);
+  if (onVoteSuccess) {
+    onVoteSuccess();
+  }
 }

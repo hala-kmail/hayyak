@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FaChevronLeft, FaStar, FaHome, FaHeart, FaMagic, FaTrophy } from 'react-icons/fa';
+import { FaChevronLeft, FaStar, FaHome, FaHeart, FaMagic, FaTrophy, FaVoteYea } from 'react-icons/fa';
 import { heroStyles } from './styles';
 import { HeroContentProps, HeroLeadingNeighborhoodProps } from './types';
 
@@ -88,7 +88,7 @@ export const HeroVisualBadge = React.memo(function HeroVisualBadge() {
 
 /**
  * Hero Leading Neighborhood Component
- * يعرض الحي المتصدر في القسم الأيسر من الهيرو بشكل جميل
+ * بطاقة تفاعلية متحركة تعرض الحي المتصدر بتصميم عصري
  */
 export const HeroLeadingNeighborhood = React.memo(function HeroLeadingNeighborhood({
   neighborhood,
@@ -98,33 +98,47 @@ export const HeroLeadingNeighborhood = React.memo(function HeroLeadingNeighborho
 
   return (
     <div className={heroStyles.leadingCard}>
-      <div className={heroStyles.leadingCardInner}>
-        <div className={heroStyles.leadingCardAccent} aria-hidden />
-        <div className={heroStyles.leadingCardContent}>
-          <div className={heroStyles.leadingCardLabel}>
-            <FaTrophy className="w-3.5 h-3.5 text-gold" aria-hidden />
-            الحي المتصدر
-          </div>
-          <h2 className={heroStyles.leadingCardName}>{neighborhood.name}</h2>
-          {neighborhood.location && (
-            <p className={heroStyles.leadingCardLocation}>{neighborhood.location}</p>
-          )}
-          <div className={heroStyles.leadingCardVotesWrap}>
-            <span className={heroStyles.leadingCardVotesNumber}>
-              {votes.toLocaleString('ar-SA')}
-            </span>
-            <span className={heroStyles.leadingCardVotesLabel}>صوت</span>
-          </div>
-          <div className={heroStyles.leadingCardProgress}>
-            <div className={heroStyles.leadingCardProgressBar}>
-              <div
-                className={heroStyles.leadingCardProgressFill}
-                style={{ width: `${percentage}%` }}
-              />
+      {/* Floating trophy */}
+      <div className={heroStyles.leadingCardTrophy}>
+        <FaTrophy className={heroStyles.leadingCardTrophyIcon} aria-hidden />
+        <div className={heroStyles.leadingCardTrophyRing} aria-hidden />
+      </div>
+
+      <div className={heroStyles.leadingCardOuter}>
+        <div className={heroStyles.leadingCardShimmer} aria-hidden>
+          <div className={heroStyles.leadingCardShimmerBar} />
+        </div>
+
+        <div className={heroStyles.leadingCardInner}>
+          <div className={heroStyles.leadingCardGlow} aria-hidden />
+
+          <div className={heroStyles.leadingCardContent}>
+            <span className={heroStyles.leadingCardBadgeText}>الحي المتصدر</span>
+
+            <div className={heroStyles.leadingCardDivider} aria-hidden />
+
+            <h2 className={heroStyles.leadingCardName}>{neighborhood.name}</h2>
+
+            <div className={heroStyles.leadingCardStats}>
+              <div className={heroStyles.leadingCardVotesBlock}>
+                <span className={heroStyles.leadingCardVotesNumber}>
+                  {votes.toLocaleString('ar-SA')}
+                </span>
+                <span className={heroStyles.leadingCardVotesLabel}>صوت حتى الآن</span>
+              </div>
+              <div className={heroStyles.leadingCardPercentBlock}>
+                <span className={heroStyles.leadingCardPercentNumber}>
+                  {Math.round(percentage)}
+                  <span className={heroStyles.leadingCardPercentSign}>%</span>
+                </span>
+                <span className={heroStyles.leadingCardPercentLabel}>من الأصوات</span>
+              </div>
             </div>
-            <span className={heroStyles.leadingCardProgressText}>
-              {Math.round(percentage)}% من إجمالي الأصوات
-            </span>
+
+            <a href="#districts" className={heroStyles.leadingCardCta}>
+              <FaVoteYea className={heroStyles.leadingCardCtaIcon} aria-hidden />
+              صوّت لحيّك الآن
+            </a>
           </div>
         </div>
       </div>

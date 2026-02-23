@@ -48,11 +48,36 @@ module.exports = {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
         },
+        shimmer: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        'glow-pulse': {
+          '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+          '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+        },
+        'trophy-bounce': {
+          '0%, 100%': { transform: 'rotate(0deg) scale(1)' },
+          '25%': { transform: 'rotate(-8deg) scale(1.1)' },
+          '75%': { transform: 'rotate(8deg) scale(1.1)' },
+        },
+        'slide-in-right': {
+          '0%': { opacity: '0', transform: 'translateX(30px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        'progress-fill': {
+          '0%': { width: '0%' },
+        },
       },
       animation: {
         'fade-in-up': 'fade-in-up 0.5s ease-out both',
         'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
         float: 'float 4s ease-in-out infinite',
+        shimmer: 'shimmer 2.5s ease-in-out infinite',
+        'glow-pulse': 'glow-pulse 3s ease-in-out infinite',
+        'trophy-bounce': 'trophy-bounce 2s ease-in-out infinite',
+        'slide-in-right': 'slide-in-right 0.6s ease-out both',
+        'progress-fill': 'progress-fill 1.2s ease-out both',
       },
     },
   },

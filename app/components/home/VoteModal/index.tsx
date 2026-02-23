@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { useFingerprint } from '@/app/hooks/useFingerprint';
-import { VoteModalHeader, VoteSuccess, LoadingState, VoteForm } from './components';
+import { VoteModalHeader, VoteSuccess, AlreadyVotedShare, LoadingState, VoteForm } from './components';
 import { modalStyles } from './styles';
 import { useVoteModal } from './hooks';
 import { submitVote, handleVoteSuccess } from './utils';
@@ -40,9 +40,11 @@ export function VoteModal({
     isSubmitting,
     voteError,
     voteSuccess,
+    alreadyVoted,
     setIsSubmitting,
     setVoteError,
     setVoteSuccess,
+    setAlreadyVoted,
   } = useVoteModal(isOpen);
 
   const handlePhoneChange = useCallback((value: string) => {
@@ -76,6 +78,11 @@ export function VoteModal({
     const result = await submitVote(neighborhood.id, visitorId, trimmedPhone);
 
     if (!result.success) {
+      if (result.alreadyVoted) {
+        setAlreadyVoted(true);
+        setIsSubmitting(false);
+        return;
+      }
       setVoteError(result.error || ERROR_MESSAGES.GENERIC_ERROR);
       setIsSubmitting(false);
       return;
@@ -98,7 +105,9 @@ export function VoteModal({
 
         <div className={modalStyles.content}>
           {voteSuccess ? (
-            <VoteSuccess onClose={onClose} onVoteSuccess={onVoteSuccess} />
+            <VoteSuccess onClose={onClose} onVoteSuccess={onVoteSuccess} neighborhoodName={neighborhood.name} />
+          ) : alreadyVoted ? (
+            <AlreadyVotedShare onClose={onClose} neighborhoodName={neighborhood.name} />
           ) : (
             <>
               {isLoadingFingerprint && <LoadingState />}
