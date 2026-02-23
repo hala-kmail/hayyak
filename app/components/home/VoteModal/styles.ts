@@ -6,7 +6,7 @@
 export const modalStyles = {
   overlay: 'fixed inset-0 z-50 flex items-center justify-center p-4',
   backdrop: 'absolute inset-0 bg-black/60 backdrop-blur-sm',
-  modal: 'relative bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto animate-fade-in-up',
+  modal: 'relative bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[min(90vh,calc(var(--vh,1vh)*90))] overflow-y-auto animate-fade-in-up',
   header: 'sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-3xl z-10',
   headerTitle: 'font-headline text-subhead font-bold text-navy-blue',
   closeButton: 'w-10 h-10 rounded-xl bg-gray-bg hover:bg-gray-100 flex items-center justify-center text-warm-grey hover:text-navy-blue transition-colors',

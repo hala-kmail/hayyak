@@ -11,27 +11,24 @@ export function useIntersectionObserver(threshold = 0.1) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!('IntersectionObserver' in window)) {
+      setIsVisible(true); // fallback for older iOS Safari
+      return;
+    }
+
+    const node = sectionRef.current;
+    if (!node) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
+        if (entries.some((e) => e.isIntersecting)) setIsVisible(true);
       },
       { threshold }
     );
 
-    const currentRef = sectionRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
+    observer.observe(node);
+    return () => observer.disconnect();
   }, [threshold]);
 
   return { isVisible, sectionRef };

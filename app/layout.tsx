@@ -12,6 +12,7 @@ import { Cairo } from 'next/font/google';
 import { QueryClientProvider } from '@/providers';
 import { ThemeProvider } from '@/providers';
 import { VisitorTracker } from '@/app/components/shared/VisitorTracker';
+import { ViewportHeightFix } from '@/app/components/shared/ViewportHeightFix';
 import type { Metadata } from 'next';
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -51,6 +52,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <VisitorTracker />
+        <ViewportHeightFix />
         <ThemeProvider>
           <QueryClientProvider>{children}</QueryClientProvider>
         </ThemeProvider>

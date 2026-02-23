@@ -40,26 +40,29 @@ export function useAnimatedCounter(
       return;
     }
 
+    if (typeof window === 'undefined') return;
+    if (!('IntersectionObserver' in window)) {
+      setHasAnimated(true);
+      animateCounter(0, targetValue);
+      return;
+    }
+
+    const node = counterRef.current;
+    if (!node) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated) {
-            setHasAnimated(true);
-            animateCounter(0, targetValue);
-          }
-        });
+        if (entries.some((e) => e.isIntersecting) && !hasAnimated) {
+          setHasAnimated(true);
+          animateCounter(0, targetValue);
+        }
       },
       { threshold }
     );
 
-    if (counterRef.current) {
-      observer.observe(counterRef.current);
-    }
-
+    observer.observe(node);
     return () => {
-      if (counterRef.current) {
-        observer.unobserve(counterRef.current);
-      }
+      observer.disconnect();
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }

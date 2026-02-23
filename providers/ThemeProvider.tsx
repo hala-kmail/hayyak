@@ -23,9 +23,13 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = (typeof window !== 'undefined' && localStorage.getItem(THEME_STORAGE_KEY)) as ThemeKey | null;
-    if (stored && ['light', 'dark', 'system'].includes(stored)) {
-      setThemeState(stored);
+    try {
+      const stored = (typeof window !== 'undefined' && localStorage.getItem(THEME_STORAGE_KEY)) as ThemeKey | null;
+      if (stored && ['light', 'dark', 'system'].includes(stored)) {
+        setThemeState(stored);
+      }
+    } catch {
+      // Safari private mode - localStorage unavailable
     }
     setMounted(true);
   }, []);
@@ -55,8 +59,12 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   const setTheme = useCallback((newTheme: ThemeKey) => {
     setThemeState(newTheme);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+      }
+    } catch {
+      // Safari private mode - ignore
     }
   }, []);
 

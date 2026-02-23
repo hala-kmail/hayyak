@@ -31,7 +31,8 @@ function getCSSVarValue(name: string): string {
 export function useCSSVar(variableName: string): string {
   const name = variableName.startsWith('--') ? variableName : `--${variableName}`;
 
-  const [value, setValue] = useState(() => getCSSVarValue(name));
+  // Match server render to avoid hydration mismatch - client value set in useEffect
+  const [value, setValue] = useState('rgb(255, 255, 255)');
 
   const update = useCallback(() => {
     setValue(getCSSVarValue(name));

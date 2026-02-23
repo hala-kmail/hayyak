@@ -139,7 +139,7 @@ export function AlreadyVotedShare({ onClose, neighborhoodName }: AlreadyVotedSha
         <div className={modalStyles.alreadyVotedIconContainer}>
           <FaShareAlt className={modalStyles.successIcon} />
         </div>
-        <h3 className={modalStyles.successTitle}>أنت صوّتت مسبقاً!</h3>
+        <h3 className={modalStyles.successTitle}>تم التصويت مسبقاً!</h3>
         <p className={modalStyles.successMessage}>
           صوتك محسوب — ادعم حيّك أكثر بمشاركة الرابط مع أهلك وجيرانك
         </p>
