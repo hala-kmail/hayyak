@@ -4,21 +4,26 @@
  */
 
 export const footerStyles = {
-  footer: 'bg-navy-blue text-white py-12 md:py-16 relative overflow-hidden',
-  waveContainer: 'absolute left-0 w-full z-10 pointer-events-none',
-  waveSvg: 'w-full h-full',
-  backgroundEffects: 'absolute top-0 left-0 w-full h-full opacity-5',
-  backgroundBlur1: 'absolute top-10 right-10 w-64 h-64 bg-gold rounded-full blur-3xl',
-  backgroundBlur2: 'absolute bottom-10 left-10 w-48 h-48 bg-lime-green rounded-full blur-3xl',
-  container: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-16',
-  contentSection: 'text-center mb-8',
-  title: 'font-headline text-subhead md:text-3xl font-bold mb-3 text-white',
-  divider: 'w-16 h-1 bg-gold mx-auto rounded-full mb-6',
-  description: 'text-gray-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed',
-  partnersSection: 'mt-12 mb-8',
-  partnersTitle: 'text-xl md:text-2xl font-bold mb-6 text-white text-center',
-  partnersList: 'flex flex-wrap justify-center items-center gap-6 md:gap-8',
-  partnerLink: 'text-gray-300 hover:text-white transition-colors duration-200 text-sm md:text-base font-medium no-underline hover:underline decoration-white/50 underline-offset-4',
-  copyrightSection: 'pt-8 border-t border-white/10 text-center',
-  copyright: 'text-gray-400 text-sm font-medium',
+  footer:
+    'relative overflow-hidden bg-navy-blue py-16 md:py-24 text-white',
+  topBorder:
+    'absolute top-0 left-0 right-0 h-1 bg-gradient-to-l from-transparent via-gold to-transparent opacity-90',
+  accentBlur:
+    'absolute bottom-0 left-1/2 -translate-x-1/2 w-[480px] h-48 bg-gold/20 rounded-full blur-[80px] pointer-events-none',
+  container: 'relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8',
+  contentSection: 'text-center max-w-lg mx-auto mb-14',
+  title:
+    'font-headline text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight',
+  description:
+    'font-body text-white/75 text-sm md:text-base leading-relaxed',
+  partnersSection: 'mb-14',
+  partnersTitle:
+    'font-subhead text-xs font-medium text-white/50 uppercase tracking-[0.25em] text-center mb-6',
+  partnersList:
+    'flex flex-wrap justify-center items-center gap-3',
+  partnerLink:
+    'inline-flex items-center px-5 py-2.5 rounded-full bg-white/5 text-white/90 text-sm font-medium border border-white/10 hover:bg-gold/25 hover:text-white hover:border-gold/50 hover:shadow-lg hover:shadow-gold/10 transition-all duration-300 no-underline',
+  copyrightSection:
+    'pt-8 border-t border-white/10 text-center',
+  copyright: 'text-white/40 text-xs font-medium',
 } as const;

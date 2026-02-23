@@ -34,6 +34,7 @@ export const HeroSection = React.memo(function HeroSection({
         {/* Background blur effects */}
         <div className={heroStyles.backgroundBlur1} />
         <div className={heroStyles.backgroundBlur2} />
+        <div className={heroStyles.backgroundBlur3} />
 
         {/* Main content */}
         <div className={heroStyles.contentWrapper}>

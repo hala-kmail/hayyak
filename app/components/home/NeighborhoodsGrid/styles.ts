@@ -36,33 +36,33 @@ export const gridStyles = {
   cardsContainer: (isScrollable: boolean) =>
     `flex gap-4 ${isScrollable ? 'flex-nowrap' : 'flex-wrap '}`,
   card: (isLeader: boolean, width: string) =>
-    `group relative flex-shrink-0 bg-white rounded-xl p-6 shadow-sm border-r-4 transition-all duration-300 hover:shadow-md hover:scale-[1.02] cursor-pointer active:scale-[0.98] ${
+    `group relative flex-shrink-0 rounded-xl p-6 shadow-sm border-r-4 transition-all duration-300 hover:shadow-md hover:scale-[1.02] cursor-pointer active:scale-[0.98] ${
       isLeader
-        ? 'border-quite-purple bg-gold/5'
-        : 'border-gray-100 hover:border-gold/30'
+        ? 'border-navy-blue bg-white shadow-lg ring-2 ring-navy-blue/30'
+        : 'bg-white border-gray-100 hover:border-gold/30'
     } ${width}`,
   cardHeader: 'flex items-center justify-between mb-4',
   cardLeftSection: 'flex items-center gap-4',
   rankContainer: (isLeader: boolean) =>
     `w-12 h-12 rounded-full flex items-center justify-center border-2 transition-colors flex-shrink-0 ${
-      isLeader 
-        ? 'border--quite-purple bg-gold/10' 
+      isLeader
+        ? 'border-navy-blue bg-quite-purple/15'
         : 'border-gray-200 bg-white'
     }`,
   rankNumber: (isLeader: boolean) =>
     `text-lg font-black ${
-      isLeader ? 'text-quite-purple' : 'text-navy-blue'
+      isLeader ? 'text-navy-blue' : 'text-navy-blue'
     }`,
   iconContainer: (isLeader: boolean) =>
     `w-12 h-12 rounded-lg flex items-center justify-center transition-colors ${
-      isLeader ? 'bg-gold/10' : 'bg-gray-bg'
+      isLeader ? 'bg-quite-purple/15' : 'bg-gray-bg'
     }`,
   icon: (isLeader: boolean, iconColor: string) =>
     `w-6 h-6 ${isLeader ? 'text-quite-purple' : iconColor}`,
   cardTextSection: 'text-right',
   cardTitle: (isLeader: boolean) =>
     `text-lg font-black transition-colors mb-1 ${
-      isLeader ? 'text-quite-purple' : 'text-navy-blue group-hover:text-gold'
+      isLeader ? 'text-navy-blue' : 'text-navy-blue group-hover:text-gold'
     }`,
   cardLocation: 'text-xs text-warm-grey',
   votesSection: 'text-left flex-shrink-0',
@@ -72,11 +72,11 @@ export const gridStyles = {
   progressBar: 'h-3 w-full bg-gray-100 rounded-full overflow-hidden',
   progressFill: (isLeader: boolean) =>
     `h-full rounded-full transition-all duration-1000 ease-out ${
-      isLeader ? 'bg-quite-purple' : 'bg-gold'
+      isLeader ? 'bg-navy-blue' : 'bg-gold'
     }`,
   progressFooter: 'flex justify-between items-center mt-1',
   progressLabel: 'text-xs font-bold text-navy-blue/70',
   progressValue:(isLeader: boolean) => `text-base font-black ${
-    isLeader ? 'text-quite-purple' : 'text-gold'
+    isLeader ? 'text-navy-blue' : 'text-gold'
   }`,
 } as const;

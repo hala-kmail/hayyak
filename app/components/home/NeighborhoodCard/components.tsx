@@ -29,7 +29,7 @@ export function NeighborhoodCardContent({
       </div>
 
       <div className={cardStyles.contentContainer}>
-        <h3 className={cardStyles.title}>{neighborhood.name}</h3>
+        <h3 className={cardStyles.title(isLeader)}>{neighborhood.name}</h3>
         <p className={cardStyles.location}>
           <span className={cardStyles.locationDot} />
           {neighborhood.location}
@@ -40,20 +40,20 @@ export function NeighborhoodCardContent({
         <div className={cardStyles.progressContainer}>
           <div className={cardStyles.progressHeader}>
             <span className={cardStyles.progressLabel}>نسبة التقدم</span>
-            <span className={cardStyles.progressValue}>
+            <span className={cardStyles.progressValue(isLeader)}>
               {Math.round(progress)}%
             </span>
           </div>
           <div className={cardStyles.progressBar} dir="ltr">
             <div
-              className={cardStyles.progressFill}
+              className={cardStyles.progressFill(isLeader)}
               style={{ width: `${Math.min(progress, 100)}%` }}
             />
           </div>
         </div>
 
         {onClick && (
-          <span className={cardStyles.ctaButton}>
+          <span className={cardStyles.ctaButton(isLeader)}>
             <FaChevronLeft className={cardStyles.ctaIcon} />
             اضغط للتصويت
           </span>

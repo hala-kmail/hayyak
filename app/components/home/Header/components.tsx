@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -60,7 +60,7 @@ export function HeaderLogo({
  * Following Single Responsibility Principle - only handles logo display
  */
 export function HeaderLogoEnd({ scrolled }: HeaderLogoEndProps) {
-  const src = scrolled ? '/images/habeeb-dark.png' : '/images/habeeb-white.png';
+  const src = '/images/habeeb-white.png';
 
   return (
     <Link

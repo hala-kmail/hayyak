@@ -12,7 +12,7 @@ export const headerStyles = {
     `w-full transition-all duration-500 ${scrolled ? 'pt-0' : 'pt-3'}`,
   navContainer: (scrolled: boolean) =>
     `pointer-events-auto transition-all duration-500 ${
-      scrolled ? 'bg-white shadow-lg' : 'bg-transparent'
+      scrolled ? 'bg-navy-blue shadow-lg' : 'bg-transparent'
     }`,
   navInner: 'max-w-7xl mx-auto flex items-center justify-between h-12 sm:h-20 px-4 sm:px-6 lg:px-8',
   logoLink: (mobileMenuOpen: boolean) =>
@@ -23,9 +23,7 @@ export const headerStyles = {
     }`,
   logoImage: 'object-contain transition-all duration-500 group-hover:scale-110',
   logoText: (scrolled: boolean) =>
-    `font-headline font-bold text-xl sm:text-2xl transition-colors duration-500 hidden sm:block ${
-      scrolled ? 'text-navy-blue' : 'text-white'
-    }`,
+    `font-headline font-bold text-xl sm:text-2xl transition-colors duration-500 hidden sm:block text-white`,
   lantern: 'hidden lg:block absolute pointer-events-none transition-all duration-500',
   lanternLeft: 'top-1/2 -translate-y-1/2 left-[-40px] w-10 h-14 opacity-80',
   lanternRight: 'top-1/2 -translate-y-1/2 right-[-40px] w-10 h-14 opacity-80 scale-x-[-1]',
@@ -33,7 +31,7 @@ export const headerStyles = {
   navLink: (scrolled: boolean) =>
     `px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 relative group ${
       scrolled
-        ? 'text-navy-blue hover:text-gold hover:bg-gold/5'
+        ? 'text-white hover:text-gold hover:bg-white/10'
         : 'text-white/90 hover:text-white hover:bg-white/10'
     }`,
   navLinkUnderline: (scrolled: boolean) =>
@@ -42,7 +40,7 @@ export const headerStyles = {
     } w-0 group-hover:w-3/4`,
   mobileMenuButton: (scrolled: boolean) =>
     `lg:hidden w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 ${
-      scrolled ? 'text-navy-blue hover:bg-gray-100' : 'text-white hover:bg-white/10'
+      scrolled ? 'text-white hover:bg-white/10' : 'text-white hover:bg-white/10'
     }`,
   menuIcon: 'w-6 h-6',
   drawerOverlay: (drawerAnimateIn: boolean) =>
@@ -50,14 +48,14 @@ export const headerStyles = {
       drawerAnimateIn ? 'opacity-100' : 'opacity-0'
     }`,
   drawer: (drawerAnimateIn: boolean) =>
-    `lg:hidden fixed top-0 bottom-0 right-0 w-80 max-w-[85vw] bg-white z-[110] flex flex-col shadow-2xl transition-transform duration-300 ${
+    `lg:hidden fixed top-0 bottom-0 right-0 w-80 max-w-[85vw] bg-navy-blue z-[110] flex flex-col shadow-2xl transition-transform duration-300 ${
       drawerAnimateIn ? 'translate-x-0' : 'translate-x-full'
     }`,
-  drawerHeader: 'p-6 border-b border-gray-100',
+  drawerHeader: 'p-6 border-b border-white/10',
   drawerHeaderInner: 'flex items-center justify-between mb-4',
   drawerLogoLink: 'flex items-center gap-3',
   drawerLogoImage: 'object-contain',
-  drawerLogoText: 'font-black text-xl text-navy-blue',
+  drawerLogoText: 'font-black text-xl text-white',
   drawerNav: 'flex flex-col p-4 gap-2',
-  drawerNavLink: 'px-4 py-3 rounded-xl text-navy-blue hover:bg-gold/10 hover:text-gold font-semibold transition-all duration-200',
+  drawerNavLink: 'px-4 py-3 rounded-xl text-white hover:bg-white/10 hover:text-gold font-semibold transition-all duration-200',
 } as const;

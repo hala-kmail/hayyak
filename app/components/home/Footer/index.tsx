@@ -3,8 +3,6 @@
 import React from 'react';
 import { FOOTER_CONTENT, SUCCESS_PARTNERS } from './constants';
 import {
-  FooterWaveSeparator,
-  FooterBackgroundEffects,
   FooterContent,
   FooterPartners,
   FooterCopyright,
@@ -20,12 +18,9 @@ import { footerStyles } from './styles';
  */
 const Footer: React.FC = () => {
   return (
-    <footer
-      className={footerStyles.footer}
-      style={{ marginTop: '-3px' }}
-    >
-      <FooterWaveSeparator />
-      <FooterBackgroundEffects />
+    <footer className={footerStyles.footer}>
+      <div className={footerStyles.topBorder} aria-hidden />
+      <div className={footerStyles.accentBlur} aria-hidden />
 
       <div className={footerStyles.container}>
         <FooterContent
