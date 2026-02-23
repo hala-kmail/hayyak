@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { API_BASE } from '@/lib/api';
+import { isMockDataEnabled, MOCK_VISITOR_COUNT } from '@/lib/mockData';
 
 export interface VisitorCountData {
   totalVisits: number;
@@ -24,6 +25,10 @@ export function useVisitorCount() {
     setError(null);
 
     try {
+      if (isMockDataEnabled()) {
+        setUniqueVisitors(MOCK_VISITOR_COUNT.uniqueVisitors);
+        return;
+      }
       const response = await fetch(`${API_BASE}/visitors/count`, {
         method: 'GET',
         headers: {

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { isMockDataEnabled } from '@/lib/mockData';
 
 /**
  * VisitorTracker Component
@@ -9,9 +10,13 @@ import { useEffect } from 'react';
  * - يستخدم sessionStorage لمنع التكرار عند إعادة تحميل الصفحة
  * - يرسل payload: { "path": "/vote" }
  * - لا يعرض أي شيء (return null)
+ * - في وضع البيانات الوهمية لا يرسل أي طلب
  */
 export function VisitorTracker() {
   useEffect(() => {
+    if (isMockDataEnabled()) {
+      return;
+    }
     // التحقق من وجود المفتاح في sessionStorage لمنع التكرار
     const hasVotedSession = sessionStorage.getItem('has_voted_session');
     

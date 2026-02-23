@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { API_BASE, getClientAuthHeaders } from '@/lib/api';
+import { isMockDataEnabled, MOCK_ELECTION_STATUS } from '@/lib/mockData';
 
 export interface ElectionStatus {
   isOpen: boolean;
@@ -29,6 +30,14 @@ export function useElectionStatus() {
     setError(null);
 
     try {
+      if (isMockDataEnabled()) {
+        setStatus(MOCK_ELECTION_STATUS as ElectionStatus);
+        if (isInitialLoadRef.current) {
+          isInitialLoadRef.current = false;
+          setIsInitialLoad(false);
+        }
+        return;
+      }
       const response = await fetch(`${API_BASE}/election/status`, {
         method: 'GET',
         headers: getClientAuthHeaders(),
