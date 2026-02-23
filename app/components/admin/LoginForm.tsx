@@ -35,15 +35,7 @@ export function LoginForm({
         {/* Logo Section */}
         <div className="text-center mb-6">
           <div className="flex justify-center mb-3">
-            <Image
-              src="/images/Grey.png"
-              alt="سكني"
-              width={56}
-              height={56}
-              className="object-contain"
-              style={{ width: 'auto', height: 'auto' }}
-              priority
-            />
+           
           </div>
           <h1 className="text-xl font-bold text-navy-blue mb-1.5">تسجيل الدخول للإدارة</h1>
           <p className="text-warm-grey text-xs">أدخل بياناتك للوصول إلى لوحة التحكم</p>
