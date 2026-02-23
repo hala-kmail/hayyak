@@ -92,13 +92,20 @@ async function generateDeviceFingerprint(): Promise<string> {
 /**
  * Hook to get device fingerprint (same across browsers on same device)
  * Does NOT store deviceId anywhere - generates it fresh each time
+ * @param enabled - Only run fingerprint when true (e.g. when vote modal opens). Defers heavy work from initial page load.
  */
-export function useFingerprint() {
+export function useFingerprint(enabled = true) {
   const [visitorId, setVisitorId] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!enabled);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!enabled) {
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
     async function getFingerprint() {
       try {
         // Generate device fingerprint fresh each time (no storage)
@@ -116,7 +123,7 @@ export function useFingerprint() {
     }
 
     getFingerprint();
-  }, []);
+  }, [enabled]);
 
   return { visitorId, isLoading, error };
 }

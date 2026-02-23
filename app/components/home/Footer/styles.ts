@@ -9,7 +9,7 @@ export const footerStyles = {
   topBorder:
     'absolute top-0 left-0 right-0 h-1 bg-gradient-to-l from-transparent via-gold to-transparent opacity-90',
   accentBlur:
-    'absolute bottom-0 left-1/2 -translate-x-1/2 w-[480px] h-48 bg-gold/20 rounded-full blur-[80px] pointer-events-none',
+    'ios-reduce-blur absolute bottom-0 left-1/2 -translate-x-1/2 w-[480px] h-48 bg-gold/20 rounded-full blur-[80px] pointer-events-none',
   container: 'relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8',
   contentSection: 'text-center max-w-lg mx-auto mb-14',
   title:

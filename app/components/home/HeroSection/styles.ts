@@ -6,15 +6,15 @@
 export const heroStyles = {
   section: 'relative overflow-hidden bg-white border-b-[5px] border-white',
   container: 'relative h-[680px] md:h-[750px] w-full flex items-center overflow-hidden bg-gradient-to-br from-navy-blue via-gold to-gold',
-  backgroundBlur1: 'absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-navy-blue/30 rounded-full blur-[120px] animate-pulse-slow',
-  backgroundBlur2: 'absolute bottom-[-10%] left-[0%] w-[400px] h-[400px] bg-gold/40 rounded-full blur-[100px] animate-float',
-  backgroundBlur3: 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-navy-blue/20 rounded-full blur-[150px] animate-pulse-slow',
+  backgroundBlur1: 'ios-reduce-blur absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-navy-blue/30 rounded-full blur-[120px] animate-pulse-slow',
+  backgroundBlur2: 'ios-reduce-blur absolute bottom-[-10%] left-[0%] w-[400px] h-[400px] bg-gold/40 rounded-full blur-[100px] animate-float',
+  backgroundBlur3: 'ios-reduce-blur absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-navy-blue/20 rounded-full blur-[150px] animate-pulse-slow',
   contentWrapper: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10',
   mainContent: 'flex flex-col lg:flex-row items-center justify-between gap-12',
   textContent: 'lg:w-3/5 text-center lg:text-right text-navy-blue w-full flex flex-col items-center lg:items-start',
-  badge: 'font-subhead text-sm md:text-base inline-flex items-center gap-2 bg-white/15 backdrop-blur-lg px-5 py-2 rounded-2xl font-medium mb-8  shadow-xl shadow-black/5 animate-fade-in-up text-navy-blue',
+  badge: 'ios-reduce-blur font-subhead text-sm md:text-base inline-flex items-center gap-2 bg-white/15 backdrop-blur-lg px-5 py-2 rounded-2xl font-medium mb-8  shadow-xl shadow-black/5 animate-fade-in-up text-navy-blue',
   badgeIndicator: 'flex h-2 w-2 relative',
-  badgePing: 'animate-ping absolute inline-flex h-full w-full rounded-full bg-navy-blue opacity-75',
+  badgePing: 'ios-reduce-animation animate-ping absolute inline-flex h-full w-full rounded-full bg-navy-blue opacity-75',
   badgeDot: 'relative inline-flex rounded-full h-2 w-2 bg-navy-blue',
   title: 'font-headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-none tracking-normal drop-shadow-md text-white',
   titleAccent: 'text-navy-blue',
@@ -25,31 +25,31 @@ export const heroStyles = {
   visualContent: 'lg:w-2/5  lg:flex flex-col items-center justify-center gap-8',
   visualWrapper: 'relative group hidden lg:flex',
   visualContainer: 'relative w-80 h-80 flex items-center justify-center',
-  visualBackdrop: 'absolute inset-0 bg-white/10 backdrop-blur-2xl rounded-full border border-white/20 shadow-2xl animate-float',
+  visualBackdrop: 'ios-reduce-blur absolute inset-0 bg-white/10 backdrop-blur-2xl rounded-full border border-white/20 shadow-2xl animate-float',
   visualCard: 'relative z-10 bg-white p-10 rounded-[3rem] shadow-2xl rotate-3 group-hover:rotate-0 transition-transform duration-700 flex flex-col items-center',
   visualIcon: 'w-24 h-24 bg-gradient-to-tr from-navy-blue to-lime-green rounded-full flex items-center justify-center text-white text-5xl shadow-lg mb-4',
   visualStars: 'flex gap-1 text-gold mb-2',
   visualText: 'font-headline text-navy-blue font-bold text-lg',
-  visualHeart: 'absolute top-0 -right-4 w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-navy-blue text-2xl animate-float [animation-delay:1s] border border-gray-50',
-  visualSparkle: 'absolute -bottom-4 -left-2 w-20 h-20 bg-navy-blue text-white rounded-3xl shadow-xl flex items-center justify-center text-3xl animate-float [animation-delay:2s]',
+  visualHeart: 'ios-reduce-animation absolute top-0 -right-4 w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-navy-blue text-2xl animate-float [animation-delay:1s] border border-gray-50',
+  visualSparkle: 'ios-reduce-animation absolute -bottom-4 -left-2 w-20 h-20 bg-navy-blue text-white rounded-3xl shadow-xl flex items-center justify-center text-3xl animate-float [animation-delay:2s]',
   // Leading neighborhood – بطاقة الحي المتصدر التفاعلية
   leadingCard:
     'relative hidden lg:flex flex-col items-center w-full max-w-[320px] pt-10 animate-slide-in-right group/card',
   leadingCardTrophy:
-    'absolute -top-1 inset-x-0 mx-auto z-20 w-[76px] h-[76px] rounded-full bg-gradient-to-br from-gold via-gold to-sand-brown flex items-center justify-center shadow-[0_8px_30px_rgba(206,184,136,0.5)] animate-float border-[3px] border-white/80 group-hover/card:scale-110 transition-transform duration-500',
+    'ios-reduce-animation absolute -top-1 inset-x-0 mx-auto z-20 w-[76px] h-[76px] rounded-full bg-gradient-to-br from-gold via-gold to-sand-brown flex items-center justify-center shadow-[0_8px_30px_rgba(206,184,136,0.5)] animate-float border-[3px] border-white/80 group-hover/card:scale-110 transition-transform duration-500',
   leadingCardTrophyIcon: 'w-8 h-8 text-white drop-shadow-md',
   leadingCardTrophyRing:
-    'absolute inset-0 rounded-full border-2 border-gold/40 animate-glow-pulse pointer-events-none',
+    'ios-reduce-animation absolute inset-0 rounded-full border-2 border-gold/40 animate-glow-pulse pointer-events-none',
   leadingCardOuter:
     'relative w-full rounded-3xl p-[2px] bg-gradient-to-br from-gold/80 via-white/70 to-navy-blue/50 shadow-2xl hover:shadow-[0_20px_60px_rgba(206,184,136,0.35)] transition-all duration-500 hover:scale-[1.03] cursor-default',
   leadingCardShimmer:
     'absolute inset-0 rounded-3xl overflow-hidden pointer-events-none',
   leadingCardShimmerBar:
-    'absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent animate-shimmer',
+    'ios-reduce-animation absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent animate-shimmer',
   leadingCardInner:
     'relative bg-gradient-to-b from-white via-white to-gold/[0.03] rounded-[22px] text-right overflow-hidden',
   leadingCardGlow:
-    'absolute -top-10 -right-10 w-32 h-32 bg-gold/15 rounded-full blur-3xl animate-glow-pulse pointer-events-none',
+    'ios-reduce-blur ios-reduce-animation absolute -top-10 -right-10 w-32 h-32 bg-gold/15 rounded-full blur-3xl animate-glow-pulse pointer-events-none',
   leadingCardContent: 'relative px-6 pt-12 pb-6',
   leadingCardBadgeText:
     'block text-center text-[11px] font-bold text-gold tracking-widest uppercase mb-3',

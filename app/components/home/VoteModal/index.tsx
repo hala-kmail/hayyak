@@ -25,7 +25,7 @@ export function VoteModal({
   onVoteSuccess,
 }: VoteModalProps) {
   const { visitorId, isLoading: isLoadingFingerprint, error: fingerprintError } =
-    useFingerprint();
+    useFingerprint(isOpen);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [phoneError, setPhoneError] = useState<string | null>(null);
 

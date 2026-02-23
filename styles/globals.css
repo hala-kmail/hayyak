@@ -4,44 +4,9 @@
 
 /* ─────────────────────────────────────────────────────────────────────────────
  * Typography – Greta Arabic & 29lt Zarid Sans
- * أضف ملفات الخطوط في public/fonts/ (انظر FONTS_README.md)
+ * Add font files to public/fonts/ (see FONTS_README.md) to enable.
+ * Until then, Cairo from next/font (layout.tsx) is used as fallback.
  * ───────────────────────────────────────────────────────────────────────────── */
-
-@font-face {
-  font-family: 'Greta Arabic';
-  src: url('/fonts/GretaArabic-Bold.woff2') format('woff2'),
-       url('/fonts/GretaArabic-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Greta Arabic';
-  src: url('/fonts/GretaArabic-Medium.woff2') format('woff2'),
-       url('/fonts/GretaArabic-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Greta Arabic';
-  src: url('/fonts/GretaArabic-Regular.woff2') format('woff2'),
-       url('/fonts/GretaArabic-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: '29lt Zarid Sans';
-  src: url('/fonts/29ltZaridSans-Regular.woff2') format('woff2'),
-       url('/fonts/29ltZaridSans-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
 
 :root {
   /* Ù„ÙˆØ­Ø© Ø§Ù„Ø£Ù„ÙˆØ§Ù† â€“ Ø¯Ù„ÙŠÙ„ Ø§Ù„Ù‡ÙˆÙŠØ© Ø§Ù„Ø¨ØµØ±ÙŠØ© Ø³ÙƒÙ†ÙŠ (Usage-based Color Palette) */
@@ -79,11 +44,11 @@
   /* Gray | Ø±Ù…Ø§Ø¯ÙŠ | #E8EFF3 */
   --gray-bg: 232 239 243;
 
-  /* Typography – Arabic Font Hierarchy */
-  --font-headline: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
-  --font-subhead: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
-  --font-body: '29lt Zarid Sans', var(--font-cairo), system-ui, sans-serif;
-  --font-cta: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
+  /* Typography – Cairo from next/font (Greta Arabic/29lt available when fonts added to public/fonts/) */
+  --font-headline: var(--font-cairo), system-ui, sans-serif;
+  --font-subhead: var(--font-cairo), system-ui, sans-serif;
+  --font-body: var(--font-cairo), system-ui, sans-serif;
+  --font-cta: var(--font-cairo), system-ui, sans-serif;
 
   /* Typography sizes – 0 tracking / 100% leading */
   --text-headline: 120px;
@@ -125,5 +90,14 @@ body {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Reduce heavy blur + infinite animations on iOS Safari (avoids hang on older devices) */
+[data-ios='true'] .ios-reduce-blur {
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+[data-ios='true'] .ios-reduce-animation {
+  animation: none !important;
 }
 
