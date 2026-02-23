@@ -29,13 +29,8 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  title: 'سكني سابع جار',
-  description: 'صوت لحيك خله يفوز بحوامة رمضان',
-  icons: {
-    icon: '/images/Grey.png',
-    shortcut: '/images/Grey.png',
-    apple: '/images/Grey.png',
-  },
+  title: 'صوت الحياة',
+  description: 'مبادرة تجمع أحياءك عبر التصويت الإيجابي — صوتك يحدد الفائز باحتفالية الحوامة في رمضان.',
 };
 
 /**
