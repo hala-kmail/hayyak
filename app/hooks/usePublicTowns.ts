@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import type { NeighborhoodItem } from '@/app/components/home/data';
 import type { Town } from './useTowns';
 import { API_BASE } from '@/lib/api';
+import { isMockDataEnabled, MOCK_TOWNS, MOCK_STATS } from '@/lib/mockData';
 
 interface TownWithVotes extends Town {
   votes: number;
@@ -41,12 +42,17 @@ export function usePublicTowns() {
   const [searchResults, setSearchResults] = useState<TownWithVotes[] | null>(null);
   const [isSearching, setIsSearching] = useState(false);
 
-  // جلب الأحياء من الباك إند - الريسبونس يحتوي votes و percentage مباشرة
+  // جلب الأحياء من الباك إند - أو بيانات وهمية عند NEXT_PUBLIC_USE_MOCK_DATA=true
   const fetchTowns = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
     try {
+      if (isMockDataEnabled()) {
+        setTowns(MOCK_TOWNS as TownWithVotes[]);
+        setIsLoading(false);
+        return;
+      }
       const response = await fetch(`${API_BASE}/towns`, {
         method: 'GET',
         headers: { accept: '*/*' },
@@ -68,9 +74,14 @@ export function usePublicTowns() {
     }
   }, []);
 
-  // جلب إجمالي الأصوات وأصوات اليوم من API stats
+  // جلب إجمالي الأصوات وأصوات اليوم من API stats أو بيانات وهمية
   const fetchTotalVotes = async () => {
     try {
+      if (isMockDataEnabled()) {
+        setTotalVotesFromStats(MOCK_STATS.totalVotes);
+        setVotesTodayFromStats(MOCK_STATS.todayVotes);
+        return;
+      }
       const response = await fetch(`${API_BASE}/stats`, {
         method: 'GET',
         headers: {
@@ -88,7 +99,7 @@ export function usePublicTowns() {
     }
   };
 
-  // البحث عن الأحياء من الباك إند
+  // البحث عن الأحياء من الباك إند أو تصفية البيانات الوهمية
   const searchTowns = useCallback(async (query: string): Promise<void> => {
     if (!query || query.trim() === '') {
       await fetchTowns();
@@ -101,6 +112,16 @@ export function usePublicTowns() {
     setError(null);
 
     try {
+      if (isMockDataEnabled()) {
+        const q = query.trim().toLowerCase();
+        const filtered = MOCK_TOWNS.filter(
+          (t) =>
+            t.name.toLowerCase().includes(q) || t.address.toLowerCase().includes(q)
+        );
+        setSearchResults(filtered as TownWithVotes[]);
+        setIsSearching(false);
+        return;
+      }
       const url = `${API_BASE}/towns/search?q=${encodeURIComponent(query)}`;
       const response = await fetch(url, {
         method: 'GET',

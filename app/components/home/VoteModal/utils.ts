@@ -5,6 +5,7 @@
 
 import { ERROR_MESSAGES } from './constants';
 import { API_BASE } from '@/lib/api';
+import { isMockDataEnabled } from '@/lib/mockData';
 
 export interface VoteResponse {
   success: boolean;
@@ -25,6 +26,9 @@ export async function submitVote(
   phoneNumber: string
 ): Promise<VoteResponse> {
   try {
+    if (isMockDataEnabled()) {
+      return { success: true };
+    }
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), VOTE_TIMEOUT);
 
