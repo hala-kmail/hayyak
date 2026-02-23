@@ -12,7 +12,7 @@ export const UNIFIED_NEIGHBORHOOD_ICON: {
   iconColor: string;
 } = {
   icon: React.createElement(FaMapMarkerAlt, { className: 'w-5 h-5' }),
-  iconColor: 'text-turquoise',
+  iconColor: 'text-gold',
 };
 
 // الاحتفاظ بـ NEIGHBORHOOD_ICONS للتوافق مع الكود القديم (سيتم استخدام الأيقونة الموحدة)

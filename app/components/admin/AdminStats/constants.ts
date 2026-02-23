@@ -7,11 +7,11 @@ import type { Top3CardStyle } from './types';
 
 export const TOP3_CARD_STYLES: Top3CardStyle[] = [
   {
-    border: 'border-turquoise',
-    rankBg: 'bg-turquoise/10',
-    rankText: 'text-turquoise',
-    accent: 'text-turquoise',
-    progressBar: 'bg-turquoise',
+    border: 'border-gold',
+    rankBg: 'bg-gold/10',
+    rankText: 'text-gold',
+    accent: 'text-gold',
+    progressBar: 'bg-gold',
   },
   {
     border: 'border-grey-blue',

@@ -15,13 +15,13 @@ export function PartnerCard({ partner }: PartnerCardProps) {
   const [expanded, setExpanded] = useState(false);
 
   // Requested brand backgrounds
-  const bgClass = isSakani ? 'bg-turquoise' : isAlhabib ? 'bg-gold' : 'bg-white';
+  const bgClass = isSakani ? 'bg-primary-grey' : isAlhabib ? 'bg-gold' : 'bg-white';
 
   // Keep text readable
   const textClass = isAlhabib ? 'text-navy-blue' : 'text-white';
   const mutedTextClass = isAlhabib ? 'text-navy-blue/80' : 'text-white/85';
 
-  const cardBorderClass = isAlhabib ? 'border-r-navy-blue border-r-4' : 'border-primary-grey border-r-4';
+  const cardBorderClass = isAlhabib ? 'border-r-navy-blue border-r-4' : 'border-navy-blue border-r-4';
   const logoBorderColor = isAlhabib
     ? 'rgba(12, 49, 68, 0.18)'
     : 'rgba(255, 255, 255, 0.35)';

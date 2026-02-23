@@ -2,11 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────────────────────────────────
+ * Typography – Greta Arabic & 29lt Zarid Sans
+ * أضف ملفات الخطوط في public/fonts/ (انظر FONTS_README.md)
+ * ───────────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Greta Arabic';
+  src: url('/fonts/GretaArabic-Bold.woff2') format('woff2'),
+       url('/fonts/GretaArabic-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Greta Arabic';
+  src: url('/fonts/GretaArabic-Medium.woff2') format('woff2'),
+       url('/fonts/GretaArabic-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Greta Arabic';
+  src: url('/fonts/GretaArabic-Regular.woff2') format('woff2'),
+       url('/fonts/GretaArabic-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '29lt Zarid Sans';
+  src: url('/fonts/29ltZaridSans-Regular.woff2') format('woff2'),
+       url('/fonts/29ltZaridSans-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Ù„ÙˆØ­Ø© Ø§Ù„Ø£Ù„ÙˆØ§Ù† â€“ Ø¯Ù„ÙŠÙ„ Ø§Ù„Ù‡ÙˆÙŠØ© Ø§Ù„Ø¨ØµØ±ÙŠØ© Ø³ÙƒÙ†ÙŠ (Usage-based Color Palette) */
-
-  /* Primary Turquoise | ØªØ±ÙƒÙˆØ§Ø² Ø£Ø³Ø§Ø³ÙŠ | #00C8AF - Branding and Equity */
-  --primary-turquoise: 0, 200, 175;
 
   --primary-gold: 206, 184, 136;
 
@@ -23,7 +61,7 @@
   --grey-blue: 152, 175, 193;
 
   /* Grey | Pantone 7543 Grey Primary | RGB 174, 164, 151 */
-  --primary-grey:  151, 164,174;
+  --primary-grey:  131, 132,122;
 
   /* Warm Grey | Ø±Ù…Ø§Ø¯ÙŠ Ø¯Ø§ÙØ¦ | #AC9E95 */
   --warm-grey: 172, 158, 149;
@@ -41,7 +79,18 @@
   ;
   /* Gray | Ø±Ù…Ø§Ø¯ÙŠ | #E8EFF3 */
   --gray-bg: 232, 239, 243;
- 
+
+  /* Typography – Arabic Font Hierarchy */
+  --font-headline: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
+  --font-subhead: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
+  --font-body: '29lt Zarid Sans', var(--font-cairo), system-ui, sans-serif;
+  --font-cta: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
+
+  /* Typography sizes – 0 tracking / 100% leading */
+  --text-headline: 120px;
+  --text-subhead: 30px;
+  --text-body: 18px;
+  --text-cta: 18px;
 }
 
 html {
@@ -51,7 +100,10 @@ html {
 body {
   background-color: #fff;
   color: rgb(var(--navy-blue));
-  font-family: var(--font-cairo), system-ui, sans-serif;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1;
+  letter-spacing: 0;
 }
 
 [dir='rtl'] {

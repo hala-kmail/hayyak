@@ -23,13 +23,13 @@ export const electionStyles = {
   formLabelSmall: 'block text-xs font-bold text-navy-blue mb-1.5',
   formRadioGroup: 'flex gap-3',
   formRadioLabel: 'flex items-center gap-1.5 cursor-pointer text-sm',
-  formRadioInput: 'w-3.5 h-3.5 text-turquoise focus:ring-turquoise',
+  formRadioInput: 'w-3.5 h-3.5 text-gold focus:ring-gold',
   formCheckboxLabel: 'flex items-center gap-2 cursor-pointer text-sm',
-  formCheckboxInput: 'w-4 h-4 text-turquoise focus:ring-turquoise rounded',
+  formCheckboxInput: 'w-4 h-4 text-gold focus:ring-gold rounded',
   formInput:
-    'w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:border-turquoise focus:outline-none',
+    'w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:border-gold focus:outline-none',
   formHint: 'text-xs text-warm-grey mt-1.5',
   formActions: 'flex justify-end pt-3',
   formSubmit:
-    'flex items-center gap-1.5 px-4 py-2 text-sm bg-turquoise text-white rounded-lg font-semibold hover:shadow-md hover:shadow-turquoise/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed',
+    'flex items-center gap-1.5 px-4 py-2 text-sm bg-gold text-white rounded-lg font-semibold hover:shadow-md hover:shadow-gold/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed',
 } as const;

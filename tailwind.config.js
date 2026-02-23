@@ -9,7 +9,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-turquoise': 'rgb(var(--primary-turquoise))',
         'primary-gold': 'rgb(var(--primary-gold))',
         'primary-grey': 'rgb(var(--primary-grey))',
         grey: 'rgb(var(--primary-grey))', // الرمادي الأساسي (نفس primary-grey)
@@ -20,12 +19,21 @@ module.exports = {
         'sand-brown': 'rgb(var(--sand-brown))',
         'sand-brown-light': 'rgb(var(--sand-brown-light))', // بني رملي فاتح
         'quite-purple': 'rgb(var(--quite-purple))',
-        turquoise: 'rgb(var(--primary-turquoise))',
         gold: 'rgb(var(--primary-gold))',
         'gray-bg': 'rgb(var(--gray-bg))',
       },
       fontFamily: {
-        sans: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-body)'],
+        headline: ['var(--font-headline)'],
+        subhead: ['var(--font-subhead)'],
+        body: ['var(--font-body)'],
+        cta: ['var(--font-cta)'],
+      },
+      fontSize: {
+        headline: ['120px', { lineHeight: '1', letterSpacing: '0' }],
+        subhead: ['30px', { lineHeight: '1', letterSpacing: '0' }],
+        body: ['18px', { lineHeight: '1', letterSpacing: '0' }],
+        cta: ['18px', { lineHeight: '1', letterSpacing: '0' }],
       },
       keyframes: {
         'fade-in-up': {

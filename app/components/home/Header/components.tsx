@@ -42,7 +42,7 @@ export function HeaderLogo({
     >
       <div className="relative">
         <Image
-          src="/images/sakany.png"
+          src="/images/Grey.png"
           alt="سكني"
           width={logoSize}
           height={logoSize}
@@ -201,7 +201,7 @@ export function MobileDrawer({
           <div className={headerStyles.drawerHeaderInner}>
             <Link href="/" className={headerStyles.drawerLogoLink} onClick={onClose}>
               <Image
-                src="/images/sakany.png"
+                src="/images/Grey.png"
                 alt="Ø³ÙƒÙ†ÙŠ"
                 width={LOGO_CONFIG.mobileSize}
                 height={LOGO_CONFIG.mobileSize}

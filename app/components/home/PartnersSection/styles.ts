@@ -7,7 +7,7 @@ export const partnersStyles = {
   section: 'relative bg-white py-14 md:py-20 overflow-hidden',
   container: 'mx-auto max-w-6xl px-4 sm:px-6 lg:px-8',
   header: 'text-center mb-10 md:mb-12',
-  title: 'text-2xl md:text-3xl font-black text-navy-blue mb-2',
+  title: 'font-headline text-subhead md:text-2xl font-bold text-navy-blue mb-2',
   accent: 'w-16 h-1 rounded-full mx-auto mb-4 opacity-80 bg-gold',
   description:
     'text-warm-grey text-base md:text-lg leading-relaxed max-w-2xl mx-auto',
@@ -16,7 +16,7 @@ export const partnersStyles = {
     'relative overflow-hidden rounded-xl border shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md',
   cardInner: 'relative p-5 sm:p-6',
   topRow: 'flex items-center justify-between gap-3',
-  logoBox: 'rounded-xl bg-white/90 border px-3 py-2 shrink-0',
+  logoBox: 'rounded-xl bg-white/15 border px-3 py-2 shrink-0',
   logoImg: 'block w-[92px] sm:w-[110px] h-auto object-contain',
   name: 'text-lg sm:text-xl font-extrabold tracking-tight',
   kicker: 'mt-1 text-xs font-semibold uppercase tracking-[0.18em]',

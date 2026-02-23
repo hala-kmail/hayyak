@@ -36,7 +36,7 @@ export function LoginForm({
         <div className="text-center mb-6">
           <div className="flex justify-center mb-3">
             <Image
-              src="/images/sakany.png"
+              src="/images/Grey.png"
               alt="سكني"
               width={56}
               height={56}
@@ -70,7 +70,7 @@ export function LoginForm({
                   }}
                   required
                   autoComplete="email"
-                  className="w-full pr-10 pl-3 py-2 text-sm border border-gray-200 rounded-lg focus:border-turquoise focus:outline-none transition-colors text-navy-blue"
+                  className="w-full pr-10 pl-3 py-2 text-sm border border-gray-200 rounded-lg focus:border-gold focus:outline-none transition-colors text-navy-blue"
                   placeholder="example@email.com"
                   dir="ltr"
                 />
@@ -106,7 +106,7 @@ export function LoginForm({
                     onPasswordChange(e.target.value);
                   }}
                   required
-                  className="w-full pr-10 pl-10 py-2 text-sm border border-gray-200 rounded-lg focus:border-turquoise focus:outline-none transition-colors text-navy-blue"
+                  className="w-full pr-10 pl-10 py-2 text-sm border border-gray-200 rounded-lg focus:border-gold focus:outline-none transition-colors text-navy-blue"
                   placeholder="••••••••"
                 />
               </div>
@@ -128,7 +128,7 @@ export function LoginForm({
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-2.5 text-sm bg-turquoise text-white rounded-lg font-semibold hover:shadow-md hover:shadow-turquoise/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
+              className="w-full py-2.5 text-sm bg-gold text-white rounded-lg font-semibold hover:shadow-md hover:shadow-gold/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
             >
               {isLoading ? (
                 <>

@@ -18,11 +18,11 @@ export const modalStyles = {
   form: 'space-y-4',
   formLabel: 'block text-xs font-bold text-navy-blue mb-1.5',
   formInput:
-    'w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:border-turquoise focus:outline-none transition-colors text-navy-blue',
+    'w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:border-gold focus:outline-none transition-colors text-navy-blue',
   formError: 'bg-red-50 border border-red-200 rounded-lg p-3',
   formErrorText: 'text-xs font-bold text-red-800',
   submitBtn:
-    'w-full py-2.5 text-sm bg-turquoise text-white rounded-lg font-semibold hover:shadow-md hover:shadow-turquoise/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5',
+    'w-full py-2.5 text-sm bg-gold text-white rounded-lg font-semibold hover:shadow-md hover:shadow-gold/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5',
 
   // Delete modal specific
   warningIconWrapper: 'flex justify-center mb-3',

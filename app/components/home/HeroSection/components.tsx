@@ -173,13 +173,13 @@ export const HeroWaveSeparator = React.memo(function HeroWaveSeparator() {
       >
         <defs>
           <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#00C8AF" />
+            <stop offset="0%" stopColor="#1C275F" />
             <stop offset="100%" stopColor="#CEB888" />
           </linearGradient>
         </defs>
         <path fill="#fffff5" d="M0,0 L720,80 L1440,0 L1440,100 L0,100 Z" />
         <path
-          fill="#00c8af"
+          fill="#0c3144"
           d="M0,0 L720,80 L1440,0 L1440,0 L720,100 L0,0 Z"
         />
       </svg>

@@ -72,7 +72,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         <div className={layoutStyles.sidebarHeader}>
           <Link href="/admin" className={layoutStyles.sidebarLogo} onClick={onClose}>
             <Image
-              src="/images/sakany.png"
+              src="/images/Grey.png"
               alt="سكني"
               width={32}
               height={32}

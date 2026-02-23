@@ -56,8 +56,8 @@ export function AdminStats() {
       <div className={adminStatsStyles.card}>
         <div className={adminStatsStyles.statsGrid}>
           <StatCard
-            icon={<FaVoteYea className="w-5 h-5 text-turquoise" />}
-            iconBgClass="bg-turquoise/10"
+            icon={<FaVoteYea className="w-5 h-5 text-gold" />}
+            iconBgClass="bg-gold/10"
             label="إجمالي الأصوات"
             value={stats.totalVotes.toLocaleString('ar-SA')}
           />
@@ -91,7 +91,7 @@ export function AdminStats() {
           <div className={adminStatsStyles.top3Section}>
             <div className={adminStatsStyles.top3Header}>
               <div className={adminStatsStyles.top3IconWrapper}>
-                <FaTrophy className="w-4 h-4 text-turquoise" />
+                <FaTrophy className="w-4 h-4 text-gold" />
               </div>
               <h2 className={adminStatsStyles.top3Title}>أفضل 3 أحياء</h2>
             </div>

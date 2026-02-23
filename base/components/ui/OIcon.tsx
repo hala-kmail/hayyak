@@ -30,7 +30,7 @@ export function OIcon({
   className = '',
   style,
 }: OIconProps) {
-  const primaryColor = useCSSVar('--primary-turquoise');
+  const primaryColor = useCSSVar('--primary-gold');
   const navyBlue = useCSSVar('--navy-blue');
   const primaryGrey = useCSSVar('--primary-grey');
   const colorMap = { primary: primaryColor, secondary: navyBlue, muted: primaryGrey };

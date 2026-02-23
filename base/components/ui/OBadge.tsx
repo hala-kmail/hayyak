@@ -10,7 +10,7 @@ export interface OBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const variantClasses = {
-  primary: 'bg-primary-turquoise text-white',
+  primary: 'bg-primary-gold text-navy-blue',
   success: 'bg-lime-green text-navy-blue',
   warning: 'bg-sand-brown-light text-black ',
   warningLight: 'bg-sand-brown-light text-sand-brown',

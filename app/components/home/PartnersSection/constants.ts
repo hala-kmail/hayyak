@@ -16,15 +16,15 @@ export const PARTNERS: PartnerCardData[] = [
     id: 'sakani',
     name: 'سكني',
     shortLabel: 'Sakani',
-    logoSrc: '/images/sakany.png',
+    logoSrc: '/images/Grey.png',
     kicker: 'شريك استراتيجي',
     linkUrl: 'https://sakani.sa/',
     theme: {
-      primary: '#2CB9B2', // turquoise-like
-      accent: '#2CB9B2',
-      surface: '#0B2B2A',
-      textOnSurface: '#EFFFFE',
-      mutedOnSurface: 'rgba(239, 255, 254, 0.78)',
+      primary: '#A2A568', // lime-green
+      accent: '#A2A568',
+      surface: '#1A2418',
+      textOnSurface: '#F4F7F0',
+      mutedOnSurface: 'rgba(244, 247, 240, 0.78)',
     },
     blocks: [
       {

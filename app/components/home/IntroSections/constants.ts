@@ -12,15 +12,15 @@ export const INTRO_SECTIONS_HEADER = {
 } as const;
 
 export const LOGO_HABEEB = '/images/habeeb.svg';
-export const LOGO_SAKANI = '/images/sakany.png';
+export const LOGO_SAKANI = '/images/Grey.png';
 
 export const INTRO_SECTIONS_DATA: SectionItem[] = [
   {
     id: 'sakani',
     title: 'سكني',
     description: `منصة 'سكني' الإلكترونية، إحدى مبادرات وزارة البلديات والإسكان السعودية، تقدم حلولاً شاملة لتملك المسكن الأول؛ من وحدات جاهزة وتحت الإنشاء، إلى الأراضي المجانية والبناء الذاتي. استفد من خدمات التحقق الفوري من الاستحقاق، الحجز الإلكتروني، الحاسبة التمويلية، وتوقيع العقود رقمياً.`,
-    textColor: 'text-turquoise',
-    accentColor: 'bg-turquoise',
+    textColor: 'text-gold',
+    accentColor: 'bg-gold',
     logo: LOGO_SAKANI,
     delay: 0,
   },

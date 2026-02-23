@@ -19,8 +19,8 @@ export const tableStyles = {
   cell: 'px-4 py-2.5 text-xs text-warm-grey',
   cellSemibold: 'px-4 py-2.5 text-xs font-semibold text-navy-blue',
   cellCenter: 'px-4 py-2.5',
-  rankBadge: 'flex items-center justify-center w-6 h-6 rounded-full bg-turquoise/10',
-  rankBadgeText: 'text-xs font-bold text-turquoise',
+  rankBadge: 'flex items-center justify-center w-6 h-6 rounded-full bg-gold/10',
+  rankBadgeText: 'text-xs font-bold text-gold',
   roleBadge: (isSuperAdmin: boolean) =>
     `px-2 py-0.5 rounded-md text-xs font-bold ${
       isSuperAdmin ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
@@ -32,7 +32,7 @@ export const tableStyles = {
   statusBadgeVotes: 'px-2 py-0.5 rounded-md text-xs font-bold',
   actions: 'flex items-center justify-center gap-2',
   actionsSmall: 'flex items-center justify-center gap-1.5',
-  btnEdit: 'w-8 h-8 flex items-center justify-center rounded-lg bg-turquoise/10 text-turquoise hover:bg-turquoise hover:text-white transition-all',
+  btnEdit: 'w-8 h-8 flex items-center justify-center rounded-lg bg-gold/10 text-gold hover:bg-gold hover:text-white transition-all',
   btnDelete: 'w-8 h-8 flex items-center justify-center rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all',
   btnToggle: (isActive: boolean) =>
     `group flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium text-xs transition-all shadow-sm hover:shadow ${

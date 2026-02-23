@@ -11,7 +11,7 @@ export interface OButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
 }
 
 const variantBgMap = {
-  primary: 'bg-primary-turquoise',
+  primary: 'bg-primary-gold',
   success: 'bg-lime-green',
   warning: 'bg-sand-brown',
   danger: 'bg-quite-purple',
@@ -19,7 +19,7 @@ const variantBgMap = {
 } as const;
 
 const variantTextMap = {
-  primary: 'text-white',
+  primary: 'text-navy-blue',
   success: 'text-navy-blue',
   warning: 'text-navy-blue',
   danger: 'text-white',

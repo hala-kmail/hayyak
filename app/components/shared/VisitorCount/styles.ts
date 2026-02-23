@@ -14,7 +14,7 @@ export const visitorCountStyles = {
   iconContainer: 'flex-shrink-0',
   icon: (scrolled: boolean) =>
     `w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300 ${
-      scrolled ? 'text-turquoise' : 'text-white'
+      scrolled ? 'text-gold' : 'text-white'
     }`,
   content: 'flex items-center gap-2 sm:gap-3',
   stat: 'flex flex-col gap-0.5',
@@ -29,6 +29,6 @@ export const visitorCountStyles = {
   loading: (scrolled: boolean) => 'flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2',
   loadingDot: (scrolled: boolean) =>
     `w-2 h-2 rounded-full animate-pulse transition-colors duration-300 ${
-      scrolled ? 'bg-turquoise' : 'bg-white/60'
+      scrolled ? 'bg-gold' : 'bg-white/60'
     }`,
 } as const;

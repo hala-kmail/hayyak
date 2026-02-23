@@ -34,7 +34,7 @@ export function Logo({ iconSize = 'md', showText = true, className = '', textCol
       {!imgError ? (
         <>
           <div className="relative">
-            <div className="absolute inset-0 bg-turquoise/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gold/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <Image
               src={LOGO_PATH}
               alt="سكني سابع جار"
@@ -54,13 +54,13 @@ export function Logo({ iconSize = 'md', showText = true, className = '', textCol
       ) : (
         <>
           <span
-            className={`${iconClass} rounded-xl flex items-center justify-center text-white text-base sm:text-lg bg-gradient-to-br from-turquoise to-navy-blue shadow-md`}
+            className={`${iconClass} rounded-xl flex items-center justify-center text-white text-base sm:text-lg bg-gradient-to-br from-gold to-navy-blue shadow-md`}
           >
             🏠
           </span>
           {showText && (
             <>
-              <span className={`font-bold ${textSizeClass} text-turquoise truncate`}>
+              <span className={`font-bold ${textSizeClass} text-gold truncate`}>
                 سكني
               </span>
               <span className={`font-bold ${textSizeClass} ${textColorClass} hidden sm:inline truncate`}>

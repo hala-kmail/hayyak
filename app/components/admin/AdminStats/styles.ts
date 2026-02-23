@@ -15,7 +15,7 @@ export const adminStatsStyles = {
 
   top3Section: 'mb-4',
   top3Header: 'flex items-center gap-2',
-  top3IconWrapper: 'bg-turquoise/10 p-1.5 rounded-lg',
+  top3IconWrapper: 'bg-gold/10 p-1.5 rounded-lg',
   top3Title: 'text-base font-bold text-navy-blue',
   top3Grid: 'grid grid-cols-1 md:grid-cols-3 gap-4',
 
@@ -49,13 +49,13 @@ export const adminStatsStyles = {
   tableCell: 'px-4 py-2.5 text-xs text-warm-grey',
   tableCellSemibold: 'px-4 py-2.5 text-xs font-semibold text-navy-blue',
   tableCellCenter: 'px-4 py-2.5',
-  rankBadge: 'flex items-center justify-center w-6 h-6 rounded-full bg-turquoise/10',
-  rankBadgeText: 'text-xs font-bold text-turquoise',
-  votesBadge: 'inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-turquoise/10 text-turquoise font-bold text-xs',
+  rankBadge: 'flex items-center justify-center w-6 h-6 rounded-full bg-gold/10',
+  rankBadgeText: 'text-xs font-bold text-gold',
+  votesBadge: 'inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gold/10 text-gold font-bold text-xs',
 
   visitorSection: 'bg-white rounded-xl shadow-sm overflow-hidden',
   visitorHeader: 'p-4 border-b border-gray-200 flex flex-wrap items-center justify-between gap-3',
-  visitorDaysSelect: 'px-2.5 py-1.5 text-sm rounded-lg border border-gray-200 font-medium text-navy-blue focus:outline-none focus:ring-2 focus:ring-turquoise/50',
+  visitorDaysSelect: 'px-2.5 py-1.5 text-sm rounded-lg border border-gray-200 font-medium text-navy-blue focus:outline-none focus:ring-2 focus:ring-gold/50',
   visitorStatsGrid: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 p-4',
   visitorVotersSection: 'mx-4 mb-4 p-4 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100',
   visitorVotersTitle: 'text-xs font-bold text-navy-blue mb-3 flex items-center gap-1.5',

@@ -6,12 +6,12 @@
 export const introStyles = {
   section: 'py-14 md:py-20 bg-white relative overflow-hidden',
   backgroundOverlay: 'absolute inset-0 opacity-30 pointer-events-none',
-  backgroundBlur1: 'absolute top-0 right-0 w-96 h-96 bg-turquoise/10 rounded-full blur-3xl',
+  backgroundBlur1: 'absolute top-0 right-0 w-96 h-96 bg-gold/10 rounded-full blur-3xl',
   backgroundBlur2: 'absolute bottom-0 left-0 w-80 h-80 bg-quite-purple/10 rounded-full blur-3xl',
   container: 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10',
   headerWrapper: 'text-center mb-10 md:mb-12',
-  headerTitle: 'text-2xl md:text-3xl font-black text-navy-blue mb-2',
-  headerAccentLine: 'w-16 h-1 rounded-full bg-turquoise mx-auto mb-4 opacity-80',
+  headerTitle: 'font-headline text-subhead md:text-2xl font-bold text-navy-blue mb-2',
+  headerAccentLine: 'w-16 h-1 rounded-full bg-gold mx-auto mb-4 opacity-80',
   headerDescription: 'text-warm-grey text-base md:text-lg leading-relaxed max-w-2xl mx-auto',
   grid: 'flex flex-col lg:flex-row gap-8 md:gap-8 items-center justify-center',
   card: (isVisible: boolean) =>

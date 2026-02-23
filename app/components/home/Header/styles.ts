@@ -23,7 +23,7 @@ export const headerStyles = {
     }`,
   logoImage: 'object-contain transition-all duration-500 group-hover:scale-110',
   logoText: (scrolled: boolean) =>
-    `font-black text-xl sm:text-2xl transition-colors duration-500 hidden sm:block ${
+    `font-headline font-bold text-xl sm:text-2xl transition-colors duration-500 hidden sm:block ${
       scrolled ? 'text-navy-blue' : 'text-white'
     }`,
   lantern: 'hidden lg:block absolute pointer-events-none transition-all duration-500',
@@ -33,12 +33,12 @@ export const headerStyles = {
   navLink: (scrolled: boolean) =>
     `px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 relative group ${
       scrolled
-        ? 'text-navy-blue hover:text-turquoise hover:bg-turquoise/5'
+        ? 'text-navy-blue hover:text-gold hover:bg-gold/5'
         : 'text-white/90 hover:text-white hover:bg-white/10'
     }`,
   navLinkUnderline: (scrolled: boolean) =>
     `absolute bottom-1 right-1/2 translate-x-1/2 h-0.5 rounded-full transition-all duration-300 ${
-      scrolled ? 'bg-turquoise' : 'bg-white'
+      scrolled ? 'bg-gold' : 'bg-white'
     } w-0 group-hover:w-3/4`,
   mobileMenuButton: (scrolled: boolean) =>
     `lg:hidden w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 ${
@@ -59,5 +59,5 @@ export const headerStyles = {
   drawerLogoImage: 'object-contain',
   drawerLogoText: 'font-black text-xl text-navy-blue',
   drawerNav: 'flex flex-col p-4 gap-2',
-  drawerNavLink: 'px-4 py-3 rounded-xl text-navy-blue hover:bg-turquoise/10 hover:text-turquoise font-semibold transition-all duration-200',
+  drawerNavLink: 'px-4 py-3 rounded-xl text-navy-blue hover:bg-gold/10 hover:text-gold font-semibold transition-all duration-200',
 } as const;

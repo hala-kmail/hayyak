@@ -25,7 +25,7 @@ export const layoutStyles = {
   sidebarList: 'space-y-1',
   sidebarLink: (isActive: boolean) =>
     `flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
-      isActive ? 'bg-turquoise text-white shadow-sm' : 'text-navy-blue hover:bg-gray-100'
+      isActive ? 'bg-gold text-white shadow-sm' : 'text-navy-blue hover:bg-gray-100'
     }`,
   sidebarLinkText: 'font-medium',
   sidebarFooter: 'p-3 border-t border-gray-200',

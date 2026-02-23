@@ -9,11 +9,11 @@ export const howItWorksStyles = {
   headerSection: 'pt-4  md:pt-6  bg-white',
   headerWrapper: 'text-center py-6 md:py-8',
   stepsSection:
-    "relative bg-gray-bg overflow-hidden py-10 md:py-14 before:content-[''] before:absolute before:-top-24 before:-right-24 before:h-80 before:w-80 before:rounded-full before:bg-turquoise/15 before:blur-3xl after:content-[''] after:absolute after:-bottom-28 after:-left-28 after:h-96 after:w-96 after:rounded-full after:bg-gold/15 after:blur-3xl",
+    "relative bg-gray-bg overflow-hidden py-10 md:py-14 before:content-[''] before:absolute before:-top-24 before:-right-24 before:h-80 before:w-80 before:rounded-full before:bg-gold/15 before:blur-3xl after:content-[''] after:absolute after:-bottom-28 after:-left-28 after:h-96 after:w-96 after:rounded-full after:bg-gold/15 after:blur-3xl",
   contentWrapper: 'relative z-20 ',
   introWrapper: 'text-center',
-  headerBadge: 'text-turquoise font-black tracking-[0.3em] uppercase text-[10px] mb-2 block',
-  title: 'text-2xl md:text-4xl font-black text-navy-blue mb-4',
+  headerBadge: 'text-gold font-black tracking-[0.3em] uppercase text-[10px] mb-2 block',
+  title: 'font-headline text-subhead md:text-3xl font-bold text-navy-blue mb-4',
   accentLine: 'w-12 h-1 bg-gold mx-auto rounded-full mb-6',
   description: 'text-warm-grey text-base md:text-lg leading-relaxed max-w-2xl mx-auto',
   stepsContainer:
@@ -33,7 +33,7 @@ export const howItWorksStyles = {
     }`,
   textWrapper: 'min-w-0 text-center md:text-center',
   stepTitle:
-    'text-sm md:text-base font-black text-navy-blue mb-1 group-hover:text-turquoise transition-colors',
+    'font-body text-sm md:text-base font-bold text-navy-blue mb-1 group-hover:text-gold transition-colors',
   stepDescription: 'text-warm-grey text-[11px] md:text-xs leading-snug',
   divider: (isVisible: boolean) =>
     `hidden md:block w-px h-12 bg-gradient-to-b from-transparent via-gold/35 to-transparent transition-all duration-700 ${
