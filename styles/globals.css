@@ -46,39 +46,38 @@
 :root {
   /* Ù„ÙˆØ­Ø© Ø§Ù„Ø£Ù„ÙˆØ§Ù† â€“ Ø¯Ù„ÙŠÙ„ Ø§Ù„Ù‡ÙˆÙŠØ© Ø§Ù„Ø¨ØµØ±ÙŠØ© Ø³ÙƒÙ†ÙŠ (Usage-based Color Palette) */
 
-  --primary-gold: 206, 184, 136;
+  --primary-gold: 206 184 136;
 
   /* Navy Blue | Ø£Ø²Ø±Ù‚ Ø¨Ø­Ø±ÙŠ | #1C275F - Announcement */
   /* --navy-blue: 28, 39, 95; */
-  --navy-blue: 12, 49, 68;
+  --navy-blue: 12 49 68;
 
 
   /* Lime Green | Ø£Ø®Ø¶Ø± Ù„ÙŠÙ…ÙˆÙ†ÙŠ | #A9DE75 */
   /* --lime-green: 169, 222, 117; */
-  --lime-green: 162, 165, 104;
+  --lime-green: 162 165 104;
 
   /* Grey Blue | Ø£Ø²Ø±Ù‚ Ø±Ù…Ø§Ø¯ÙŠ | #98AFC1 */
-  --grey-blue: 152, 175, 193;
+  --grey-blue: 152 175 193;
 
   /* Grey | Pantone 7543 Grey Primary | RGB 174, 164, 151 */
-  --primary-grey:  131, 132,122;
+  --primary-grey: 131 132 122;
 
   /* Warm Grey | Ø±Ù…Ø§Ø¯ÙŠ Ø¯Ø§ÙØ¦ | #AC9E95 */
-  --warm-grey: 172, 158, 149;
+  --warm-grey: 172 158 149;
 
   /* Sand Brown | Ø¨Ù†ÙŠ Ø±Ù…Ù„ÙŠ | #E2A06E - Waves campaigns */
   /* --sand-brown: 226, 160, 110; */
-  --sand-brown:  168 ,118 ,88 ;
+  --sand-brown: 168 118 88;
   /* Sand Brown Light | Ø¨Ù†ÙŠ Ø±Ù…Ù„ÙŠ ÙØ§ØªØ­ */
-  --sand-brown-light: 242, 228, 210;
+  --sand-brown-light: 242 228 210;
  
 
   /* Quite Purple | Ø¨Ù†ÙØ³Ø¬ÙŠ Ù‡Ø§Ø¯Ø¦ | #8D72A8 - Tactical campaigns */
   /* --quite-purple: 141, 114, 168; */
-  --quite-purple: 103,109,153  ;
-  ;
+  --quite-purple: 103 109 153;
   /* Gray | Ø±Ù…Ø§Ø¯ÙŠ | #E8EFF3 */
-  --gray-bg: 232, 239, 243;
+  --gray-bg: 232 239 243;
 
   /* Typography – Arabic Font Hierarchy */
   --font-headline: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
@@ -99,7 +98,7 @@ html {
 
 body {
   background-color: #fff;
-  color: rgb(var(--navy-blue));
+  color: rgb(var(--navy-blue) / 1);
   font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1;

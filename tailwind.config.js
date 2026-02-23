@@ -9,18 +9,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-gold': 'rgb(var(--primary-gold))',
-        'primary-grey': 'rgb(var(--primary-grey))',
-        grey: 'rgb(var(--primary-grey))', // الرمادي الأساسي (نفس primary-grey)
-        'lime-green': 'rgb(var(--lime-green))',
-        'grey-blue': 'rgb(var(--grey-blue))',
-        'navy-blue': 'rgb(var(--navy-blue))',
-        'warm-grey': 'rgb(var(--warm-grey))',
-        'sand-brown': 'rgb(var(--sand-brown))',
-        'sand-brown-light': 'rgb(var(--sand-brown-light))', // بني رملي فاتح
-        'quite-purple': 'rgb(var(--quite-purple))',
-        gold: 'rgb(var(--primary-gold))',
-        'gray-bg': 'rgb(var(--gray-bg))',
+        'primary-gold': 'rgb(var(--primary-gold) / <alpha-value>)',
+        'primary-grey': 'rgb(var(--primary-grey) / <alpha-value>)',
+        grey: 'rgb(var(--primary-grey) / <alpha-value>)',
+        'lime-green': 'rgb(var(--lime-green) / <alpha-value>)',
+        'grey-blue': 'rgb(var(--grey-blue) / <alpha-value>)',
+        'navy-blue': 'rgb(var(--navy-blue) / <alpha-value>)',
+        'warm-grey': 'rgb(var(--warm-grey) / <alpha-value>)',
+        'sand-brown': 'rgb(var(--sand-brown) / <alpha-value>)',
+        'sand-brown-light': 'rgb(var(--sand-brown-light) / <alpha-value>)',
+        'quite-purple': 'rgb(var(--quite-purple) / <alpha-value>)',
+        gold: 'rgb(var(--primary-gold) / <alpha-value>)',
+        'gray-bg': 'rgb(var(--gray-bg) / <alpha-value>)',
       },
       fontFamily: {
         sans: ['var(--font-body)'],

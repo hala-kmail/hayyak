@@ -1,10 +1,9 @@
 'use client';
 
 import React from 'react';
-import { FaChevronLeft, FaStar, FaHome, FaHeart, FaMagic } from 'react-icons/fa';
-import { AnimatedCounter } from '@/base/components/ui/AnimatedCounter';
+import { FaChevronLeft, FaStar, FaHome, FaHeart, FaMagic, FaTrophy } from 'react-icons/fa';
 import { heroStyles } from './styles';
-import { HeroContentProps, HeroStatItemProps, HeroStatsData } from './types';
+import { HeroContentProps, HeroLeadingNeighborhoodProps } from './types';
 
 interface HeroBadgeProps {
   isOpen: boolean;
@@ -49,7 +48,7 @@ export const HeroCTA = React.memo(function HeroCTA({ isOpen }: HeroCTAProps) {
   return (
     <div className={heroStyles.ctaWrapper}>
       <a href="#districts" className={heroStyles.ctaButton}>
-        صوّت لحيك الآن — خلّه يفوز
+        صوّت الآن
         <FaChevronLeft className={heroStyles.ctaIcon} />
       </a>
     </div>
@@ -88,39 +87,46 @@ export const HeroVisualBadge = React.memo(function HeroVisualBadge() {
 });
 
 /**
- * Hero Stat Item Component
- * Following Single Responsibility Principle - only handles single stat display
+ * Hero Leading Neighborhood Component
+ * يعرض الحي المتصدر في القسم الأيسر من الهيرو بشكل جميل
  */
-export const HeroStatItem = React.memo(function HeroStatItem({ value, label}: HeroStatItemProps) {
- 
-  return (
-    <div className={heroStyles.statItem}>
-      <div className={heroStyles.statValue}>
-        <AnimatedCounter value={value} duration={2000} />
-      </div>
-      <div className={heroStyles.statLabel}>{label}</div>
-    </div>
-  );
-});
+export const HeroLeadingNeighborhood = React.memo(function HeroLeadingNeighborhood({
+  neighborhood,
+}: HeroLeadingNeighborhoodProps) {
+  const votes = neighborhood.votes ?? 0;
+  const percentage = Math.min(Number(neighborhood.percentage) ?? 0, 100);
 
-/**
- * Hero Stats Component
- * Following Single Responsibility Principle - only handles stats display
- */
-export const HeroStats = React.memo(function HeroStats({ stats, isOpen }: { stats: HeroStatsData; isOpen: boolean }) {
-  if (!isOpen) {
-    return null;
-  }
   return (
-    <div className={heroStyles.statsWrapper}>
-      <div className={heroStyles.statsContainer}>
-        <HeroStatItem value={stats.neighborhoodsCount} label="أحياء تنافس" />
-        <div className={heroStyles.statDivider} />
-        <HeroStatItem value={stats.votesToday} label="صوتوا اليوم" />
-        <div className={heroStyles.statDivider} />
-        <HeroStatItem value={stats.totalVotes} label="إجمالي الأصوات" />
-        <div className={heroStyles.statDivider} />
-        <HeroStatItem value={stats.uniqueVisitors} label="زوار الموقع" />
+    <div className={heroStyles.leadingCard}>
+      <div className={heroStyles.leadingCardInner}>
+        <div className={heroStyles.leadingCardAccent} aria-hidden />
+        <div className={heroStyles.leadingCardContent}>
+          <div className={heroStyles.leadingCardLabel}>
+            <FaTrophy className="w-3.5 h-3.5 text-gold" aria-hidden />
+            الحي المتصدر
+          </div>
+          <h2 className={heroStyles.leadingCardName}>{neighborhood.name}</h2>
+          {neighborhood.location && (
+            <p className={heroStyles.leadingCardLocation}>{neighborhood.location}</p>
+          )}
+          <div className={heroStyles.leadingCardVotesWrap}>
+            <span className={heroStyles.leadingCardVotesNumber}>
+              {votes.toLocaleString('ar-SA')}
+            </span>
+            <span className={heroStyles.leadingCardVotesLabel}>صوت</span>
+          </div>
+          <div className={heroStyles.leadingCardProgress}>
+            <div className={heroStyles.leadingCardProgressBar}>
+              <div
+                className={heroStyles.leadingCardProgressFill}
+                style={{ width: `${percentage}%` }}
+              />
+            </div>
+            <span className={heroStyles.leadingCardProgressText}>
+              {Math.round(percentage)}% من إجمالي الأصوات
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -130,7 +136,10 @@ export const HeroStats = React.memo(function HeroStats({ stats, isOpen }: { stat
  * Hero Content Component
  * Following Single Responsibility Principle - only handles content layout
  */
-export const HeroContent = React.memo(function HeroContent({ stats, isElectionOpen }: HeroContentProps) {
+export const HeroContent = React.memo(function HeroContent({
+  leadingNeighborhood,
+  isElectionOpen,
+}: HeroContentProps) {
   return (
     <>
       <div className={heroStyles.mainContent}>
@@ -146,14 +155,15 @@ export const HeroContent = React.memo(function HeroContent({ stats, isElectionOp
             تصويتك يفرق — اختر حيك، شارك الرابط مع جيرانك، وكونوا سبب فوز حيّكم
             باحتفالية الحوامة في آخر أيام رمضان ٢٠٢٦
           </p>
-          <HeroCTA  isOpen={isElectionOpen}/>
+          <HeroCTA isOpen={isElectionOpen} />
         </div>
         <div className={heroStyles.visualContent}>
-          {isElectionOpen && <HeroVisualBadge />}
-          <HeroStats stats={stats} isOpen={isElectionOpen} />
+          {isElectionOpen && leadingNeighborhood && (
+            <HeroLeadingNeighborhood neighborhood={leadingNeighborhood} />
+          )}
+          {isElectionOpen && !leadingNeighborhood && <HeroVisualBadge />}
         </div>
       </div>
-      
     </>
   );
 });

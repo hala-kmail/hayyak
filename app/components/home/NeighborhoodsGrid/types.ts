@@ -15,8 +15,6 @@ export type TabType = 'all' | 'top';
 
 export interface GridCardProps {
   neighborhood: NeighborhoodItem;
-  totalVotes: number;
-  maxVotes: number;
   rank: number;
   isLeader: boolean;
   iconConfig: {

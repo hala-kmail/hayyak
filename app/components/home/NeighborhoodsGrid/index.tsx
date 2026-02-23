@@ -162,8 +162,6 @@ export function NeighborhoodsGrid({
                     <GridCard
                       key={neighborhood.id}
                       neighborhood={neighborhood}
-                      totalVotes={totalVotes}
-                      maxVotes={maxVotes}
                       rank={rank}
                       isLeader={isLeaderNeighborhood}
                       iconConfig={iconConfig}

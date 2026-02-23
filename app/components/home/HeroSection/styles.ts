@@ -5,7 +5,7 @@
 
 export const heroStyles = {
   section: 'relative overflow-hidden bg-white border-b-[5px] border-white',
-  container: 'relative h-[680px] md:h-[680px] w-full flex items-center overflow-hidden bg-gradient-to-br from-navy-blue via-gold to-gold',
+  container: 'relative h-[680px] md:h-[750px] w-full flex items-center overflow-hidden bg-gradient-to-br from-navy-blue via-gold to-gold',
   backgroundBlur1: 'absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-navy-blue/30 rounded-full blur-[120px] animate-pulse-slow',
   backgroundBlur2: 'absolute bottom-[-10%] left-[0%] w-[400px] h-[400px] bg-gold/40 rounded-full blur-[100px] animate-float',
   backgroundBlur3: 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-navy-blue/20 rounded-full blur-[150px] animate-pulse-slow',
@@ -32,12 +32,24 @@ export const heroStyles = {
   visualText: 'font-headline text-navy-blue font-bold text-lg',
   visualHeart: 'absolute top-0 -right-4 w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-navy-blue text-2xl animate-float [animation-delay:1s] border border-gray-50',
   visualSparkle: 'absolute -bottom-4 -left-2 w-20 h-20 bg-navy-blue text-white rounded-3xl shadow-xl flex items-center justify-center text-3xl animate-float [animation-delay:2s]',
-  statsWrapper: 'mt-10 flex w-full justify-center',
-  statsContainer: 'flex flex-row items-center justify-center gap-4 sm:gap-6',
-  statItem: 'text-center',
-  statValue: 'text-xl font-black text-navy-blue leading-tight',
-  statLabel: 'text-[10px] font-bold text-navy-blue uppercase tracking-tight',
-  statDivider: 'w-px h-10 bg-white/10 rounded-full',
+  // Leading neighborhood – تصميم أنيق بلمسة ذهبية
+  leadingCard:
+    'relative hidden lg:flex flex-col w-full max-w-[320px] rounded-2xl overflow-hidden animate-fade-in-up',
+  leadingCardInner:
+    'bg-white/95 backdrop-blur-md border border-white/60 shadow-xl rounded-2xl text-right overflow-hidden',
+  leadingCardAccent: 'absolute top-0 right-0 w-1.5 h-full min-h-[120px] bg-gradient-to-b from-gold via-gold to-navy-blue/80',
+  leadingCardContent: 'relative pr-5 py-5 pl-4',
+  leadingCardLabel:
+    'inline-flex items-center gap-1.5 text-[11px] font-bold text-gold uppercase tracking-[0.2em] mb-2',
+  leadingCardName: 'font-headline text-xl md:text-2xl font-black text-navy-blue leading-tight',
+  leadingCardLocation: 'text-sm text-warm-grey/90 mt-0.5',
+  leadingCardVotesWrap: 'mt-4 flex items-baseline gap-2',
+  leadingCardVotesNumber: 'font-black text-2xl text-navy-blue tabular-nums',
+  leadingCardVotesLabel: 'text-sm font-medium text-navy-blue/70',
+  leadingCardProgress: 'mt-3',
+  leadingCardProgressBar: 'h-1.5 rounded-full bg-navy-blue/15 overflow-hidden',
+  leadingCardProgressFill: 'h-full rounded-full bg-gold transition-all duration-700',
+  leadingCardProgressText: 'text-[11px] text-navy-blue/60 mt-1',
   waveContainer: 'absolute bottom-[-1px] left-0 w-full leading-[0] z-10',
   waveSvg: 'w-full h-auto',
 } as const;

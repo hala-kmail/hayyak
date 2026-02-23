@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { ScreenLayout } from '@/base';
 import {
   Header,
@@ -14,9 +14,9 @@ import {
 } from '@/app/components/home';
 import { usePublicTowns } from '@/app/hooks/usePublicTowns';
 import { useElectionStatus } from '@/app/hooks/useElectionStatus';
-import { useVisitorCount } from '@/app/hooks/useVisitorCount';
 import { LoadingState, ErrorState } from './page/components';
 import { pageStyles } from './page/styles';
+import { sortNeighborhoodsByVotes } from '@/app/components/home/NeighborhoodsGrid/utils';
 
 /**
  * HomePage Component
@@ -29,11 +29,17 @@ export default function HomePage() {
   const { neighborhoods, isLoading, error, totalVotes, votesToday, refetch, searchTowns } =
     usePublicTowns();
   const { status, isLoading: isElectionStatusLoading, isInitialLoad } = useElectionStatus();
-  const { uniqueVisitors } = useVisitorCount();
 
   // أثناء التحميل الأول فقط، افترض أن التصويت مفتوح (optimistic) لتجنب التغيير المفاجئ في الواجهة
   // بعد التحميل الأول، استخدم القيمة الفعلية حتى أثناء إعادة الجلب لتجنب الوميض
   const isElectionOpen = isInitialLoad && isElectionStatusLoading ? true : (status?.isOpen ?? false);
+
+  // الحي المتصدر (الأعلى أصواتاً) للعرض في الهيرو
+  const leadingNeighborhood = useMemo(() => {
+    if (!neighborhoods.length) return null;
+    const sorted = sortNeighborhoodsByVotes(neighborhoods);
+    return sorted[0] ?? null;
+  }, [neighborhoods]);
 
   // عرض LoadingState فقط عند التحميل الأولي، وليس عند البحث
   const showLoading = isLoading && neighborhoods.length === 0;
@@ -57,10 +63,7 @@ export default function HomePage() {
         <Header />
 
         <HeroSection
-          totalVotes={totalVotes}
-          neighborhoodsCount={neighborhoods.length}
-          votesToday={votesToday}
-          uniqueVisitors={uniqueVisitors ?? 0}
+          leadingNeighborhood={leadingNeighborhood}
           isElectionOpen={isElectionOpen}
         />
 <PrizeSection />

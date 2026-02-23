@@ -166,7 +166,6 @@ export const GridCard = React.memo(function GridCard({
             <h3 className={gridStyles.cardTitle(isLeader)}>
               {neighborhood.name}
             </h3>
-            <p className={gridStyles.cardLocation}>{neighborhood.location}</p>
           </div>
         </div>
         <div className={gridStyles.votesSection}>
@@ -175,19 +174,9 @@ export const GridCard = React.memo(function GridCard({
         </div>
       </div>
 
-      <div className={gridStyles.progressContainer}>
-        <div className={gridStyles.progressBar} >
-          <div
-            className={gridStyles.progressFill(isLeader)}
-            style={{ width: `${Math.min(Number(neighborhood.percentage) || 0, 100)}%` }}
-          />
-        </div>
-        <div className={gridStyles.progressFooter}>
-          <span className={gridStyles.progressLabel}>نسبة التقدم</span>
-          <span className={gridStyles.progressValue(isLeader)}>
-            {Math.round(Number(neighborhood.percentage) || 0)}%
-          </span>
-        </div>
+      <div className={gridStyles.ctaContainer(isLeader)}>
+        <span className={gridStyles.ctaText}>صوّت الآن</span>
+        <FaChevronLeft className={gridStyles.ctaIcon} />
       </div>
     </button>
   );

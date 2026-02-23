@@ -6,6 +6,7 @@ import {
   FaCheckCircle,
   FaChevronLeft,
   FaExclamationTriangle,
+  FaMapMarkerAlt,
 } from 'react-icons/fa';
 import {
   VoteModalHeaderProps,
@@ -102,12 +103,14 @@ export function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
   return (
     <div className={modalStyles.neighborhoodCard}>
       <div className={modalStyles.neighborhoodCardContent}>
-        <div className={modalStyles.neighborhoodIcon}>{neighborhood.icon}</div>
+        <div className={modalStyles.neighborhoodIcon}>
+          <FaMapMarkerAlt className="w-5 h-5 text-gold" />
+        </div>
         <div className={modalStyles.neighborhoodInfo}>
           <h4 className={modalStyles.neighborhoodName}>{neighborhood.name}</h4>
-          <p className={modalStyles.neighborhoodLocation}>
+          {/* <p className={modalStyles.neighborhoodLocation}>
             {neighborhood.location}
-          </p>
+          </p> */}
         </div>
       </div>
     </div>
@@ -152,7 +155,7 @@ export function VoteForm({
           dir="ltr"
           value={phoneNumber}
           onChange={(e) => onPhoneChange(e.target.value)}
-          placeholder="+966501234567"
+          placeholder="0501234567"
           disabled={isSubmitting}
           className={`${modalStyles.phoneInput} ${phoneError ? modalStyles.phoneInputError : ''}`}
         />

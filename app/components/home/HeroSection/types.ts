@@ -3,31 +3,23 @@
  * Following Interface Segregation Principle - separate interfaces for different concerns
  */
 
-export interface HeroSectionProps {
-  totalVotes?: number;
-  neighborhoodsCount?: number;
-  votesToday?: number;
-  uniqueVisitors?: number;
-}
+import type { NeighborhoodItem } from '../data';
 
-export interface HeroStatsData {
-  totalVotes: number;
-  neighborhoodsCount: number;
-  votesToday: number;
-  uniqueVisitors: number;
+export interface HeroSectionProps {
+  /** الحي المتصدر (الأعلى أصواتاً) لعرضه في القسم الأيسر */
+  leadingNeighborhood?: NeighborhoodItem | null;
+  isElectionOpen: boolean;
 }
 
 export interface HeroContentProps {
-  stats: HeroStatsData;
-  isElectionOpen: boolean;
-}
-export interface HeroCTAProps {
-  stats: HeroStatsData;
+  leadingNeighborhood: NeighborhoodItem | null;
   isElectionOpen: boolean;
 }
 
-export interface HeroStatItemProps {
-  
-  value: number;
-  label: string;
+export interface HeroCTAProps {
+  isElectionOpen: boolean;
+}
+
+export interface HeroLeadingNeighborhoodProps {
+  neighborhood: NeighborhoodItem;
 }

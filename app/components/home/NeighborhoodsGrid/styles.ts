@@ -41,7 +41,7 @@ export const gridStyles = {
         ? 'border-navy-blue bg-white shadow-lg ring-2 ring-navy-blue/30'
         : 'bg-white border-gray-100 hover:border-gold/30'
     } ${width}`,
-  cardHeader: 'flex items-center justify-between mb-4',
+  cardHeader: 'flex items-center justify-between mb-2',
   cardLeftSection: 'flex items-center gap-4',
   rankContainer: (isLeader: boolean) =>
     `w-12 h-12 rounded-full flex items-center justify-center border-2 transition-colors flex-shrink-0 ${
@@ -61,22 +61,18 @@ export const gridStyles = {
     `w-6 h-6 ${isLeader ? 'text-quite-purple' : iconColor}`,
   cardTextSection: 'text-right',
   cardTitle: (isLeader: boolean) =>
-    `text-lg font-black transition-colors mb-1 ${
+    `text-lg font-black transition-colors ${
       isLeader ? 'text-navy-blue' : 'text-navy-blue group-hover:text-gold'
     }`,
-  cardLocation: 'text-xs text-warm-grey',
   votesSection: 'text-left flex-shrink-0',
   votesValue: 'block text-2xl font-black text-navy-blue leading-none',
   votesLabel: 'text-[10px] font-bold text-warm-grey uppercase',
-  progressContainer: 'space-y-2 mt-2',
-  progressBar: 'h-3 w-full bg-gray-100 rounded-full overflow-hidden',
-  progressFill: (isLeader: boolean) =>
-    `h-full rounded-full transition-all duration-1000 ease-out ${
-      isLeader ? 'bg-navy-blue' : 'bg-gold'
+  ctaContainer: (isLeader: boolean) =>
+    `flex items-center justify-center gap-2 mt-3 py-2.5 rounded-lg transition-all duration-300 ${
+      isLeader
+        ? 'bg-navy-blue/10 text-navy-blue group-hover:bg-navy-blue group-hover:text-white'
+        : 'bg-gold/10 text-gold group-hover:bg-gold group-hover:text-white'
     }`,
-  progressFooter: 'flex justify-between items-center mt-1',
-  progressLabel: 'text-xs font-bold text-navy-blue/70',
-  progressValue:(isLeader: boolean) => `text-base font-black ${
-    isLeader ? 'text-navy-blue' : 'text-gold'
-  }`,
+  ctaText: 'text-sm font-black',
+  ctaIcon: 'w-3 h-3',
 } as const;
