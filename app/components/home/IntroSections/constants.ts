@@ -8,7 +8,7 @@ import type { SectionItem } from './types';
 export const INTRO_SECTIONS_HEADER = {
   title: 'شركاء النجاح',
   description:
-    'حملة حيك تفوز بحوامة رمضان بالشراكة مع منصة سكني وشركائها، لنخدمك ونخدم حيك.',
+    'حملة "حيك تفوز بحوامة رمضان" بالشراكة مع منصة سكني وشركائها — لنخدمك ونخدم حيّك حتى الفوز.',
 } as const;
 
 export const LOGO_HABEEB = '/images/habeeb.svg';

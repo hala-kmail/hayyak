@@ -22,7 +22,7 @@ export const HeroBadge = React.memo(function HeroBadge({ isOpen }: HeroBadgeProp
   if (!isOpen) {
     return (
       <div className={heroStyles.badge}>
-        غير مسموح بالتصويت
+        قريباً: التصويت يبدأ مع رمضان
       </div>
     );
   }
@@ -33,7 +33,7 @@ export const HeroBadge = React.memo(function HeroBadge({ isOpen }: HeroBadgeProp
         <span className={heroStyles.badgePing} />
         <span className={heroStyles.badgeDot} />
       </span>
-      التصويت مفتوح الآن
+      الفرصة بين يديك — صوّت الآن واربح حيك الحوامة
     </div>
   );
 });
@@ -49,7 +49,7 @@ export const HeroCTA = React.memo(function HeroCTA({ isOpen }: HeroCTAProps) {
   return (
     <div className={heroStyles.ctaWrapper}>
       <a href="#districts" className={heroStyles.ctaButton}>
-        ابدأ التصويت الآن
+        صوّت لحيك الآن — خلّه يفوز
         <FaChevronLeft className={heroStyles.ctaIcon} />
       </a>
     </div>
@@ -74,7 +74,7 @@ export const HeroVisualBadge = React.memo(function HeroVisualBadge() {
               <FaStar key={i} />
             ))}
           </div>
-          <span className={heroStyles.visualText}>حيّنا الأفضل</span>
+          <span className={heroStyles.visualText}>حيّك يستحق الفوز</span>
         </div>
         <div className={heroStyles.visualHeart}>
           <FaHeart />
@@ -114,13 +114,13 @@ export const HeroStats = React.memo(function HeroStats({ stats, isOpen }: { stat
   return (
     <div className={heroStyles.statsWrapper}>
       <div className={heroStyles.statsContainer}>
-        <HeroStatItem value={stats.neighborhoodsCount} label="أحياء متقدمة" />
+        <HeroStatItem value={stats.neighborhoodsCount} label="أحياء تنافس" />
         <div className={heroStyles.statDivider} />
-        <HeroStatItem value={stats.votesToday} label="صوت اليوم" />
+        <HeroStatItem value={stats.votesToday} label="صوتوا اليوم" />
         <div className={heroStyles.statDivider} />
         <HeroStatItem value={stats.totalVotes} label="إجمالي الأصوات" />
         <div className={heroStyles.statDivider} />
-        <HeroStatItem value={stats.uniqueVisitors} label="عدد الزوار" />
+        <HeroStatItem value={stats.uniqueVisitors} label="زوار الموقع" />
       </div>
     </div>
   );
@@ -137,14 +137,14 @@ export const HeroContent = React.memo(function HeroContent({ stats, isElectionOp
         <div className={heroStyles.textContent}>
           <HeroBadge isOpen={isElectionOpen} />
           <h1 className={heroStyles.title}>
-            صوّت لحيّك <br />
+            صوتك يحدد الفائز <br />
             <span className={heroStyles.titleAccent}>
-              خلّه يفوز بحوّامة رمضان
+              صوّت لحيّك واربحوا حوّامة رمضان معاً
             </span>
           </h1>
           <p className={heroStyles.description}>
-            اختر حيك المفضل وكن سبب فوزه باحتفالية الحوامة التقليدية في آخر
-            أيام رمضان المبارك 2026
+            تصويتك يفرق — اختر حيك، شارك الرابط مع جيرانك، وكونوا سبب فوز حيّكم
+            باحتفالية الحوامة في آخر أيام رمضان ٢٠٢٦
           </p>
           <HeroCTA  isOpen={isElectionOpen}/>
         </div>

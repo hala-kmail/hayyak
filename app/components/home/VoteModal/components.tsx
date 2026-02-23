@@ -22,7 +22,7 @@ import { modalStyles } from './styles';
 export function VoteModalHeader({ onClose }: VoteModalHeaderProps) {
   return (
     <div className={modalStyles.header}>
-      <h2 className={modalStyles.headerTitle}>التصويت للحي</h2>
+      <h2 className={modalStyles.headerTitle}>صوّت لحيّك</h2>
       <button onClick={onClose} className={modalStyles.closeButton}>
         <FaTimes className={modalStyles.closeIcon} />
       </button>
@@ -43,7 +43,7 @@ export function VoteSuccess({ onClose, onVoteSuccess }: VoteSuccessProps) {
         </div>
         <h3 className={modalStyles.successTitle}>تم التصويت بنجاح!</h3>
         <p className={modalStyles.successMessage}>
-          شكراً لك على مشاركتك في التصويت
+          شكراً! صوتك يدفع حيّك خطوة نحو الفوز — شارك الرابط مع جيرانك
         </p>
       </div>
     </div>
@@ -176,7 +176,7 @@ export function VoteForm({
             </>
           ) : (
             <>
-              <span>التصويت لهذا الحي</span>
+              <span>صوّت الآن لهذا الحي</span>
               <FaChevronLeft className={modalStyles.voteButtonIcon} />
             </>
           )}
@@ -187,7 +187,7 @@ export function VoteForm({
           disabled={isSubmitting}
           className={modalStyles.cancelButton}
         >
-          التصويت لحي آخر
+          صوّت لحي آخر
         </button>
       </div>
     </div>

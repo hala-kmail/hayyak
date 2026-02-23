@@ -9,27 +9,27 @@ import type { StepItem } from './types';
 
 export const HOW_IT_WORKS_INTRO = {
   badge: '',
-  title: 'طريقة التصويت',
+  title: 'كيف تفوز بحوامة رمضان؟',
   description:
-    'صوّت لحيك في ثلاث خطوات بسيطة وشارك الرابط مع جيرانك ليفوز حيك بحوامة رمضان.',
+    'ثلاث خطوات فقط: تصفّح، اختر، صوّت — ثم شارك الرابط مع جيرانك وادعموا حيّكم حتى الفوز.',
 } as const;
 
 export const HOW_IT_WORKS_STEPS: StepItem[] = [
   {
-    title: 'تصفح الأحياء',
-    desc: 'استعرض قائمة الأحياء المشاركة. ',
+    title: 'تصفّح الأحياء',
+    desc: 'استعرض الأحياء المشاركة واختر الحي الذي تريد أن يفوز بحوامة رمضان.',
     icon: React.createElement(FaEye, { className: 'w-5 h-5 md:w-6 md:h-6' }),
     color: 'bg-quite-purple',
   },
   {
-    title: 'اختر حيك',
-    desc: 'اختر الحي المفضل لديك من بين الأحياء المتقدمة.',
+    title: 'اختر حيّك',
+    desc: 'حدّد الحي المفضل لديك — صوتك يرفع ترتيبه ويدفع به نحو الفوز.',
     icon: React.createElement(FaMapMarkedAlt, { className: 'w-5 h-5 md:w-6 md:h-6' }),
     color: 'bg-sand-brown',
   },
   {
-    title: 'صوّت الآن',
-    desc: 'اضغط على زر التصويت وشارك النتيجة مع أصدقائك.',
+    title: 'صوّت وشارك',
+    desc: 'اضغط تصويت، وشارك الرابط مع الجيران — كل صوت يحسب ويفيد حيّكم.',
     icon: React.createElement(FaVoteYea, { className: 'w-5 h-5 md:w-6 md:h-6' }),
     color: 'bg-lime-green',
   },

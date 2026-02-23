@@ -55,7 +55,7 @@ export function NeighborhoodCardContent({
         {onClick && (
           <span className={cardStyles.ctaButton(isLeader)}>
             <FaChevronLeft className={cardStyles.ctaIcon} />
-            اضغط للتصويت
+            صوّت لحيّك الآن
           </span>
         )}
       </div>
