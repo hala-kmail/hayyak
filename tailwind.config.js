@@ -23,11 +23,11 @@ module.exports = {
         'gray-bg': 'rgb(var(--gray-bg) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['29 LT Zarid Serif', 'var(--font-cairo)', 'system-ui', 'sans-serif'],
-        headline: ['Greta Arabic', 'var(--font-cairo)', 'system-ui', 'sans-serif'],
-        subhead: ['Greta Arabic', 'var(--font-cairo)', 'system-ui', 'sans-serif'],
-        body: ['29 LT Zarid Serif', 'var(--font-cairo)', 'system-ui', 'sans-serif'],
-        cta: ['Greta Arabic', 'var(--font-cairo)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
+        headline: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
+        subhead: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
+        body: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
+        cta: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         headline: ['120px', { lineHeight: '1', letterSpacing: '0' }],

@@ -3,25 +3,8 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────────────────────────────────────
- * Typography – Greta Arabic & 29 LT Zarid Serif
- * الخطوط في public/fonts/
+ * Typography – Cairo من next/font (خط أساسي للصفحة)
  * ───────────────────────────────────────────────────────────────────────────── */
-
-@font-face {
-  font-family: 'Greta Arabic';
-  src: url('/fonts/Greta-Arabic-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: '29 LT Zarid Serif';
-  src: url('/fonts/29LTZaridSerif-Rg.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
 
 :root {
   /* Ù„ÙˆØ­Ø© Ø§Ù„Ø£Ù„ÙˆØ§Ù† â€“ Ø¯Ù„ÙŠÙ„ Ø§Ù„Ù‡ÙˆÙŠØ© Ø§Ù„Ø¨ØµØ±ÙŠØ© Ø³ÙƒÙ†ÙŠ (Usage-based Color Palette) */
@@ -59,11 +42,11 @@
   /* Gray | Ø±Ù…Ø§Ø¯ÙŠ | #E8EFF3 */
   --gray-bg: 232 239 243;
 
-  /* Typography – Greta Arabic للعناوين، 29 LT Zarid Serif للنص، Cairo كبديل */
-  --font-headline: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
-  --font-subhead: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
-  --font-body: '29 LT Zarid Serif', var(--font-cairo), system-ui, sans-serif;
-  --font-cta: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
+  /* Typography – Cairo من next/font */
+  --font-headline: var(--font-cairo), system-ui, sans-serif;
+  --font-subhead: var(--font-cairo), system-ui, sans-serif;
+  --font-body: var(--font-cairo), system-ui, sans-serif;
+  --font-cta: var(--font-cairo), system-ui, sans-serif;
 
   /* Typography sizes – 0 tracking / 100% leading */
   --text-headline: 120px;
