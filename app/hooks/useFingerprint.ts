@@ -110,9 +110,9 @@ export function useFingerprint(enabled = true) {
       try {
         // Generate device fingerprint fresh each time (no storage)
         const deviceId = await generateDeviceFingerprint();
-        
-      
-
+        if (process.env.NODE_ENV === 'development') {
+          console.log('[Fingerprint] visitorId:', deviceId);
+        }
         setVisitorId(deviceId);
         setIsLoading(false);
       } catch (err) {
