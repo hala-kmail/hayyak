@@ -11,7 +11,7 @@ export const gridStyles = {
   headerTitle: 'font-headline text-subhead md:text-3xl font-bold text-navy-blue mb-4',
   headerDivider: 'w-12 h-1 bg-gold mx-auto rounded-full mb-6',
   contentContainer: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
-  contentWrapper: ' p-6 md:p-10',
+  contentWrapper: ' p-0 md:p-10',
   navigationContainer: 'flex flex-col sm:flex-row items-stretch sm:items-center justify-between mb-4 gap-4',
   controlsWrapper: 'flex flex-col sm:flex-row gap-4 flex-1',
   tabsContainer: 'flex gap-2 bg-gray-100 rounded-xl p-1',

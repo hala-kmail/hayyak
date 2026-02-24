@@ -48,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
       <body
-        className={`${cairo.variable} ${cairo.className} antialiased min-h-screen`}
+        className={`${cairo.variable} font-sans antialiased min-h-screen`}
         suppressHydrationWarning
       >
         <VisitorTracker />

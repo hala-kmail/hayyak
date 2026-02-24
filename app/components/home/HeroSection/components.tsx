@@ -160,7 +160,8 @@ export const HeroContent = React.memo(function HeroContent({
         <div className={heroStyles.textContent}>
           <HeroBadge isOpen={isElectionOpen} />
           <h1 className={heroStyles.title}>
-            صوتك يحدد الفائز <br />
+            صوتك يحدد الفائز 
+            <br />
             <span className={heroStyles.titleAccent}>
               صوّت لحيّك واربحوا حوّامة رمضان معاً
             </span>

@@ -3,10 +3,25 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────────────────────────────────────
- * Typography – Greta Arabic & 29lt Zarid Sans
- * Add font files to public/fonts/ (see FONTS_README.md) to enable.
- * Until then, Cairo from next/font (layout.tsx) is used as fallback.
+ * Typography – Greta Arabic & 29 LT Zarid Serif
+ * الخطوط في public/fonts/
  * ───────────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Greta Arabic';
+  src: url('/fonts/Greta-Arabic-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '29 LT Zarid Serif';
+  src: url('/fonts/29LTZaridSerif-Rg.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   /* Ù„ÙˆØ­Ø© Ø§Ù„Ø£Ù„ÙˆØ§Ù† â€“ Ø¯Ù„ÙŠÙ„ Ø§Ù„Ù‡ÙˆÙŠØ© Ø§Ù„Ø¨ØµØ±ÙŠØ© Ø³ÙƒÙ†ÙŠ (Usage-based Color Palette) */
@@ -44,11 +59,11 @@
   /* Gray | Ø±Ù…Ø§Ø¯ÙŠ | #E8EFF3 */
   --gray-bg: 232 239 243;
 
-  /* Typography – Cairo from next/font (Greta Arabic/29lt available when fonts added to public/fonts/) */
-  --font-headline: var(--font-cairo), system-ui, sans-serif;
-  --font-subhead: var(--font-cairo), system-ui, sans-serif;
-  --font-body: var(--font-cairo), system-ui, sans-serif;
-  --font-cta: var(--font-cairo), system-ui, sans-serif;
+  /* Typography – Greta Arabic للعناوين، 29 LT Zarid Serif للنص، Cairo كبديل */
+  --font-headline: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
+  --font-subhead: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
+  --font-body: '29 LT Zarid Serif', var(--font-cairo), system-ui, sans-serif;
+  --font-cta: 'Greta Arabic', var(--font-cairo), system-ui, sans-serif;
 
   /* Typography sizes – 0 tracking / 100% leading */
   --text-headline: 120px;
@@ -67,7 +82,6 @@ html {
 body {
   background-color: #fff;
   color: rgb(var(--navy-blue) / 1);
-  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1;
   letter-spacing: 0;
