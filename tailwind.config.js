@@ -23,11 +23,11 @@ module.exports = {
         'gray-bg': 'rgb(var(--gray-bg) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
-        headline: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
-        subhead: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
-        body: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
-        cta: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
+        sans: ['Cairo', 'system-ui', 'sans-serif'],
+        headline: ['Cairo', 'system-ui', 'sans-serif'],
+        subhead: ['Cairo', 'system-ui', 'sans-serif'],
+        body: ['Cairo', 'system-ui', 'sans-serif'],
+        cta: ['Cairo', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         headline: ['120px', { lineHeight: '1', letterSpacing: '0' }],

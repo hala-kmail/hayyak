@@ -3,8 +3,16 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────────────────────────────────────
- * Typography – Cairo من next/font (خط أساسي للصفحة)
+ * Typography – Cairo من ملف محلي (public/fonts/)
  * ───────────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Cairo';
+  src: url('/fonts/Cairo-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   /* Ù„ÙˆØ­Ø© Ø§Ù„Ø£Ù„ÙˆØ§Ù† â€“ Ø¯Ù„ÙŠÙ„ Ø§Ù„Ù‡ÙˆÙŠØ© Ø§Ù„Ø¨ØµØ±ÙŠØ© Ø³ÙƒÙ†ÙŠ (Usage-based Color Palette) */
@@ -42,11 +50,12 @@
   /* Gray | Ø±Ù…Ø§Ø¯ÙŠ | #E8EFF3 */
   --gray-bg: 232 239 243;
 
-  /* Typography – Cairo من next/font */
-  --font-headline: var(--font-cairo), system-ui, sans-serif;
-  --font-subhead: var(--font-cairo), system-ui, sans-serif;
-  --font-body: var(--font-cairo), system-ui, sans-serif;
-  --font-cta: var(--font-cairo), system-ui, sans-serif;
+  /* Typography – Cairo من public/fonts/Cairo-Regular.ttf */
+  --font-cairo: 'Cairo', system-ui, sans-serif;
+  --font-headline: var(--font-cairo);
+  --font-subhead: var(--font-cairo);
+  --font-body: var(--font-cairo);
+  --font-cta: var(--font-cairo);
 
   /* Typography sizes – 0 tracking / 100% leading */
   --text-headline: 120px;
@@ -65,6 +74,7 @@ html {
 body {
   background-color: #fff;
   color: rgb(var(--navy-blue) / 1);
+  font-family: var(--font-cairo);
   font-size: var(--text-body);
   line-height: 1;
   letter-spacing: 0;
