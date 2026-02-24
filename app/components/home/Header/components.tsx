@@ -47,6 +47,7 @@ export function HeaderLogo({
           width={logoSize}
           height={logoSize}
           className={`${headerStyles.logoImage} ${variant === 'mobile' ? 'w-11 h-11' : ''}`}
+          style={{ width: 'auto', height: 'auto' }}
           priority
         />
       </div>
@@ -76,7 +77,8 @@ export function HeaderLogoEnd({ scrolled }: HeaderLogoEndProps) {
           alt="محمد الحبيب"
           width={120}
           height={44}
-          className="block w-full h-auto object-contain"
+          className="block w-full object-contain"
+          style={{ width: '100%', height: 'auto' }}
           priority
         />
       </div>
@@ -202,10 +204,11 @@ export function MobileDrawer({
             <Link href="/" className={headerStyles.drawerLogoLink} onClick={onClose}>
               <Image
                 src="/images/Grey.png"
-                alt="Ø³ÙƒÙ†ÙŠ"
+                alt="سكني"
                 width={LOGO_CONFIG.mobileSize}
                 height={LOGO_CONFIG.mobileSize}
                 className={headerStyles.drawerLogoImage}
+                style={{ width: 'auto', height: 'auto' }}
               />
               <span className={headerStyles.drawerLogoText}>سابع جار</span>
             </Link>
